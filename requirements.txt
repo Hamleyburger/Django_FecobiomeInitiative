@@ -1,8 +1,12 @@
+appdirs==1.4.4
 asgiref==3.4.0
 click==8.0.1
+distlib==0.3.2
 Django==3.2.4
+filelock==3.0.12
 Pillow==8.2.0
 pipdeptree==2.0.0
 pytz==2021.1
+six==1.16.0
 sqlparse==0.4.1
 svgwrite==1.4.1
