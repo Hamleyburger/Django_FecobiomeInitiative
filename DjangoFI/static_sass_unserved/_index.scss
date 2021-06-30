@@ -1,0 +1,42 @@
+
+.hero-section {
+    background: url("../src/images/squeezed_hero_1800.jpg");
+    background-position: left bottom;
+    background-size: cover;
+
+    height: 100vh;
+    @media only screen and (max-width: 500px) and (min-height: 500px) {
+        background-position: -60px bottom;
+    }
+    @media (min-aspect-ratio: '6/3') {
+        background-position: left bottom -87px;
+    }
+    
+    display: flex;
+    flex-direction: column;
+    //justify-content: center;
+    align-items: center;
+
+    .hero-title-group {
+        margin: 20px;
+        margin-left: 25px;
+        margin-top: 37vh;
+        .hero-punchline {
+            margin-left: 20px;
+
+        }
+    }
+}
+
+
+.key-mission-statement {
+
+    margin: 100px auto;
+    padding: 0px 20px;
+
+
+    h1, h2, h3, h4, h5, h6 {
+        color: $earth-orange-dark;
+    }
+}
+

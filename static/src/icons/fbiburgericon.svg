@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 -26 124 124" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:square;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g transform="matrix(1,0,0,1,-5511.92,-374.7)">
+        <g id="Artboard3" transform="matrix(1,0,0,1,-0.567091,-0.730338)">
+            <rect x="5444.57" y="294.73" width="301.747" height="228.231" style="fill:none;"/>
+            <g id="FBIhamburgericon" transform="matrix(0.60516,0,0,0.53256,2201.66,190.371)">
+                <rect x="5470.98" y="347.49" width="203.617" height="140.957" style="fill:none;"/>
+
+                <g clip-path="url(#_clip1)">
+                    <g transform="matrix(1.65245,0,0,1.53925,-3637.21,-232.267)">
+                        <path d="M5511.92,377.183L5635.14,377.183" style="fill:none;stroke:black;stroke-width:8px;"/>
+                    </g>
+                    <g transform="matrix(2.2009,0,0,1.53925,-6691.88,-229.267)">
+                        <path d="M5526.33,420.06L5618.84,420.06" style="fill:none;stroke:black;stroke-width:8px;"/>
+                    </g>
+                    <g transform="matrix(1.42376,0,0,1.53925,-2311.93,-226.267)">
+                        <path d="M5537.97,462.937L5609.48,462.937" style="fill:none;stroke:black;stroke-width:8px;"/>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,27 @@
+.news {
+    margin: 50px 0px;
+    ul {
+        padding: 0;
+        li {
+            list-style-type: none; // no bullets
+            border-bottom: 1px solid rgba($super-brown, 0.3);
+            margin-top: 20px;
+            padding: 20px 0px;
+
+            .news-title {
+                color: $earth-orange-dark;
+                padding-bottom: 10px;;
+                .news-date {
+                    float: right;
+                    font-family: $light-font;
+                    // font size and line height depend on charecteristics of the title font
+                    font-size: 75%;
+                    line-height: 1.6;
+                }
+            }
+        }
+        li:last-of-type {
+            border: none;
+        }
+    }
+}

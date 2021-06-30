@@ -1,0 +1,177 @@
+body {
+
+    background-color: $creamy-white;
+    color: $super-brown;
+    font-family: $light-font;
+
+    p, .btn, ul, a, a:hover {
+        font-family: $light-font;
+    }
+    h1, h2, h3, h4, h5, h6 {
+        font-family: $title-font;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+        &:hover {
+            color: inherit;
+        }
+    }
+
+    b {
+        font-weight: bold;
+    }
+
+    .hamburgericon {
+        height: 1.2em;
+        fill: $super-brown;
+        margin-top: 0;
+        margin-bottom: .5rem;
+    }
+
+    .nav-panel {
+        background-color: transparent;
+        box-sizing: border-box;
+        width: calc(100% - 1%);
+        top: 0.5%;
+        left: 0.5%;
+        position: fixed;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-content: center;
+        justify-content: center;
+        align-items: center;
+        text-decoration: none;
+        transition: 300ms ease;
+        &.scrolled, &.clicked {
+            background-color: rgba($creamy-white, 0.93);
+            transition: 300ms ease;
+            box-shadow: 1px 1px 2px 1px rgba($super-brown, 0.05);
+        }
+
+        .navbar {
+
+            width: $FBI-max-width;
+            max-width: 100%;
+
+            .navbar-brand {
+                font-family: $title-font;
+            }
+
+            .nav-link {
+                color: inherit;
+                &.disabled {
+                    color: rgba($super-brown, 0.5);
+                }
+            }
+
+            .navbar-toggler {
+                padding-right: 0; // Remove Bootstrap's default padding on the right
+                box-shadow: none; // Remove Bootstrap's default box shadow
+            }
+            
+            .navbar-collapse {
+                align-items: center;
+                //background-color: rgba($creamy-white, 0.93);
+                width: calc(100% - 1%);
+                top: 0.5%;
+                left: 0.5%;
+            }
+        }
+
+
+    }
+
+
+    .page-title-section {
+
+        height: 30vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        background: url("../src/images/page-title-image.jpg"), rgba($creamy-white, 0.5);
+        background-position: left center;
+        background-size:100%;
+        background-blend-mode: luminosity;
+        color: rgba($super-brown, 1);
+        
+        
+        @media only screen and (max-width: 1200px) {
+            height: 40vw;
+        }
+        @media only screen and (max-width: $FBI-max-width) {
+            height: 70vw;
+            background-size: cover;
+            background-position: left -68px center;
+        }
+        
+        h1 {
+            // Stole from Bootstrap and changed to add more vw
+            font-size: calc(1.375rem + 4vw);
+        }
+    .page-title-rect {
+
+        $thiscolor: $super-brown;
+        $thisbg: darken($earth-orange, 20%);
+
+        // background-color: rgba($thisbg, 0.3);
+        // background: radial-gradient(rgba($thisbg, 0.3) 46%, rgba($thisbg, 0.6) 122%);
+        // border: 3px solid rgba($thiscolor, 0.6);
+        color: $thiscolor;
+        padding: 4% 14%;
+        margin-top: 4%;
+        
+        @media only screen and (max-width: 450px) {
+            margin-top: 14%;
+        }
+
+        .page-title-group {
+            margin: 20px;
+            margin-left: 25px;
+            .hero-punchline {
+                margin-left: 20px;
+                
+            }
+        }
+    }
+    }
+    
+
+
+
+    .FBI-max-width {
+        max-width: $FBI-max-width;
+    }
+
+
+
+
+    footer {
+        background: url("../src/images/page-title-image.jpg"), rgba($super-brown, 0.82);
+        background-position: center bottom;
+        background-size:500%;
+        background-blend-mode: darken;
+        color: $creamy-white;
+        $footer-orange: lighten($earth-orange, 12%);
+        p {
+            color: $footer-orange;
+            a{
+                color: $footer-orange;
+            }
+        }
+        .btn {
+            background: $sky-yellow;
+            color: $super-brown;
+            width: 150px;
+        }
+        .footericon {
+            font-size: 1rem;
+        }
+    }
+    
+
+}

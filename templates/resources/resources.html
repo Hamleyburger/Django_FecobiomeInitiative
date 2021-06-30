@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Resources{% endblock %}
+{% block pagetitle %}Resources{% endblock %}
+
+{% block content %}
+
+
+<h1>These are the resources</h1>
+<p>Look at all the resources</p><br>
+{% for resource in resources %}
+<p>Resource:</p>
+<ul>
+    <li>Type: {{ resource.type }}</li>
+    <li>Cows: {{ resource.cows }}</li>
+    <li>Age: {{ resource.age }}</li>
+    <li>Country: {{ resource.country }}</li>
+    <li>Farm: {{ resource.farm }}</li>
+    <li>Year: {{ resource.year }}</li>
+</ul>
+{% endfor %}
+
+
+{% endblock %}

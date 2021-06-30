@@ -3,5 +3,5 @@ from . import views
 
 urlpatterns = [
     path('', views.home, name="pages-home"),
-    path('wiki-cow/', views.wikiCow, name="pages-wikiCow"),
+    path('wiki-cow/', views.wikiCow, name="pages-wikicow"),
 ]
