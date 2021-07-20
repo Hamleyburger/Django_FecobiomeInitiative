@@ -23,7 +23,6 @@
         margin-top: 37vh;
         .hero-punchline {
             margin-left: 20px;
-
         }
     }
 }
@@ -31,8 +30,8 @@
 
 .key-mission-statement {
 
-    margin: 100px auto;
-    padding: 0px 20px;
+    margin: 0 auto; // header and footer have margins
+    //padding: 0px 20px;
 
 
     h1, h2, h3, h4, h5, h6 {

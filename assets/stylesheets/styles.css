@@ -1,5 +1,5 @@
 :root {
-  --creamy-white: #EDEEDF;
+  --creamy-white: #edeee7;
   --sky-yellow: #EDEE8F;
   --earth-orange: #DEA139;
   --super-brown: #453525;
@@ -7,7 +7,7 @@
 }
 
 body {
-  background-color: #EDEEDF;
+  background-color: #edeee7;
   color: #453525;
   font-family: "Raleway", sans-serif;
 }
@@ -71,7 +71,7 @@ body .nav-panel {
 }
 
 body .nav-panel.scrolled, body .nav-panel.clicked {
-  background-color: rgba(237, 238, 223, 0.93);
+  background-color: rgba(248, 248, 241, 0.93);
   -webkit-transition: 300ms ease;
   transition: 300ms ease;
   -webkit-box-shadow: 1px 1px 2px 1px rgba(69, 53, 37, 0.05);
@@ -79,8 +79,14 @@ body .nav-panel.scrolled, body .nav-panel.clicked {
 }
 
 body .nav-panel .navbar {
-  width: 720px;
+  width: 989px;
   max-width: 100%;
+}
+
+@media only screen and (max-width: 1079px) {
+  body .nav-panel .navbar {
+    width: 720px;
+  }
 }
 
 body .nav-panel .navbar .navbar-brand {
@@ -110,7 +116,7 @@ body .nav-panel .navbar .navbar-collapse {
   left: 0.5%;
 }
 
-body .page-title-section {
+body .subdir-header-image-section {
   height: 30vw;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -125,7 +131,7 @@ body .page-title-section {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background: url("../src/images/page-title-image.jpg"), rgba(237, 238, 223, 0.5);
+  background: url("../src/images/page-title-image.jpg"), rgba(237, 238, 231, 0.5);
   background-position: left center;
   background-size: 100%;
   background-blend-mode: luminosity;
@@ -133,46 +139,105 @@ body .page-title-section {
 }
 
 @media only screen and (max-width: 1200px) {
-  body .page-title-section {
+  body .subdir-header-image-section {
     height: 40vw;
   }
 }
 
 @media only screen and (max-width: 720px) {
-  body .page-title-section {
+  body .subdir-header-image-section {
     height: 70vw;
     background-size: cover;
     background-position: left -68px center;
   }
 }
 
-body .page-title-section h1 {
+body .subdir-header-image-section h1 {
   font-size: calc(1.375rem + 4vw);
 }
 
-body .page-title-section .page-title-rect {
+body .subdir-header-image-section .page-title-rect {
   color: #453525;
   padding: 4% 14%;
   margin-top: 4%;
 }
 
 @media only screen and (max-width: 450px) {
-  body .page-title-section .page-title-rect {
+  body .subdir-header-image-section .page-title-rect {
     margin-top: 14%;
   }
 }
 
-body .page-title-section .page-title-rect .page-title-group {
+body .subdir-header-image-section .page-title-rect .page-title-group {
   margin: 20px;
   margin-left: 25px;
 }
 
-body .page-title-section .page-title-rect .page-title-group .hero-punchline {
+body .subdir-header-image-section .page-title-rect .page-title-group .hero-punchline {
   margin-left: 20px;
 }
 
-body .FBI-max-width {
+body .site-inner {
+  margin: 100px auto 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+body .site-inner main {
+  margin: 0;
+  padding: 0 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   max-width: 720px;
+}
+
+body .site-inner main .FBI-max-width {
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 30px;
+  background: #f8f8f1;
+}
+
+body .site-inner aside {
+  margin: 0;
+  padding: 0 15px;
+  float: right;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  min-width: 300px;
+}
+
+@media only screen and (max-width: 1079px) {
+  body .site-inner aside {
+    width: 720px;
+  }
+}
+
+body .site-inner aside .sidebar-block {
+  width: 100%;
+  background: #3F4601;
+  color: #EDEE8F;
+  padding: 30px;
+  margin-bottom: 30px;
+  border-radius: 5px;
 }
 
 body footer {
@@ -180,7 +245,7 @@ body footer {
   background-position: center bottom;
   background-size: 500%;
   background-blend-mode: darken;
-  color: #EDEEDF;
+  color: #edeee7;
 }
 
 body footer p {
@@ -241,8 +306,7 @@ body footer .footericon {
 }
 
 .key-mission-statement {
-  margin: 100px auto;
-  padding: 0px 20px;
+  margin: 0 auto;
 }
 
 .key-mission-statement h1, .key-mission-statement h2, .key-mission-statement h3, .key-mission-statement h4, .key-mission-statement h5, .key-mission-statement h6 {

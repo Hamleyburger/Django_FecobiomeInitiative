@@ -46,14 +46,17 @@ body {
         text-decoration: none;
         transition: 300ms ease;
         &.scrolled, &.clicked {
-            background-color: rgba($creamy-white, 0.93);
+            background-color: rgba($creamy-whiter, 0.93);
             transition: 300ms ease;
             box-shadow: 1px 1px 2px 1px rgba($super-brown, 0.05);
         }
 
         .navbar {
 
-            width: $FBI-max-width;
+            width: $navbar-when-sidebar-expanded;
+            @media only screen and (max-width: $expand-sidebar-max-breakpoint) {
+                width: $FBI-max-width;
+            }
             max-width: 100%;
 
             .navbar-brand {
@@ -81,12 +84,11 @@ body {
             }
         }
 
-
     }
 
 
-    .page-title-section {
-
+    .subdir-header-image-section {
+        // page-title-secto
         height: 30vw;
         display: flex;
         flex-direction: column;
@@ -139,17 +141,52 @@ body {
         }
     }
     }
-    
+
+    .site-inner {
+        // Everything not header and footer
+        margin: 100px auto 0 auto; // top right bottom left
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        
 
 
+        main { //col
+            margin: 0;
+            padding: 0 15px;
+            display: flex;
+            justify-content: center;
+            max-width: $FBI-max-width;
+            
+            .FBI-max-width {
+                border-radius: $FBI-border-radius;
+                padding: 20px;
+                margin-bottom: 30px;
+                background: $creamy-whiter;
+            }
+        }
 
-    .FBI-max-width {
-        max-width: $FBI-max-width;
+        aside { // col
+            margin: 0;
+            padding: 0 15px;
+            float: right;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 300px;
+            @media only screen and (max-width: $expand-sidebar-max-breakpoint) {
+                width: $FBI-max-width;
+            }
+            .sidebar-block {
+                width: 100%;
+                background: $grass-green;
+                color: $sky-yellow;
+                padding: 30px;
+                margin-bottom: 30px;
+                border-radius: $FBI-border-radius;
+            }
+        }
     }
-
-
-
-
     footer {
         background: url("../src/images/page-title-image.jpg"), rgba($super-brown, 0.82);
         background-position: center bottom;
@@ -175,3 +212,4 @@ body {
     
 
 }
+

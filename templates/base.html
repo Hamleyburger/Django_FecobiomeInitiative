@@ -36,7 +36,7 @@
     <link rel="stylesheet" type="text/css" href="{% static 'stylesheets/styles.css' %}">
 
     <!-- My own scripts -->
-    <script type="text/javascript" src="{% static 'scripts.js' %}"></script>
+    <script src="{% static 'scripts.js' %}"></script>
 
     <title>Fecobiome Initiative | {% block title %}{% endblock %}</title>
 </head>
@@ -44,7 +44,6 @@
 <body>
     <!-- NAV -->
     <header class="nav-panel">
-
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
                 <a class="navbar-brand" href="{% url 'pages-home' %}">
@@ -74,8 +73,8 @@
     </header>
 
     {% block header %}
-    <!-- HERO -->
-    <div role="complementary" class="container-fluid page-title-section">
+    <!-- THIS WILL DISPLAY AS A HEADER IMAGE IN ALL EXCEPT HOME PAGE -->
+    <div role="complementary" class="subdir-header-image-section container-fluid subdir-title-image-section">
         <div class="page-title-rect">
             <div class="page-title-group">
                 <h1 class="hero-title">{% block pagetitle %}No page title block{% endblock %}</h1>
@@ -84,14 +83,35 @@
     </div>
     {% endblock %}
 
+    <div class="site-inner">
+        <main class="">
+            <section class="FBI-max-width">
 
-    <main>
-        <section class="FBI-max-width container-fluid">
-            {% block content %}{% endblock %}
-        </section>
+                {% block content %}{% endblock %}
+            </section>
 
-    </main>
+        </main>
 
+
+        <aside class="sidebar">
+            <div class="sidebar-block side-a">
+                <h3>A-side</h3>
+                <p>We like it</p>
+                <p>We want people to see it</p>
+                <p>But we want it on the side</p>
+
+            </div>
+            <div class="sidebar-block side-b">
+                <h3>B-side</h3>
+
+                <p>We like it</p>
+                <p>We want people to see it</p>
+                <p>But we want it on the side</p>
+
+            </div>
+        </aside>
+
+    </div>
 
     <!-- Footer -->
     <footer class="text-center text-center text-md-start pt-4">
