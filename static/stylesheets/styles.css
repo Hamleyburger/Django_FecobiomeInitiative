@@ -6,6 +6,10 @@
   --grass-green: #3F4601;
 }
 
+span.line {
+  display: inline-block;
+}
+
 body {
   background-color: #edeee7;
   color: #453525;
@@ -203,8 +207,8 @@ body .site-inner main {
 
 body .site-inner main .FBI-max-width {
   border-radius: 5px;
-  padding: 20px;
-  margin-bottom: 30px;
+  padding: 50px 30px;
+  margin-bottom: 70px;
   background: #f8f8f1;
 }
 
@@ -223,6 +227,7 @@ body .site-inner aside {
       -ms-flex-align: center;
           align-items: center;
   min-width: 300px;
+  display: none;
 }
 
 @media only screen and (max-width: 1079px) {
@@ -235,7 +240,7 @@ body .site-inner aside .sidebar-block {
   width: 100%;
   background: #3F4601;
   color: #EDEE8F;
-  padding: 30px;
+  padding: 50px 30px;
   margin-bottom: 30px;
   border-radius: 5px;
 }
@@ -297,12 +302,19 @@ body footer .footericon {
 
 .hero-section .hero-title-group {
   margin: 20px;
-  margin-left: 25px;
-  margin-top: 37vh;
+  margin-left: 13%;
+  margin-right: 13%;
+  margin-top: 34vh;
 }
 
 .hero-section .hero-title-group .hero-punchline {
   margin-left: 20px;
+}
+
+@media only screen and (max-width: 501px) {
+  .hero-section .hero-title-group {
+    margin-top: 30vh;
+  }
 }
 
 .key-mission-statement {

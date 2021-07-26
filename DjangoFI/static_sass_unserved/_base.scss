@@ -160,8 +160,8 @@ body {
             
             .FBI-max-width {
                 border-radius: $FBI-border-radius;
-                padding: 20px;
-                margin-bottom: 30px;
+                padding: 50px 30px;
+                margin-bottom: 70px;
                 background: $creamy-whiter;
             }
         }
@@ -181,10 +181,12 @@ body {
                 width: 100%;
                 background: $grass-green;
                 color: $sky-yellow;
-                padding: 30px;
+                padding: 50px 30px;
                 margin-bottom: 30px;
                 border-radius: $FBI-border-radius;
             }
+
+            display: none; // When aside ia ready to be viewed remove this:
         }
     }
     footer {
@@ -210,6 +212,5 @@ body {
         }
     }
     
-
 }
 

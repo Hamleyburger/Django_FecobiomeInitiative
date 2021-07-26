@@ -19,11 +19,19 @@
 
     .hero-title-group {
         margin: 20px;
-        margin-left: 25px;
-        margin-top: 37vh;
+        margin-left: 13%;
+        margin-right: 13%;
+        margin-top: 34vh;
+
+
         .hero-punchline {
             margin-left: 20px;
         }
+
+        @media only screen and (max-width: 501px) {
+            margin-top: 30vh;
+        }
+
     }
 }
 
