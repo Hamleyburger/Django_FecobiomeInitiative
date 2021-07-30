@@ -41,14 +41,25 @@
     <title>Fecobiome Initiative | {% block title %}{% endblock %}</title>
 </head>
 
+
+
+
 <body>
     <!-- NAV -->
     <header class="nav-panel">
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
+                {% if user.is_superuser %}
+                <a class="navbar-brand" href="/admin">
+                    <h3>Fecobiome Initiative
+                        <span style="color:olivedrab">| Admin</span>
+                    </h3>
+                </a>
+                {% else %}
                 <a class="navbar-brand" href="{% url 'pages-home' %}">
                     <h3>Fecobiome Initiative</h3>
                 </a>
+                {% endif %}
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -113,7 +124,6 @@
 
             </div>
         </aside>
-
     </div>
 
     <!-- Footer -->
@@ -188,13 +198,6 @@
         <!-- Copyright -->
     </footer>
     <!-- Footer -->
-
-
-
-
-
-
-
 
 
 </body>
