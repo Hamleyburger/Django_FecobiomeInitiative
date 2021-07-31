@@ -1,0 +1,13 @@
+{% extends "admin/change_list.html" %}
+
+{% load static %}
+
+{% block content %}
+<div style="height: 100px;">
+
+    <a style="border: 1px solid blue; background-color:lightblue; padding: 6px; border-radius: 10px;"
+    href="csv_upload/">Extract publications from doi-file</a>
+    
+</div>
+{{ block.super }}
+{% endblock %}

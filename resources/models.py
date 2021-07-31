@@ -1,22 +1,11 @@
 from django.db import models
 from django.db.models.fields import CharField
 from django.db.models.signals import pre_save
+from django.contrib import messages
 
 # For API calls
 import urllib
 from .API_helper import get_biorxiv_meta, get_pubmed_meta
-
-# RESOURCES MODELS
-
-# Data
-
-# Publicatons
-
-# Isolates
-
-# Reagents
-
-# Protocols
 
 
 class Publication(models.Model):
@@ -48,7 +37,6 @@ def get_publication_meta(sender, instance, **kwargs):
     Checks NCBI first, then Bioarchives if publication does not exist in NCBI """
     doi = urllib.parse.quote(instance.doi)
     instance.link = "https://doi.org/" + doi
-
     try:
         get_pubmed_meta(instance, doi)
 
@@ -56,7 +44,6 @@ def get_publication_meta(sender, instance, **kwargs):
         try:
             get_biorxiv_meta(instance, doi)
         except Exception as e:
-            print("Could not connect to API. This needs to be a flashed message")
             raise e
 
     print("Creating or updating publication with doi: {}".format(doi))
@@ -80,6 +67,9 @@ class Data(models.Model):
     sample_date = models.DateField(null=True, blank=True)
     publication = models.ForeignKey(
         Publication, on_delete=models.SET_NULL, null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = "Data sets"
 
     def __str__(self):
         farm_name = self.farm_name
