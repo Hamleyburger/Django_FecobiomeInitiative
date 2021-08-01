@@ -1,6 +1,9 @@
 // Global variables
 @import "../../DjangoFI/static_sass_unserved/variables";
 
+// Styles that apply to multiple pages
+@import "../../DjangoFI/static_sass_unserved/crosspage";
+
 // Styles for base template
 @import "../../DjangoFI/static_sass_unserved/base";
 
@@ -9,3 +12,4 @@
 
 // Styles for news.html
 @import "../../DjangoFI/static_sass_unserved/news";
+
