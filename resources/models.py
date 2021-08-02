@@ -5,17 +5,21 @@ from django.contrib import messages
 
 # For API calls
 import urllib
-from .API_helper import get_biorxiv_meta, get_pubmed_meta
+import requests
+from .API_helpers.publications import get_biorxiv_meta, get_pubmed_meta, clean_doi
 
 
 class Publication(models.Model):
 
     doi = models.CharField(max_length=100, unique=True, blank=False)
-    link = models.URLField(blank=True)
+    link = models.URLField(
+        blank=True, help_text="Links are generated automatically from doi if one exists")
     title = models.CharField(max_length=200, blank=True)
-    authors = models.TextField(blank=True)
+    authors = models.TextField(
+        blank=True, help_text="First author must be first and names must be separated with semicolon ';'. <br>Example: <br>'Sapountzis, P.; Segura, A.; Desvaux, M.; Forano, E.'")
     date = models.DateField(null=True, blank=True)
-    type = models.CharField(max_length=20, blank=True)
+    type = models.CharField(max_length=20, blank=True, choices=[(
+        "peer-reviewed", "peer-reviewed"), ("preprint", "preprint")])
 
     def __str__(self):
         author = self.authors.split(
@@ -35,18 +39,30 @@ class Publication(models.Model):
 def get_publication_meta(sender, instance, **kwargs):
     """ Gets and populates publication metadata.\n
     Checks NCBI first, then Bioarchives if publication does not exist in NCBI """
-    doi = urllib.parse.quote(instance.doi)
-    instance.link = "https://doi.org/" + doi
-    try:
-        get_pubmed_meta(instance, doi)
 
-    except Exception:
+    # doi needs to be cleaned before input and before any given check
+    doi = clean_doi(instance.doi)
+    instance.doi = doi
+    url_encoded_doi = urllib.parse.quote(doi)
+    link = "https://doi.org/" + url_encoded_doi
+    if requests.get(link).status_code == 200:
+        instance.link = link
+
+    if not instance.title:
+        print("save seems to be called by uploading file")
+
+        # Try getting metadata from various APIs
+
         try:
-            get_biorxiv_meta(instance, doi)
-        except Exception as e:
-            raise e
+            get_pubmed_meta(instance, url_encoded_doi)
 
-    print("Creating or updating publication with doi: {}".format(doi))
+        except Exception:
+            try:
+                get_biorxiv_meta(instance, url_encoded_doi)
+            except Exception as e:
+                raise e
+
+    print("Creating or updating publication with doi: {} ".format(instance.doi))
 
 
 pre_save.connect(get_publication_meta, sender=Publication)
@@ -73,8 +89,14 @@ class Data(models.Model):
 
     def __str__(self):
         farm_name = self.farm_name
-        if not farm_name:
-            farm_name = "unknown farm"
-        selfstring = "<Data {}: {} from {}.>".format(
-            self.id, self.sample_type, farm_name)
+        location = self.location
+        place = "unknown location"
+        if farm_name and location:
+            place = farm_name + ", " + location
+        elif farm_name and not location:
+            place = farm_name + ", unknown location"
+        elif location:
+            place = location
+        selfstring = "run_acc: '{}', type '{}\' from {}.".format(
+            self.run_accession, self.sample_type, place)
         return selfstring

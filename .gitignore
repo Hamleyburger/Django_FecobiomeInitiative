@@ -3,3 +3,4 @@ __pychache__/
 __pychache__/*
 workspace.code-workspace
 run.sh
+*.pyc
