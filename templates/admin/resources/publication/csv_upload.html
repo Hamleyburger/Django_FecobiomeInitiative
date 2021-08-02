@@ -1,0 +1,32 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div style="max-width: 500px;">
+
+    <p>Upload a tab-separated txt file with header "doi" and one column of dois.</p>
+    <ul>
+        <li>Make sure dois are not http links.</li>
+        <li>Make sure the text in the file is unformatted/plain text</li>
+        <li>If a doi already exists the entry is updated.</li>
+        <li>If a doi already exists the entry is updated.</li>
+    </ul>
+</div>
+<form action="." method="POST" enctype="multipart/form-data">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <button type="submit">Upload File</button>
+</form>
+{% if failed_uploads %}
+<p>
+The following dois could not be fetched automatically. You might have to add the entries manually:
+<ul>
+    {% for doi in failed_uploads %}
+    <li>{{ doi }}</li>
+    {% endfor %}
+</ul>
+</p>
+{% endif %}
+<p>Example:</p>
+<img style="max-width: 250px;" src="{% load static %} {% static 'images/doi_file_example.png' %}"
+    alt="example of doi file">
+{% endblock %}

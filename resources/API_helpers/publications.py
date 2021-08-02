@@ -105,3 +105,15 @@ def get_biorxiv_meta(instance, doi):
         raise Exception("doi does not have a 'collection' - either article does not exist in biorxiv or doi is faulty")
 
 
+def clean_doi(doi):
+    """ Remove ' ' and '.' from end of doi. \n
+    doi needs to be cleaned before entering database and before any given check """
+    check = True
+    while check:
+        if doi.endswith(" "):
+            doi = doi.rstrip()
+        elif doi.endswith("."):
+            doi = doi.removesuffix(".")
+        else:
+            check = False
+    return doi

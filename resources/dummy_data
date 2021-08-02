@@ -1,0 +1,5 @@
+run_accession	sample_type	location	farm_name	farm_size	animal	antibiotics	host	age_months	diet	sample_date_dmy	doi
+r43r43r8u9uh	sample E	Someplace	Johnny's farm	30	cow	antibiox	hostus	1.6	grass	02-12-2012	10.452/h7heu89uhi.2345.123
+y778jui	type C	Mørkøv DK			ko	sjuziu	host	1.2	græs	12-09-1976	10.u8d3f/y8j8de.f/fe.234789
+er76tyu	type A	Flensburg, DE	der bundengaard	40	NA	sjuziu	yes	5	grass	13-09-1308	10.1016/j.ijscr.2021.106246
+e888tyu	type A		der bundengaard	40		sjuziu	no	5yo		NA	10.1016/j.ijscr.2021.106246
