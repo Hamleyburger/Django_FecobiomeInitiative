@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'resources.apps.ResourcesConfig',
     'blog.apps.BlogConfig',
     'contact.apps.ContactConfig',
+    'user.apps.UserConfig',
 
     'django.contrib.admin',
     'django.contrib.auth',
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [
@@ -131,7 +133,29 @@ STATICFILES_DIRS = (
 )
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
+# Media url and root I made for storing images based on this guy: 
+# https://www.youtube.com/watch?v=ygzGr51dbsY&list=PLCC34OHNcOtr025c1kHSPrnP18YPB-NFi&index=26
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+CKEDITOR_CONFIGS = {
+    "default": {
+        'skin': 'moono-lisa', 
+        'toolbar_Basic': [['Source', '-', 'Bold', 'Italic']], 
+        'toolbar_Full': [
+            ['Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'], 
+            ['Link', 'Unlink'], ['Table'], 
+            ['Smiley', 'SpecialChar']], 
+        'toolbar': 'Full', 
+        'height': 291, 
+        'width': 'auto', 
+        'filebrowserWindowWidth': 940, 
+        'filebrowserWindowHeight': 725,
+        }
+}

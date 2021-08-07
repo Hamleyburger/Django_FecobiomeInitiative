@@ -15,6 +15,6 @@ class TestViews(TestCase):
 
         file_path = os.path.join(module_dir, 'dummy_data')
         with open(file_path) as tsf:
-            c.post('admin/resources/data/csv_upload/', {'FILES': [tsf]})
+            c.post('admin/resources/data/add_from_file/', {'FILES': [tsf]})
         response = c.get(reverse(''))
         self.assertEquals(response.status_code, 200)

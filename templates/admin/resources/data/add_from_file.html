@@ -1,0 +1,128 @@
+{% extends "admin/base.html" %}
+
+{% block content %}
+<div class="center-content">
+
+    {% if feedback.missing_headers or feedback.invalid_rows %}
+        <div class="upload-div upload-errors">
+            <!-- Error feedback -->
+            {% if feedback.invalid_rows %}
+            <p>
+            Invalid rows - these rows will not be added.
+                <ul>
+                {% for runacc, messages in feedback.invalid_rows.items %}
+                <li>Data set {{ runacc }}:
+                    <ul>
+                        {% for line in messages %}
+                        <li>{{ line }}</li>
+                        {% endfor %}
+                    </ul>
+                </li>
+                {% endfor %}
+                </ul>
+            </p>
+            {% endif %}
+
+            {% if feedback.missing_headers %}
+            <p>
+                The document is missing some headers:
+                <ul>
+                    {% for item in feedback.missing_headers %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </p>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if feedback.field_problems %}
+        <div class="upload-div upload-problems">
+                <p>
+                Some rows had problems - the following fields will be empty:
+                <ul>
+                    {% for runacc, messages in feedback.field_problems.items %}
+                    <li>Data set {{ runacc }}:
+                        <ul>
+                            {% for line in messages %}
+                            <li>{{ line }}</li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </ul>
+                </p>
+        </div>
+        {% endif %}
+
+
+    {% if feedback.success %}
+        <div class="upload-div upload-success">
+            <p>
+            Created/updated data sets:
+                <ul>
+                {% for runacc, messages in feedback.success.items %}
+                        {% for line in messages %}
+                        <li>{{ line }}</li>
+                        {% endfor %}
+                {% endfor %}
+                </ul>
+            </p>
+        </div>
+    {% endif %}
+
+        <div class="form-intro upload-div">
+            <div class="upload-form">
+                <form action="." method="POST" enctype="multipart/form-data">
+                
+                    {% for field in form %}
+                    {{field}}
+                    {% endfor %}
+                    {% csrf_token %}
+                    <button type="submit">Upload File</button>
+                </form>
+            </div>
+            <div class="upload-div upload-intro">
+                <p>Upload a tab-separated txt file with the following headers (no commas)*:
+                </p>
+                <p>run_accession,	sample_type,	location,	farm_name,	farm_size,	animal,	antibiotics	host,	age_months,	diet,	sample_date_dmy,	doi</p>
+                <p>Download template files with all headers:</p>
+                <div class="download-links">
+                    <a class="download-link txt" href="/media/admin/examples/data_template.txt" download>Template file.txt</a>
+                    <a class="download-link xlsx" href="/media/admin/examples/data_template.xlsx" download>Template file.xlsx</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="upload-div upload-rules">
+            <!-- Rules -->
+            <p>*Rules:
+                <ul>
+                    <li>Headers have no quotes and must be lower case</li>
+                    <li>All headers must be present even if some fields are empty</li>
+                    <li>Make sure the text in the file is unformatted/plain text</li>
+                    <li>run_accession and sample_type are required, but other fields can be empty</li>
+                    <li>If a field other than run_accession or sample_type is invalid, the row will be added with this field empty</li>
+                    <li>If the API for some reason can't fetch a given doi this field will also be empty</li>
+                    <li>It is recommended to leave dataless fields empty to avoid unneccesary invalid warnings. Also the database cannot tell the difference between fx the strings 'NA' and 'France' - both will be stored.</li>
+                    <li>Mind these field formats:
+                        <ul>
+                            <li>'farm_size' must be a whole number</li>
+                            <li>'age_months' can be a decimal, but only numbers</li>
+                            <li>'sample_date_dmy' must be of the format dd-mm-yyyy, dd mm yyyy or dd.mm.yyyy</li>
+                        </ul>
+                    </li>
+                </ul>
+            </p>
+            
+        </div>
+    <div class="upload-div upload-example">
+        <p>Example (scroll content if bigger than window):</p>
+        <div class="image-wrapper">
+            <img width="1000" src="{% load static %}{% static 'admin/images/data_file_example.png' %}"
+                alt="example of doi file">
+        </div>
+
+    </div>
+</div>
+{% endblock %}

@@ -8,9 +8,11 @@ from io import TextIOWrapper
 from .upload_helper import upload_publications_from_file, upload_dataset_from_file
 
 
+
+
 # This form is for bulk importing publications
 class CsvImportForm(forms.Form):
-    fileinput = forms.FileField()
+    fileinput = forms.FileField(widget=forms.FileInput(attrs={'accept':'.txt'}))
 
 # This form makes all publication fields required
 class PublicationForm(forms.ModelForm):
@@ -27,17 +29,17 @@ class PublicationForm(forms.ModelForm):
 
 class PublicationAdmin(admin.ModelAdmin):
     readonly_fields = ["link"]
-
+    list_display = ('authors', "year", "title", 'modified_date')
     form = PublicationForm
 
     def get_urls(self):
         urls = super().get_urls()
         my_urls = [
-            path('csv_upload/', self.csv_upload),
+            path('add_from_file/', self.add_from_file),
         ]
         return my_urls + urls
 
-    def csv_upload(self, request):
+    def add_from_file(self, request):
 
         failed_uploads = []
         if request.method == "POST":
@@ -51,45 +53,53 @@ class PublicationAdmin(admin.ModelAdmin):
             "form": form,
             "failed_uploads": failed_uploads
         }
-        return render(request, "admin/resources/publication/csv_upload.html", data)
+        return render(request, "admin/resources/publication/add_from_file.html", data)
 
 
 
 
 class DataAdmin(admin.ModelAdmin):
     # readonly_fields = ["link"]
-    search_fields = ['run_accession', 'sample_type', 'location', 'farm_name']
+    search_fields = ['run_accession', 'sample_type', 'data_type', 'location',
+                     'farm_name', 'animal', 'diet', 'host', 'antibiotics']
+    list_display = ('run_accession', 'sample_type', 'data_type', 'location',
+                    'farm_name', 'animal', 'diet', 'host', 'antibiotics', 'farm_size', 'age',
+                    'sample_date', 'publication', 'modified_date')
+    empty_value_display = 'NA'
+    list_filter = ('publication',)
 
-    #form = PublicationForm
 
     def get_urls(self):
         urls = super().get_urls()
         my_urls = [
-            path('csv_upload/', self.csv_upload),
+            path('add_from_file/', self.add_from_file),
         ]
         return my_urls + urls
 
-    def csv_upload(self, request):
+    def add_from_file(self, request):
 
-        feedback = []
+        feedback = {}
         if request.method == "POST":
-            feedback = upload_dataset_from_file(request)
-            if not feedback.get("field_problems") and not feedback.get("invalid_rows") and not feedback.get("missing_headers") and feedback.get("success"):
-                messages.success(request, "New data sets were succesfully uploaded/updated :-)")
-            elif feedback.get("field_problems") or feedback.get("invalid_rows") or feedback.get("missing_headers") and feedback.get("success"):
-                messages.warning(request, "Some rows were added, but check feedback to see any problems that occurred")
-            elif feedback.get("field_problems") or feedback.get("invalid_rows") or feedback.get("missing_headers") and not feedback.get("success"):
-                messages.error(request, "No rows were added. What went wrong?")
-            else:
-                messages.info(request, "All rows seem to already exist with these run_accessions")
-
+            try:
+                feedback = upload_dataset_from_file(request)
+                if not feedback.get("field_problems") and not feedback.get("invalid_rows") and not feedback.get("missing_headers") and feedback.get("success"):
+                    messages.success(request, "New data sets were succesfully uploaded/updated :-)")
+                elif (feedback.get("field_problems") or feedback.get("invalid_rows") or feedback.get("missing_headers")) and feedback.get("success"):
+                    messages.warning(request, "Some rows were added/updated, but check feedback to see potential problems")
+                elif feedback.get("field_problems") or feedback.get("invalid_rows") or feedback.get("missing_headers") and not feedback.get("success"):
+                    messages.error(request, "No rows were added. What went wrong?")
+                else:
+                    messages.info(request, "...Nothing happened...")
+            except Exception as e:
+                messages.error(request, "Error: File could not be uploaded")
+                raise e("Uploading data set from file caused an error")
 
         form = CsvImportForm()
         data = {
             "form": form,
             "feedback": feedback
         }
-        return render(request, "admin/resources/data/csv_upload.html", data)
+        return render(request, "admin/resources/data/add_from_file.html", data)
 
 
 

@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models.fields import CharField
 from django.db.models.signals import pre_save
-from django.contrib import messages
+from django.utils.html import mark_safe
 
 # For API calls
 import urllib
@@ -20,14 +20,20 @@ class Publication(models.Model):
     date = models.DateField(null=True, blank=True)
     type = models.CharField(max_length=20, blank=True, choices=[(
         "peer-reviewed", "peer-reviewed"), ("preprint", "preprint")])
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
+
+    def year(self):
+        year = self.date.year if self.date else "unknown year"
+        return year
 
     def __str__(self):
         author = self.authors.split(
             ";")[0] if self.authors else "unknown author"
         if len(author) > 1:
             author = author + " et al."
-        year = self.date.year if self.date else "unknown year"
-        title = self.title if self.title else "unknown title"
+        year = self.year()
+        title = "\n{}...".format(self.title[0:20]) if self.title else "\nunknown title"
 
         selfstring = "{} ({}): {}".format(
             author, year, title)
@@ -72,6 +78,7 @@ class Data(models.Model):
 
     run_accession = models.CharField(max_length=20, unique=True, blank=False)
     sample_type = models.CharField(max_length=50, blank=False)
+    data_type = models.CharField(max_length=20, blank=False)
     location = models.CharField(max_length=100, blank=True)
     farm_name = models.CharField(max_length=50, blank=True)
     farm_size = models.PositiveSmallIntegerField(null=True, blank=True)
@@ -80,9 +87,15 @@ class Data(models.Model):
     host = models.CharField(max_length=20, blank=True)
     age = models.FloatField(null=True, blank=True)
     diet = models.CharField(max_length=100, blank=True)
+    target_region_16s = models.CharField(max_length=100, blank=True)
+    no_of_samples = models.PositiveSmallIntegerField(null=True, blank=True)
+    no_of_animals = models.PositiveSmallIntegerField(null=True, blank=True)
     sample_date = models.DateField(null=True, blank=True)
     publication = models.ForeignKey(
         Publication, on_delete=models.SET_NULL, null=True, blank=True)
+    
+    created_date = models.DateTimeField(auto_now_add=True)
+    modified_date = models.DateTimeField(auto_now=True)
 
     class Meta:
         verbose_name_plural = "Data sets"
@@ -100,3 +113,5 @@ class Data(models.Model):
         selfstring = "run_acc: '{}', type '{}\' from {}.".format(
             self.run_accession, self.sample_type, place)
         return selfstring
+
+

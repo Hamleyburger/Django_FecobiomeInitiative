@@ -1,0 +1,197 @@
+button {
+  cursor: pointer;
+}
+
+.custom-btns-div {
+  padding: 10px;
+}
+
+.custom-btns-div .custom-column-label {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 13px;
+  line-height: 24px;
+  color: var(--body-quiet-color);
+}
+
+.custom-btns-div .custom-column-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.custom-btns-div .custom-column-buttons .collapse-column-btn {
+  border: 1px solid lightgrey;
+  margin: 3px;
+  padding: 6px;
+  font-size: smaller;
+  border-radius: 15px;
+}
+
+.hidden-column {
+  display: none;
+}
+
+.selected {
+  background-color: #c4c4c4;
+  color: #757575;
+}
+
+.center-content {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 20px;
+}
+
+@media screen and (max-width: 400px) {
+  .center-content {
+    margin: 20px 0;
+  }
+}
+
+.center-content .upload-div {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 20px;
+  margin-bottom: 5px;
+  background-color: #c4dce8;
+}
+
+@media screen and (max-width: 400px) {
+  .center-content .upload-div {
+    padding: 20px 5px;
+  }
+}
+
+.center-content .upload-div ul li {
+  list-style-type: none;
+}
+
+.center-content .form-intro {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+}
+
+.center-content .form-intro .upload-intro {
+  width: 50%;
+  min-width: 320px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: baseline;
+      -ms-flex-align: baseline;
+          align-items: baseline;
+}
+
+.center-content .form-intro .upload-form {
+  width: 30%;
+  min-width: 230px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+.center-content .upload-problems {
+  width: 100%;
+  background-color: #fff8b7;
+}
+
+.center-content .upload-errors {
+  width: 100%;
+  background-color: #eacbcb;
+}
+
+.center-content .upload-example {
+  width: 100%;
+}
+
+.center-content .upload-example .image-wrapper {
+  text-align: center;
+  overflow: scroll;
+  background-color: #9eb9c7;
+}
+
+.center-content .upload-rules {
+  width: 100%;
+}
+
+.center-content .upload-success {
+  width: 100%;
+  background-color: #ddec6c;
+}
+
+.center-content .download-links {
+  margin: 5px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.center-content .download-link {
+  color: black;
+  margin: 5px 10px;
+  padding: 10px;
+  border-radius: 21px;
+}
+
+.center-content .download-link.txt {
+  border: 1px solid #90b6c9;
+  background-color: #79aec8;
+}
+
+.center-content .download-link.txt:hover {
+  background-color: #5e7e8f;
+}
+
+.center-content .download-link.xlsx {
+  border: 1px solid #357435;
+  background-color: #498d49;
+}
+
+.center-content .download-link.xlsx:hover {
+  background-color: #385f38;
+}
+/*# sourceMappingURL=styles.css.map */

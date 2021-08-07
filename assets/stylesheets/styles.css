@@ -6,6 +6,10 @@
   --grass-green: #3F4601;
 }
 
+span.line {
+  display: inline-block;
+}
+
 body {
   background-color: #edeee7;
   color: #453525;
@@ -203,9 +207,9 @@ body .site-inner main {
 }
 
 body .site-inner main .FBI-max-width {
-  max-width: 100%;
+  width: 100%;
   border-radius: 5px;
-  padding: 50px 30px;
+  padding: 30px 30px;
   margin-bottom: 70px;
   background: #f8f8f1;
 }
@@ -225,7 +229,6 @@ body .site-inner aside {
       -ms-flex-align: center;
           align-items: center;
   min-width: 300px;
-  display: none;
 }
 
 @media only screen and (max-width: 1079px) {
@@ -333,7 +336,7 @@ body footer .footericon {
 }
 
 .news {
-  margin: 50px 0px;
+  margin: 0;
 }
 
 .news ul {
@@ -343,20 +346,38 @@ body footer .footericon {
 .news ul li {
   list-style-type: none;
   border-bottom: 1px solid rgba(69, 53, 37, 0.3);
-  margin-top: 20px;
-  padding: 20px 0px;
+  margin-bottom: 38px;
+  padding: 10px 0px;
+  padding-bottom: 28px;
 }
 
 .news ul li .news-title {
   color: #ae781d;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
 }
 
-.news ul li .news-title .news-date {
-  float: right;
+.news ul li .news-body {
+  margin-bottom: 20px;
+  margin-top: 28px;
+  overflow: auto;
+}
+
+.news ul li .news-body img {
+  float: left;
+  margin-right: 20px;
+}
+
+.news ul li .news-date {
+  color: #ae781d;
   font-family: "Raleway", sans-serif;
-  font-size: 75%;
+  font-size: 80%;
   line-height: 1.6;
+  margin: 0;
+  margin-bottom: 18px;
+}
+
+.news ul li a {
+  text-decoration: underline;
 }
 
 .news ul li:last-of-type {
