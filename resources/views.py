@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from .models import Data, Publication
 
 # Dummy data
 resources = [{
@@ -46,7 +47,30 @@ resources = [{
 
 def home(request):
 
+    context = {}
+
+    if request.method == "POST":
+        context = {
+            "data": Data.objects.all(),
+            "publication": Publication.objects.all()
+        }
+    
+    return render(request, "resources/search.html", context)
+
+
+def data(request):
+
     context = {
-        "resources": resources
+        "title": "Data",
+        "data": Data.objects.all()
     }
-    return render(request, "resources/resources.html", context)
+    return render(request, "resources/data_datatable.html", context)
+
+
+def publications(request):
+
+    context = {
+        "title": "Publications",
+        "publications": Publication.objects.all()
+    }
+    return render(request, "resources/publication_datatable.html", context)

@@ -1,4 +1,4 @@
-/* The html for this is in change_list_results.html, but I couldn't find a way to link each button with the actual divs to be manipulated
+// The html for this is in change_list_results.html
 .custom-btns-div {
     padding: 10px;
 
@@ -22,8 +22,12 @@
         }
     }
 }
-*/
 
-p {
-    background: grey;
+.hidden-column {
+    display: none;
 }
+.selected {
+    background-color: rgb(196, 196, 196);
+    color:rgb(117, 117, 117)
+}
+

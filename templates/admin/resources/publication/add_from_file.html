@@ -1,5 +1,5 @@
 {% extends "admin/base.html" %}
-
+{% load static %} 
 {% block content %}
 <div class="center-content">
     <div class="form-intro upload-div ">
@@ -21,8 +21,8 @@
                 </ul>
                 <p>Download template files with all headers:</p>
                 <div class="download-links">
-                    <a class="download-link txt" href="/media/admin/examples/publication_template.txt" download>Template file.txt</a>
-                    <a class="download-link xlsx" href="/media/admin/examples/publication_template.xlsx" download>Template file.xlsx</a>
+                    <a class="download-link txt" href="{% static 'admin/example_files/publication_template.txt' %}" download>Template file.txt</a>
+                    <a class="download-link xlsx" href="{% static 'admin/example_files/publication_template.xslx' %}" download>Template file.xlsx</a>
                 </div>
             </div>
         </div>
@@ -44,7 +44,7 @@
     <div class="upload-div upload-example">
         <p>Example:</p>
         <div class="image-wrapper">
-            <img width="250" src="{% load static %} {% static 'admin/images/doi_file_example.png' %}"
+            <img width="250" src="{% static 'admin/images/doi_file_example.png' %}"
                 alt="example of doi file">
         </div>
     </div>

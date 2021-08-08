@@ -1,4 +1,5 @@
 {% extends "admin/base.html" %}
+{% load static %}
 
 {% block content %}
 <div class="center-content">
@@ -88,8 +89,8 @@
                 <p>run_accession,	sample_type,	location,	farm_name,	farm_size,	animal,	antibiotics	host,	age_months,	diet,	sample_date_dmy,	doi</p>
                 <p>Download template files with all headers:</p>
                 <div class="download-links">
-                    <a class="download-link txt" href="/media/admin/examples/data_template.txt" download>Template file.txt</a>
-                    <a class="download-link xlsx" href="/media/admin/examples/data_template.xlsx" download>Template file.xlsx</a>
+                    <a class="download-link txt" href="{% static 'admin/example_files/data_template.txt' %}" download>Template file.txt</a>
+                    <a class="download-link xlsx" href="{% static 'admin/example_files/data_template.xslx' %}" download>Template file.xlsx</a>
                 </div>
             </div>
         </div>
@@ -119,7 +120,7 @@
     <div class="upload-div upload-example">
         <p>Example (scroll content if bigger than window):</p>
         <div class="image-wrapper">
-            <img width="1000" src="{% load static %}{% static 'admin/images/data_file_example.png' %}"
+            <img width="1000" src="{% static 'admin/images/data_file_example.png' %}"
                 alt="example of doi file">
         </div>
 

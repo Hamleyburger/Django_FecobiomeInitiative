@@ -9,8 +9,8 @@
 
 
 
-  $(document).ready(function() {
+$(document).ready(function() {
     $(".navbar-toggler").click(function () {
-      $(".nav-panel").toggleClass("clicked");
+        $(".nav-panel").toggleClass("clicked");
     });
-  });
+});

@@ -39,6 +39,10 @@
     <script src="{% static 'scripts/scripts.js' %}"></script>
 
     <title>Fecobiome Initiative | {% block title %}{% endblock %}</title>
+
+    {% block extrahead %}
+    <!-- Extra headers to -->
+    {% endblock extrahead %}
 </head>
 
 
@@ -199,6 +203,8 @@
     </footer>
     <!-- Footer -->
 
+{% block endscript %}
+{% endblock endscript %}
 
 </body>
 

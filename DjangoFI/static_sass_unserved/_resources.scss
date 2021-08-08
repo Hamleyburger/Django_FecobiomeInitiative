@@ -1,0 +1,23 @@
+
+body .site-inner main {
+    width: 100%;
+}
+body .site-inner aside {
+    flex-direction: row;
+    //flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+
+    .sidebar-block {
+        width: 49.3%;
+        
+    }
+    @media screen and (max-width: 600px) {
+        flex-wrap: wrap;
+        .sidebar-block {
+            width: 100%;
+            
+        }
+    }
+
+}

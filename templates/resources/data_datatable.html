@@ -1,0 +1,79 @@
+{% extends "resources/search.html" %}
+{% load static %}
+{% block datatable %}
+
+<table id="example" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th> run_accession </th>
+                <th> sample_type </th>
+                <th> data_type </th>
+                <th> location </th>
+                <th> farm_name </th>
+                <th> farm_size </th>
+                <th> animal </th>
+                <th> antibiotics </th>
+                <th> host </th>
+                <th> age </th>
+                <th> diet </th>
+                <th> target_region_16s </th>
+                <th> no_of_samples </th>
+                <th> no_of_animals </th>
+                <th> sample_date </th>
+                <th> publication </th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for object in data %}
+            <tr>
+                <td> {{ object.run_accession }} </td>
+                <td> {{ object.sample_type }} </td>
+                <td> {{ object.data_type }} </td>
+                <td> {{ object.location }} </td>
+                <td> {{ object.farm_name }} </td>
+                <td> {{ object.farm_size }} </td>
+                <td> {{ object.animal }} </td>
+                <td> {{ object.antibiotics }} </td>
+                <td> {{ object.host }} </td>
+                <td> {{ object.age }} </td>
+                <td> {{ object.diet }} </td>
+                <td> {{ object.target_region_16s }} </td>
+                <td> {{ object.no_of_samples }} </td>
+                <td> {{ object.no_of_animals }} </td>
+                <td> {{ object.sample_date }} </td>
+                <td> <a href="{{ object.publication.link }}">{{ object.publication.authors }} ({{ object.publication.year }}): {{ object.publication.title }}</a> </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <th> run_accession </th>
+                <th> sample_type </th>
+                <th> data_type </th>
+                <th> location </th>
+                <th> farm_name </th>
+                <th> farm_size </th>
+                <th> animal </th>
+                <th> antibiotics </th>
+                <th> host </th>
+                <th> age </th>
+                <th> diet </th>
+                <th> target_region_16s </th>
+                <th> no_of_samples </th>
+                <th> no_of_animals </th>
+                <th> sample_date </th>
+                <th> publication </th>
+            </tr>
+        </tfoot>
+    </table>
+
+
+
+<ul>
+
+</ul>
+
+{% endblock datatable %}
+
