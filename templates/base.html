@@ -38,7 +38,7 @@
     <!-- My own scripts -->
     <script src="{% static 'scripts/scripts.js' %}"></script>
 
-    <title>Fecobiome Initiative | {% block title %}{% endblock %}</title>
+    <title>{% block title %}Fecobiome Initiative {% endblock %}</title>
 
     {% block extrahead %}
     <!-- Extra headers to -->
@@ -72,17 +72,20 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link disabled" href="#">Under construction:</a>
+                            <a class="nav-link" href="{% url 'blog-home' %}">News</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="{% url 'blog-home' %}">Blog</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="{% url 'resources-home' %}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Resources</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{% url 'resources-home' %}">Resources</a></li>
+                                <li><a class="dropdown-item" href="{% url 'resources-data' %}">- Data</a></li>
+                                <li><a class="dropdown-item" href="{% url 'resources-publications' %}">- Publications</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="{% url 'resources-home' %}">Resources</a>
-                        </li>
-                        <li class="nav-item">
+
+                        {% comment %} <li class="nav-item">
                             <a class="nav-link disabled" href="{% url 'pages-wikicow' %}">WikiCow</a>
-                        </li>
+                        </li> {% endcomment %}
 
                     </ul>
                 </div>
@@ -103,8 +106,8 @@
 
     <div class="site-inner">
         <main class="">
+        {% block topsection %}{% endblock topsection %}
             <section class="FBI-max-width">
-
                 {% block content %}{% endblock %}
             </section>
 
@@ -152,21 +155,26 @@
                                     <a href="{% url 'blog-home' %}" class="text-reset">News</a>
                                 </p>
                                 <p>
-                                    <a href="{% url 'resources-home' %}" class="text-reset">Resources</a>
+                                    <a href="mailto: panagiotis.sapountzis@inrae.fr" class="">Contact</a>
                                 </p>
+
                             </div>
                             <!-- Grid column -->
                             <div class="col">
                                 <!-- Links -->
-                                <p>
+                                {% comment %} <p>
                                     <a href="{% url 'pages-wikicow' %}" class="text-reset">Wikicow</a>
+                                </p> {% endcomment %}
+                                <p>
+                                    <a href="{% url 'resources-home' %}" class="text-reset">Resources</a>
                                 </p>
                                 <p>
-                                    <a href="#!" class="text-reset">Who we are</a>
+                                    <a href="{% url 'resources-data' %}" class="text-reset">- Data</a>
                                 </p>
                                 <p>
-                                    <a href="#!" class="{% url 'contact-home' %}">Contact</a>
+                                    <a href="{% url 'resources-publications' %}" class="text-reset">- Publications</a>
                                 </p>
+
                             </div>
                         </div>
                     </div>

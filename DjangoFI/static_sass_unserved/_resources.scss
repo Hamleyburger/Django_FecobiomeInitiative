@@ -1,23 +1,113 @@
 
-body .site-inner main {
-    width: 100%;
-}
-body .site-inner aside {
-    flex-direction: row;
-    //flex-wrap: wrap;
-    justify-content: space-between;
-    width: 100%;
 
-    .sidebar-block {
-        width: 49.3%;
-        
+
+.dataTables_wrapper {
+    a {
+        text-decoration: underline;
+        transition: color .15s ease-in-out;
+        &:hover {
+            color: $earth-orange;
+        }
     }
-    @media screen and (max-width: 600px) {
-        flex-wrap: wrap;
-        .sidebar-block {
-            width: 100%;
-            
+    .btn-secondary {
+        border-radius: 11px !important;
+        margin: 5px !important;
+        background-color: $grass-green;
+        color: $creamy-white;
+        border-color:rgba($grass-green, 0.7);
+        &:hover {
+            background-color: lighten($grass-green, 5%);
+        }
+    }
+    .table {
+        color: $grass-green;
+    }
+    .table-striped>tbody>tr:nth-of-type(odd) {
+        background-color: rgba($grass-green, 0.05);
+        color: $super-brown;
+    }
+    table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
+        background-color: $earth-orange;
+        color: $creamy-white;
+    }
+    .dropdown-menu {
+        background-color: $creamy-white;
+        .dropdown-item {
+            background-color: $sky-yellow;
+            color: rgba($super-brown, 0.7);
+            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+            &:hover {
+                background-color: darken($sky-yellow, 5%);
+            }
+            &.active {
+                background-color: inherit;
+                color: $super-brown;
+                &:hover {
+                    background-color: darken($creamy-white, 4%);
+                }
+            }
         }
     }
 
+    .pagination {
+        .page-link {
+            background-color: $creamy-white-light;
+            color: $super-brown;
+            border-color: rgba($earth-orange, 0.6);
+            &:focus {
+                box-shadow: 0 0 0 0.25rem rgba($super-brown, 0.2);
+            }
+        }
+        .page-item.disabled .page-link {
+            color: rgba($super-brown, 0.4);
+            border-color: rgba($earth-orange, 0.4);
+        }
+        .page-item.active .page-link {
+            background-color: $earth-orange;
+            color: $super-brown;
+            border-color: $earth-orange;
+        }
+    }
+
+
 }
+    #loading-div {
+    text-align: center;
+    margin: 50px 0;
+    font-size: large;
+    animation: pulse 3s infinite;
+}
+@keyframes pulse {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 100;
+    }
+
+  }
+
+  body .site-inner main .resources-search-section {
+    background-color: $earth-orange;
+    color: $super-brown;
+    input {
+        background-color: darken($earth-orange, 7%);
+        border: none;
+        border-radius: $FBI-border-radius;
+    }
+    input::placeholder {
+      color: rgba($super-brown, 0.6);
+    }
+    .form-control:focus {
+        box-shadow: $inner-shadow;
+        background-color: darken($earth-orange, 5%);
+    }
+    .input-group .input-group-text {
+        background: $sky-yellow;
+        color: $super-brown;
+        border-radius: $FBI-border-radius;
+    }
+    input:-internal-autofill-selected {
+        background-color: darken($earth-orange, 5%);
+    }
+  }

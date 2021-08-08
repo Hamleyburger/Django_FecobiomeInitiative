@@ -1,59 +1,22 @@
 from django.shortcuts import render
 from .models import Data, Publication
 
-# Dummy data
-resources = [{
-    "type": "good data",
-    "cows": "brown cows",
-    "age": "old",
-    "country": "France",
-    "farm": "Maggie's Farm",
-    "year": "2010"
-},
-    {
-        "type": "different",
-        "cows": "red cows",
-        "age": "middle aged",
-        "country": "Djabouti",
-        "farm": "Xadji's Farm",
-        "year": "1998"
-},
-    {
-        "type": "happy data",
-        "cows": "white cows",
-        "age": "young",
-        "country": "Canada",
-        "farm": "Shithole Farm",
-        "year": "2011"
-},
-    {
-        "type": "scribbles",
-        "cows": "Herford",
-        "age": "Teenagers",
-        "country": "France",
-        "farm": "Hay Day",
-        "year": "2018"
-},
-    {
-        "type": "good data",
-        "cows": "brown cows",
-        "age": "young",
-        "country": "France",
-        "farm": "Hay Day",
-        "year": "2019"
-}
-]
-
 
 def home(request):
 
-    context = {}
+    context = {
+        "title": "Resources"
+    }
 
     if request.method == "POST":
-        context = {
+
+        context.update(
+            {
             "data": Data.objects.all(),
             "publication": Publication.objects.all()
-        }
+            }
+        )
+        print(context)
     
     return render(request, "resources/search.html", context)
 

@@ -1,6 +1,6 @@
 $creamy-whiter: #f8f8f1; //kat og tekst
 $creamy-white: #edeee7; //kat og tekst
-$sky-yellow: #EDEE8F; // hat og navbar. Meta tag theme-color must be same as this in layout.html
+$sky-yellow: lighten(#EDEE8F, 8%); // hat og navbar. Meta tag theme-color must be same as this in layout.html
 $earth-orange: #DEA139; //lysere navbar?
 $super-brown: #453525; //solen
 $grass-green: #3F4601; //??
@@ -21,9 +21,12 @@ $creamy-white-light: lighten($creamy-white, 5%);
 
 $static-path: "/Hamleyburger.github.io/static";
 $FBI-max-width: 720px; // same as Bootstrap 5 medium
-$FBI-border-radius: 5px;
+$FBI-border-radius: 2px;
 $expand-sidebar-max-breakpoint: 1079px;
 $navbar-when-sidebar-expanded: 989px;
 
 $title-font: 'Crimson Text', serif;
 $light-font: 'Raleway', sans-serif; 
+
+$inner-shadow: inset 0 0 10px rgba($super-brown, 0.4);
+

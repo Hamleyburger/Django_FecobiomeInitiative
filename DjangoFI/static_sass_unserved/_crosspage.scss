@@ -3,4 +3,12 @@
 // For setting preferred linebreakpoints
 span.line {
     display: inline-block;
-  }
+}
+
+.inner-shadow {
+    box-shadow: $inner-shadow;
+ }
+
+ .subtle-shadow {
+    box-shadow: 1px 1px 2px 1px rgba($super-brown, 0.05);
+ }

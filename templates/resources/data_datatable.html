@@ -1,26 +1,33 @@
 {% extends "resources/search.html" %}
 {% load static %}
-{% block datatable %}
+{% block extrahead %}
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'stylesheets/resources/force_sidebar_down.css' %}">
+{% endblock extrahead %}
+{% block title %}{{ block.super }}| Data{% endblock title %}
+{% block content %}
+<div id="loading-div">Loading table...</div>
+<div id="hide-datatable" style="display: none;">
 
-<table id="example" class="table table-striped" style="width:100%">
+<table id="fi-datatable" class="table table-striped" style="width:100%">
         <thead>
             <tr>
-                <th> run_accession </th>
-                <th> sample_type </th>
-                <th> data_type </th>
-                <th> location </th>
-                <th> farm_name </th>
-                <th> farm_size </th>
-                <th> animal </th>
-                <th> antibiotics </th>
-                <th> host </th>
-                <th> age </th>
-                <th> diet </th>
-                <th> target_region_16s </th>
-                <th> no_of_samples </th>
-                <th> no_of_animals </th>
-                <th> sample_date </th>
-                <th> publication </th>
+                <th> Run accession </th>
+                <th> Sample type </th>
+                <th> Data type </th>
+                <th> Location </th>
+                <th> Farm name </th>
+                <th> Farm size </th>
+                <th> Animal </th>
+                <th> Antibiotics </th>
+                <th> Host </th>
+                <th> Age </th>
+                <th> Diet </th>
+                <th> Target region 16S </th>
+                <th> Number of samples </th>
+                <th> Number of animals </th>
+                <th> Sample date </th>
+                <th> Publication </th>
             </tr>
         </thead>
 
@@ -42,38 +49,35 @@
                 <td> {{ object.no_of_samples }} </td>
                 <td> {{ object.no_of_animals }} </td>
                 <td> {{ object.sample_date }} </td>
-                <td> <a href="{{ object.publication.link }}">{{ object.publication.authors }} ({{ object.publication.year }}): {{ object.publication.title }}</a> </td>
+                <td> <a href="{{ object.publication.link }}" target="_blank" >{{ object.publication.author_et_al }} ({{ object.publication.year }}): {{ object.publication.title }}</a> </td>
             </tr>
         {% endfor %}
         </tbody>
 
         <tfoot>
             <tr>
-                <th> run_accession </th>
-                <th> sample_type </th>
-                <th> data_type </th>
-                <th> location </th>
-                <th> farm_name </th>
-                <th> farm_size </th>
-                <th> animal </th>
-                <th> antibiotics </th>
-                <th> host </th>
-                <th> age </th>
-                <th> diet </th>
-                <th> target_region_16s </th>
-                <th> no_of_samples </th>
-                <th> no_of_animals </th>
-                <th> sample_date </th>
-                <th> publication </th>
+                <th> Run accession </th>
+                <th> Sample type </th>
+                <th> Data type </th>
+                <th> Location </th>
+                <th> Farm name </th>
+                <th> Farm size </th>
+                <th> Animal </th>
+                <th> Antibiotics </th>
+                <th> Host </th>
+                <th> Age </th>
+                <th> Diet </th>
+                <th> Target region 16S </th>
+                <th> Number of samples </th>
+                <th> Number of animals </th>
+                <th> Sample date </th>
+                <th> Publication </th>
             </tr>
         </tfoot>
     </table>
-
-
-
+</div>
 <ul>
-
 </ul>
 
-{% endblock datatable %}
+{% endblock content %}
 

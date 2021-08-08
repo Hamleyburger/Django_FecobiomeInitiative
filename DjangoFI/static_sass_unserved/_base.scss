@@ -37,6 +37,7 @@ body {
         top: 0.5%;
         left: 0.5%;
         position: fixed;
+        z-index: 4;
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
@@ -52,7 +53,6 @@ body {
         }
 
         .navbar {
-
             width: $navbar-when-sidebar-expanded;
             @media only screen and (max-width: $expand-sidebar-max-breakpoint) {
                 width: $FBI-max-width;
@@ -81,6 +81,12 @@ body {
                 width: calc(100% - 1%);
                 top: 0.5%;
                 left: 0.5%;
+            }
+            .dropdown-item {
+                color: $super-brown;
+            }
+            .dropdown-menu {
+                background-color: $creamy-white-light;
             }
         }
 
@@ -144,7 +150,8 @@ body {
 
     .site-inner {
         // Everything not header and footer
-        margin: 100px auto 0 auto; // top right bottom left
+        margin: auto; // top right bottom left
+        margin-top: 70px;
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
@@ -155,7 +162,7 @@ body {
             margin: 0;
             padding: 0 15px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             width: $FBI-max-width;
             max-width: 100vw;
             
@@ -163,7 +170,7 @@ body {
                 width: 100%;
                 border-radius: $FBI-border-radius;
                 padding: 30px 30px;
-                margin-bottom: 70px;
+                margin-bottom: 30px;
                 background: $creamy-whiter;
             }
         }

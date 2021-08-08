@@ -23,15 +23,20 @@ class Publication(models.Model):
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
+    def author_et_al(self):
+        author = self.authors.split(
+            ";")[0] if self.authors else "unknown author"
+        if len(author) > 1:
+            author = author + " et al."
+        return author
+
+
     def year(self):
         year = self.date.year if self.date else "unknown year"
         return year
 
     def __str__(self):
-        author = self.authors.split(
-            ";")[0] if self.authors else "unknown author"
-        if len(author) > 1:
-            author = author + " et al."
+        author = self.author_et_al()
         year = self.year()
         title = "\n{}...".format(self.title[0:20]) if self.title else "\nunknown title"
 
