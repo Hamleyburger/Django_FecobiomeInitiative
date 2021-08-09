@@ -90,6 +90,8 @@
   body .site-inner main .resources-search-section {
     background-color: $earth-orange;
     color: $super-brown;
+    margin: 0 auto $FBI-margin-bottom auto;
+    max-width: $navbar-when-sidebar-expanded;
     input {
         background-color: darken($earth-orange, 7%);
         border: none;

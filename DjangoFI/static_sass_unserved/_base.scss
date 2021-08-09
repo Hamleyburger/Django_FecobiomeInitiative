@@ -54,13 +54,20 @@ body {
 
         .navbar {
             width: $navbar-when-sidebar-expanded;
+            .container-fluid {
+                padding: 0;
+            }
             @media only screen and (max-width: $expand-sidebar-max-breakpoint) {
                 width: $FBI-max-width;
+                .container-fluid {
+                    padding: 0 15px;
+                }
             }
             max-width: 100%;
 
             .navbar-brand {
                 font-family: $title-font;
+                padding-left: 3px;
             }
 
             .nav-link {
@@ -169,8 +176,8 @@ body {
             .FBI-max-width {
                 width: 100%;
                 border-radius: $FBI-border-radius;
-                padding: 30px 30px;
-                margin-bottom: 30px;
+                padding: $FBI-margin-bottom;
+                margin-bottom: $FBI-margin-bottom;
                 background: $creamy-whiter;
             }
         }
@@ -184,6 +191,7 @@ body {
             flex-direction: column;
             align-items: center;
             min-width: 300px;
+            max-width: $navbar-when-sidebar-expanded;
             @media only screen and (max-width: $expand-sidebar-max-breakpoint) {
                 width: $FBI-max-width;
             }
@@ -191,8 +199,8 @@ body {
                 width: 100%;
                 background: $grass-green;
                 color: $sky-yellow;
-                padding: 50px 30px;
-                margin-bottom: 30px;
+                padding: 50px $FBI-margin-bottom;
+                margin-bottom: $FBI-margin-bottom;
                 border-radius: $FBI-border-radius;
             }
             
@@ -208,6 +216,25 @@ body {
         }
     }
     footer {
+        
+        .FBI-max-width {
+            .col-questions {
+                width: 208px;
+                margin: auto;
+
+            }
+            .site-nav {
+                min-width: 260px;
+            }
+
+            @media only screen and (max-width: $expand-sidebar-max-breakpoint) {
+            width: $FBI-max-width;
+            }
+            width: $navbar-when-sidebar-expanded;
+            max-width: 100%;
+        }
+
+
         background: url("../src/images/page-title-image.jpg"), rgba($super-brown, 0.82);
         background-position: center bottom;
         background-size:500%;

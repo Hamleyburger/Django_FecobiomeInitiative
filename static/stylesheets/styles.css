@@ -98,14 +98,22 @@ body .nav-panel .navbar {
   max-width: 100%;
 }
 
+body .nav-panel .navbar .container-fluid {
+  padding: 0;
+}
+
 @media only screen and (max-width: 1079px) {
   body .nav-panel .navbar {
     width: 720px;
+  }
+  body .nav-panel .navbar .container-fluid {
+    padding: 0 15px;
   }
 }
 
 body .nav-panel .navbar .navbar-brand {
   font-family: "Crimson Text", serif;
+  padding-left: 3px;
 }
 
 body .nav-panel .navbar .nav-link {
@@ -230,7 +238,7 @@ body .site-inner main {
 body .site-inner main .FBI-max-width {
   width: 100%;
   border-radius: 2px;
-  padding: 30px 30px;
+  padding: 30px;
   margin-bottom: 30px;
   background: #f8f8f1;
 }
@@ -250,6 +258,7 @@ body .site-inner aside {
       -ms-flex-align: center;
           align-items: center;
   min-width: 300px;
+  max-width: 989px;
 }
 
 @media only screen and (max-width: 1079px) {
@@ -282,6 +291,26 @@ body footer {
   background-size: 500%;
   background-blend-mode: darken;
   color: #edeee7;
+}
+
+body footer .FBI-max-width {
+  width: 989px;
+  max-width: 100%;
+}
+
+body footer .FBI-max-width .col-questions {
+  width: 208px;
+  margin: auto;
+}
+
+body footer .FBI-max-width .site-nav {
+  min-width: 260px;
+}
+
+@media only screen and (max-width: 1079px) {
+  body footer .FBI-max-width {
+    width: 720px;
+  }
 }
 
 body footer p {

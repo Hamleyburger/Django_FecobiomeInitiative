@@ -119,6 +119,8 @@
 body .site-inner main .resources-search-section {
   background-color: #DEA139;
   color: #453525;
+  margin: 0 auto 30px auto;
+  max-width: 989px;
 }
 
 body .site-inner main .resources-search-section input {
