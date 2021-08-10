@@ -210,7 +210,7 @@ body .subdir-header-image-section .page-title-rect .page-title-group .hero-punch
 
 body .site-inner {
   margin: auto;
-  margin-top: 70px;
+  margin-top: 30px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -281,7 +281,7 @@ body .site-inner aside .sidebar-block {
     padding: 0 0;
   }
   body .site-inner main .FBI-max-width, body .site-inner aside .sidebar-block {
-    padding: 50px 4%;
+    padding: 30px 4%;
   }
 }
 

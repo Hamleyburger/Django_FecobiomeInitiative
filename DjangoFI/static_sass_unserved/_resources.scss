@@ -9,6 +9,9 @@
             color: $earth-orange;
         }
     }
+    .dt-buttons {
+        margin-bottom: $FBI-favourite-spacing;
+    }
     .btn-secondary {
         border-radius: 11px !important;
         margin: 5px !important;
@@ -87,29 +90,78 @@
 
   }
 
-  body .site-inner main .resources-search-section {
-    background-color: $earth-orange;
-    color: $super-brown;
-    margin: 0 auto $FBI-margin-bottom auto;
-    max-width: $navbar-when-sidebar-expanded;
-    input {
-        background-color: darken($earth-orange, 7%);
-        border: none;
-        border-radius: $FBI-border-radius;
-    }
-    input::placeholder {
-      color: rgba($super-brown, 0.6);
-    }
-    .form-control:focus {
-        box-shadow: $inner-shadow;
-        background-color: darken($earth-orange, 5%);
-    }
-    .input-group .input-group-text {
-        background: $sky-yellow;
+  body .site-inner main {
+
+    .resources-search-section {
+        background-color: $earth-orange;
         color: $super-brown;
-        border-radius: $FBI-border-radius;
+        margin: 0 auto $FBI-favourite-spacing auto;
+        max-width: $navbar-when-sidebar-expanded;
+        input {
+            background-color: darken($earth-orange, 7%);
+            border: none;
+            border-radius: $FBI-border-radius;
+        }
+        input::placeholder {
+            color: rgba($super-brown, 0.6);
+        }
+        .form-control:focus {
+            box-shadow: $inner-shadow;
+            background-color: darken($earth-orange, 5%);
+        }
+        .input-group .input-group-text {
+            background: $sky-yellow;
+            color: $super-brown;
+            border-radius: $FBI-border-radius;
+        }
+        input:-internal-autofill-selected {
+            background-color: darken($earth-orange, 5%);
+        }
     }
-    input:-internal-autofill-selected {
-        background-color: darken($earth-orange, 5%);
+
+    .rrow {
+        justify-content: center;
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        flex-direction: row;
+
+
+        .col-wrapper {
+            padding: 15px;
+            .rcol {
+                border-radius: 10px;
+                width: 200px;
+                height: 180px;
+                max-width: 100%;
+                background-color: $super-brown;
+                color: $earth-orange;
+                align-items: center;
+                //padding: $FBI-favourite-spacing;
+                // padding-bottom: 15px;
+                // display: flex;
+                // flex-direction: column;
+                .card-header, .card-footer {
+                    background: none;
+                    border: none;
+                }
+                .fas {
+                    font-size: 50px;
+                    text-align: center;
+                    margin-top: auto;
+                }
+                .card-footer {
+                    margin-top: auto;
+                    b {
+                        color: $sky-yellow;
+                    }
+                        
+                }
+            }
+
+        }
+
     }
-  }
+}
+        
+        

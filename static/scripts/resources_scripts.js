@@ -4,7 +4,10 @@ $(document).ready(function() {
     $('#fi-datatable').DataTable( {
         responsive: true,
         colReorder: true,
-        dom: 'Bfrtip',
+        dom: 'Bfrtip', // to enable custom search builder add Q, to enable searchpanes add P (QPBfrtip)
+        searchBuilder: true,
+        SearchPanes: true,
+
         buttons: [
             { extend: 'csv', text: 'Get all results as CSV' },
             { extend: 'excel', text: 'Get all results as Excel' },
@@ -12,7 +15,7 @@ $(document).ready(function() {
         ],
         'oLanguage': {
             "sSearch": "Filter results"
-          }
+        }
 
     });
 } );

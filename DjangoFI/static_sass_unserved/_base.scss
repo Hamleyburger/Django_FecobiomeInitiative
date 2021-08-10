@@ -158,7 +158,7 @@ body {
     .site-inner {
         // Everything not header and footer
         margin: auto; // top right bottom left
-        margin-top: 70px;
+        margin-top: $FBI-favourite-spacing;
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
@@ -176,8 +176,8 @@ body {
             .FBI-max-width {
                 width: 100%;
                 border-radius: $FBI-border-radius;
-                padding: $FBI-margin-bottom;
-                margin-bottom: $FBI-margin-bottom;
+                padding: $FBI-favourite-spacing;
+                margin-bottom: $FBI-favourite-spacing;
                 background: $creamy-whiter;
             }
         }
@@ -199,8 +199,8 @@ body {
                 width: 100%;
                 background: $grass-green;
                 color: $sky-yellow;
-                padding: 50px $FBI-margin-bottom;
-                margin-bottom: $FBI-margin-bottom;
+                padding: 50px $FBI-favourite-spacing;
+                margin-bottom: $FBI-favourite-spacing;
                 border-radius: $FBI-border-radius;
             }
             
@@ -211,7 +211,7 @@ body {
                 padding: 0 0;
             }
             main .FBI-max-width, aside .sidebar-block {
-                padding: 50px 4%;
+                padding: 30px 4%;
             }
         }
     }

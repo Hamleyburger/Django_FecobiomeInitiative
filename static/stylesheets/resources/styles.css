@@ -16,6 +16,10 @@
   color: #DEA139;
 }
 
+.dataTables_wrapper .dt-buttons {
+  margin-bottom: 30px;
+}
+
 .dataTables_wrapper .btn-secondary {
   border-radius: 11px !important;
   margin: 5px !important;
@@ -159,5 +163,56 @@ body .site-inner main .resources-search-section .input-group .input-group-text {
 
 body .site-inner main .resources-search-section input:-internal-autofill-selected {
   background-color: #d99624;
+}
+
+body .site-inner main .rrow {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+body .site-inner main .rrow .col-wrapper {
+  padding: 15px;
+}
+
+body .site-inner main .rrow .col-wrapper .rcol {
+  border-radius: 10px;
+  width: 200px;
+  height: 180px;
+  max-width: 100%;
+  background-color: #453525;
+  color: #DEA139;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+body .site-inner main .rrow .col-wrapper .rcol .card-header, body .site-inner main .rrow .col-wrapper .rcol .card-footer {
+  background: none;
+  border: none;
+}
+
+body .site-inner main .rrow .col-wrapper .rcol .fas {
+  font-size: 50px;
+  text-align: center;
+  margin-top: auto;
+}
+
+body .site-inner main .rrow .col-wrapper .rcol .card-footer {
+  margin-top: auto;
+}
+
+body .site-inner main .rrow .col-wrapper .rcol .card-footer b {
+  color: #f3f3b2;
 }
 /*# sourceMappingURL=styles.css.map */
