@@ -1,52 +1,63 @@
 from django.shortcuts import render
-
-# Dummy data
-resources = [{
-    "type": "good data",
-    "cows": "brown cows",
-    "age": "old",
-    "country": "France",
-    "farm": "Maggie's Farm",
-    "year": "2010"
-},
-    {
-        "type": "different",
-        "cows": "red cows",
-        "age": "middle aged",
-        "country": "Djabouti",
-        "farm": "Xadji's Farm",
-        "year": "1998"
-},
-    {
-        "type": "happy data",
-        "cows": "white cows",
-        "age": "young",
-        "country": "Canada",
-        "farm": "Shithole Farm",
-        "year": "2011"
-},
-    {
-        "type": "scribbles",
-        "cows": "Herford",
-        "age": "Teenagers",
-        "country": "France",
-        "farm": "Hay Day",
-        "year": "2018"
-},
-    {
-        "type": "good data",
-        "cows": "brown cows",
-        "age": "young",
-        "country": "France",
-        "farm": "Hay Day",
-        "year": "2019"
-}
-]
+from .models import Data, Publication
+from .search_helper import search_data, search_publications
 
 
 def home(request):
 
     context = {
-        "resources": resources
+        "title": "Resources",
+        "query": None,
+        "data_hits": ""
     }
-    return render(request, "resources/resources.html", context)
+
+    if request.method == "POST":
+
+
+        query = request.POST.get("searchbar") if request.POST.get("searchbar") else None
+
+        data_hits = len(search_data(query))
+        publication_hits = len(search_publications(query))
+
+
+        context.update(
+            {
+            "data": Data.objects.all(),
+            "publication": Publication.objects.all(),
+            "query": query,
+            "data_hits": data_hits,
+            "publication_hits": publication_hits,
+            }
+        )
+    
+    return render(request, "resources/search.html", context)
+
+
+def data(request, query=None):
+
+    if query:
+        results = search_data(query)
+    else:
+        results = Data.objects.all()
+
+    context = {
+        "title": "Data",
+        "data": results
+    }
+
+
+    return render(request, "resources/data_datatable.html", context)
+
+
+def publications(request, query=None):
+
+    if query:
+        results = search_publications(query)
+    else:
+        results = Data.objects.all()
+
+    context = {
+        "title": "Publications",
+        "publications": results
+    }
+    return render(request, "resources/publication_datatable.html", context)

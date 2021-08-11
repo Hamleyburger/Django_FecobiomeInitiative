@@ -1,42 +1,34 @@
 {% extends "base.html" %}
 
-{% block title %}Blog{% endblock %}
-{% block pagetitle %}Blog{% endblock %}
+{% block title %}{{ block.super }}| News{% endblock %}
+{% block pagetitle %}News{% endblock %}
 
 {% block content %}
 <div class="news">
     <ul>
+
+
+        {% for post in posts %}
         <li>
             <h4 class="news-title">
-                <span>This is news</span>
-                <span class="news-date">09-12-1985</span>
+                <span>{{ post.title }}</span>
             </h4>
-            <p>This is news</p>
+            <div class="news-date">By {{ post.author.profile.display_name }} {{ post.created_date |date:'Y-m-d H:i' }}</div>
+                {% if post.body %}
+                <div class="news-body" >
+                    
+                        {% if post.image %}
+                        <img width="200" height="200" style="" src="/media/{{ post.image }}" alt="image for this post">
+                        {% endif %}
+                        {{ post.body | safe }}
+                    
+                </div>
+                {% endif %}
         </li>
-        <li>
-            <h4 class="news-title">
-                <span>This is newser</span>
-                <span class="news-date">21-01-1981</span>
-            </h4>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Molestiae aut officiis, minus
-                perspiciatis consequatur sint facilis rem voluptatum laborum sequi vel autem repudiandae
-                facere maiores nulla distinctio eveniet perferendis ex qui nisi rerum quisquam possimus?
-                Porro veniam laudantium reprehenderit incidunt itaque recusandae inventore atque vero
-                reiciendis aperiam autem eos nesciunt, voluptatum et, repellendus quas. Autem eaque
-                voluptatem sit non? Id illum omnis ullam deserunt fugiat enim quia minima! Nisi quibusdam
-                dignissimos quod excepturi tempora a aliquid quaerat hic possimus sed dolorum reiciendis aut
-                quos dolores porro numquam necessitatibus nostrum, laborum aliquam totam. Eligendi atque
-                ducimus sit in excepturi, nisi culpa.</p>
-        </li>
-        <li>
-            <h4 class="news-title">
-                <span>This is newsest</span>
-                <span class="news-date">31-12-0001 b.c.</span>
-            </h4>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio rerum nam nobis cum quod,
-                fugiat, quos blanditiis facilis dolor fuga maiores. Ex quod, commodi praesentium a
-                aspernatur dolorum laudantium vitae.</p>
-        </li>
+        {% endfor %}
+
+
+
     </ul>
 </div>
 {% endblock %}

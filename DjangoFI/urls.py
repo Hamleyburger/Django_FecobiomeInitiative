@@ -15,11 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include("pages.urls")),
-    path('blog/', include("blog.urls")),
+    path('news/', include("blog.urls")),
     path('resources/', include("resources.urls")),
     path('contact/', include("contact.urls")),
 ]
+# add static url with media and root options?
+# From this SO post: https://stackoverflow.com/questions/36280056/page-not-found-404-django-media-files
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

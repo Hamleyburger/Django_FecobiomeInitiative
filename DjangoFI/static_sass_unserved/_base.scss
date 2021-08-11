@@ -37,6 +37,7 @@ body {
         top: 0.5%;
         left: 0.5%;
         position: fixed;
+        z-index: 4;
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
@@ -52,15 +53,21 @@ body {
         }
 
         .navbar {
-
             width: $navbar-when-sidebar-expanded;
+            .container-fluid {
+                padding: 0;
+            }
             @media only screen and (max-width: $expand-sidebar-max-breakpoint) {
                 width: $FBI-max-width;
+                .container-fluid {
+                    padding: 0 15px;
+                }
             }
             max-width: 100%;
 
             .navbar-brand {
                 font-family: $title-font;
+                padding-left: 3px;
             }
 
             .nav-link {
@@ -81,6 +88,12 @@ body {
                 width: calc(100% - 1%);
                 top: 0.5%;
                 left: 0.5%;
+            }
+            .dropdown-item {
+                color: $super-brown;
+            }
+            .dropdown-menu {
+                background-color: $creamy-white-light;
             }
         }
 
@@ -144,7 +157,8 @@ body {
 
     .site-inner {
         // Everything not header and footer
-        margin: 100px auto 0 auto; // top right bottom left
+        margin: auto; // top right bottom left
+        margin-top: $FBI-favourite-spacing;
         display: flex;
         justify-content: center;
         flex-wrap: wrap;
@@ -155,15 +169,15 @@ body {
             margin: 0;
             padding: 0 15px;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             width: $FBI-max-width;
             max-width: 100vw;
             
             .FBI-max-width {
-                max-width: 100%;
+                width: 100%;
                 border-radius: $FBI-border-radius;
-                padding: 50px 30px;
-                margin-bottom: 70px;
+                padding: $FBI-favourite-spacing;
+                margin-bottom: $FBI-favourite-spacing;
                 background: $creamy-whiter;
             }
         }
@@ -177,6 +191,7 @@ body {
             flex-direction: column;
             align-items: center;
             min-width: 300px;
+            max-width: $navbar-when-sidebar-expanded;
             @media only screen and (max-width: $expand-sidebar-max-breakpoint) {
                 width: $FBI-max-width;
             }
@@ -184,23 +199,42 @@ body {
                 width: 100%;
                 background: $grass-green;
                 color: $sky-yellow;
-                padding: 50px 30px;
-                margin-bottom: 30px;
+                padding: 50px $FBI-favourite-spacing;
+                margin-bottom: $FBI-favourite-spacing;
                 border-radius: $FBI-border-radius;
             }
             
-            display: none; // When aside ia ready to be viewed remove this:
+            //display: none; // When aside ia ready to be viewed remove this:
         }
         @media only screen and (max-width: $FBI-max-width) {
             main, aside {
                 padding: 0 0;
             }
             main .FBI-max-width, aside .sidebar-block {
-                padding: 50px 4%;
+                padding: 30px 4%;
             }
         }
     }
     footer {
+        
+        .FBI-max-width {
+            .col-questions {
+                width: 208px;
+                margin: auto;
+
+            }
+            .site-nav {
+                min-width: 260px;
+            }
+
+            @media only screen and (max-width: $expand-sidebar-max-breakpoint) {
+            width: $FBI-max-width;
+            }
+            width: $navbar-when-sidebar-expanded;
+            max-width: 100%;
+        }
+
+
         background: url("../src/images/page-title-image.jpg"), rgba($super-brown, 0.82);
         background-position: center bottom;
         background-size:500%;

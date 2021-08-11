@@ -1,0 +1,45 @@
+{% extends "resources/search.html" %}
+{% load static %}
+{% block title %}{{ block.super }}| Publications {% endblock title %}
+{% block content %}
+<div id="loading-div">Loading table...</div>
+<div id="hide-datatable" style="display: none;">
+
+<table id="fi-datatable" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th> doi </th>
+                <th> authors </th>
+                <th> year </th>
+                <th> title </th>
+                <th> type </th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for object in publications %}
+            <tr>
+                <td><a href="{{ object.link }}" target="_blank">{{ object.doi }}</a></td>
+                <td> {{ object.authors }} </td>
+                <td> {{ object.year }} </td>
+                <td> {{ object.title }} </td>
+                <td> {{ object.type }} </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <th> doi </th>
+                <th> authors </th>
+                <th> year </th>
+                <th> title </th>
+                <th> type </th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+
+{% endblock content %}
+

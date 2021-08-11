@@ -1,23 +1,42 @@
 .news {
-    margin: 50px 0px;
+    margin: 0;
     ul {
         padding: 0;
         li {
             list-style-type: none; // no bullets
             border-bottom: 1px solid rgba($super-brown, 0.3);
-            margin-top: 20px;
-            padding: 20px 0px;
-
+            margin-bottom: 38px;
+            padding: 10px 0px;
+            padding-bottom: 28px;
+            
             .news-title {
                 color: $earth-orange-dark;
-                padding-bottom: 10px;;
-                .news-date {
-                    float: right;
-                    font-family: $light-font;
-                    // font size and line height depend on charecteristics of the title font
-                    font-size: 75%;
-                    line-height: 1.6;
-                }
+                padding-bottom: 5px;;
+
+            }
+            .news-body {
+                margin-bottom: 20px;
+                margin-top: 28px;
+                overflow: auto;
+                    img {
+                        float: left;
+                        margin-right: 20px;
+                    }
+
+            }
+            .news-date {
+                color: $earth-orange-dark;
+                // float: right;
+                font-family: $light-font;
+                // font size and line height depend on charecteristics of the title font
+                font-size: 80%;
+                line-height: 1.6;
+                margin: 0;
+                margin-bottom: 18px;
+                //text-align-last: right;
+            }
+            a {
+                text-decoration: underline;
             }
         }
         li:last-of-type {
