@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-6dac**k05*27*bz7&8sg2j!fpp^k7$xik=f1fpka!i#ln(=zxd
 DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.1.18', '127.0.0.1',
-                 'fecobiome.pythonanywhere.com', '0.0.0.0']
+                 'fecobiome.pythonanywhere.com', '0.0.0.0', 'www.fecobiome.com']
 
 
 # Application definition
