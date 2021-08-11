@@ -3,8 +3,10 @@ from django.db.models import Q
 
 def search_data(query):
     """ Searches both data and publications and then data again with publications and then combines and filters out duplicates """
+    if not query:
+        return []
 
-    lookups = \
+    data_lookups = \
     Q(run_accession__icontains=query) | \
     Q(sample_type__icontains=query) | \
     Q(data_type__icontains=query) | \
@@ -16,19 +18,20 @@ def search_data(query):
     Q(target_region_16s__icontains=query)
 
     pub_lookups = Q(authors__icontains=query) | Q(title__icontains=query) | Q(doi__icontains=query)
+
+    data_results = Data.objects.filter(data_lookups)
     pub_results = Publication.objects.filter(pub_lookups)
-    more_results = Data.objects.filter(publication__in=pub_results)
-    print(more_results)
+    data_results_from_pub = Data.objects.filter(publication__in=pub_results)
 
-    results = Data.objects.filter(lookups)
-    results = results | more_results
-    results = results.distinct()
+    data_results = data_results | data_results_from_pub
+    data_results = data_results.distinct()
 
-
-    
-    return results
+    return data_results
 
 def search_publications(query):
+    if not query:
+        return []
+
     lookups = Q(title__icontains=query) | Q(authors__icontains=query) | Q(doi__icontains=query) | Q(date__icontains=query)
     results = Publication.objects.filter(lookups).distinct()
     return results
