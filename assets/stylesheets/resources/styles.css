@@ -1,6 +1,6 @@
 :root {
   --creamy-white: #edeee7;
-  --sky-yellow: #f3f3b2;
+  --sky-yellow: #f6f6c4;
   --earth-orange: #DEA139;
   --super-brown: #453525;
   --grass-green: #3F4601;
@@ -51,7 +51,7 @@
 }
 
 .dataTables_wrapper .dropdown-menu .dropdown-item {
-  background-color: #f3f3b2;
+  background-color: #f6f6c4;
   color: rgba(69, 53, 37, 0.7);
   -webkit-transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
@@ -60,7 +60,7 @@
 }
 
 .dataTables_wrapper .dropdown-menu .dropdown-item:hover {
-  background-color: #eff09c;
+  background-color: #f2f3ae;
 }
 
 .dataTables_wrapper .dropdown-menu .dropdown-item.active {
@@ -70,6 +70,11 @@
 
 .dataTables_wrapper .dropdown-menu .dropdown-item.active:hover {
   background-color: #e4e6db;
+}
+
+.dataTables_wrapper .pagination {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
 }
 
 .dataTables_wrapper .pagination .page-link {
@@ -156,9 +161,13 @@ body .site-inner main .resources-search-section .form-control:focus {
 }
 
 body .site-inner main .resources-search-section .input-group .input-group-text {
-  background: #f3f3b2;
+  background: #f6f6c4;
   color: #453525;
   border-radius: 2px;
+}
+
+body .site-inner main .resources-search-section .showall {
+  margin-left: 30px !important;
 }
 
 body .site-inner main .resources-search-section input:-internal-autofill-selected {
@@ -213,6 +222,6 @@ body .site-inner main .rrow .col-wrapper .rcol .card-footer {
 }
 
 body .site-inner main .rrow .col-wrapper .rcol .card-footer b {
-  color: #f3f3b2;
+  color: #f6f6c4;
 }
 /*# sourceMappingURL=styles.css.map */

@@ -22,9 +22,7 @@ def home(request):
 
         context.update(
             {
-            "data": Data.objects.all(),
-            "publication": Publication.objects.all(),
-            "query": query,
+            "query": query, # will be passed on in a link to the sub resource page
             "data_hits": data_hits,
             "publication_hits": publication_hits,
             }
@@ -35,14 +33,18 @@ def home(request):
 
 def data(request, query=None):
 
+    if request.method == "POST":
+        query = request.POST.get("searchbar") if request.POST.get("searchbar") else None
+
     if query:
         results = search_data(query)
     else:
         results = Data.objects.all()
 
     context = {
-        "title": "Data",
-        "data": results
+        "title": "Sequencing data",
+        "data": results,
+        "query": query
     }
 
 
@@ -51,13 +53,17 @@ def data(request, query=None):
 
 def publications(request, query=None):
 
+    if request.method == "POST":
+        query = request.POST.get("searchbar") if request.POST.get("searchbar") else None
+
     if query:
         results = search_publications(query)
     else:
-        results = Data.objects.all()
+        results = Publication.objects.all()
 
     context = {
         "title": "Publications",
-        "publications": results
+        "publications": results,
+        "query": query
     }
     return render(request, "resources/publication_datatable.html", context)

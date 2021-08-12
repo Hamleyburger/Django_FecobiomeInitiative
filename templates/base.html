@@ -56,7 +56,7 @@
                 {% if user.is_superuser %}
                 <a class="navbar-brand" href="/admin">
                     <h3>Fecobiome Initiative
-                        <span style="color:olivedrab">| Admin</span>
+                        <span style="color: #3F4601;">| admin</span>
                     </h3>
                 </a>
                 {% else %}
@@ -78,9 +78,12 @@
                             <a class="nav-link dropdown-toggle" href="{% url 'resources-home' %}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Resources</a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{% url 'resources-home' %}">Resources</a></li>
-                                <li><a class="dropdown-item" href="{% url 'resources-data' %}">- Data</a></li>
+                                <li><a class="dropdown-item" href="{% url 'resources-data' %}">- Sequencing data</a></li>
                                 <li><a class="dropdown-item" href="{% url 'resources-publications' %}">- Publications</a></li>
                             </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contact-home' %}">Contact us</a>
                         </li>
 
                         {% comment %} <li class="nav-item">
@@ -104,6 +107,17 @@
     </div>
     {% endblock %}
 
+
+    {% for message in messages %}
+    <div class="container-fluid p-0">
+    <div class="alert {{ message.tags }} alert-dismissible" role="alert" >
+        {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    </div>
+    {% endfor %}
+
+
     <div class="site-inner">
         <main class="">
         {% block topsection %}{% endblock topsection %}
@@ -116,14 +130,24 @@
 
         <aside class="sidebar">
             <div class="sidebar-block side-a">
-                <h3>A-side</h3>
-                <p>We like it</p>
-                <p>We want people to see it</p>
-                <p>But we want it on the side</p>
+                <p>We're social animals</p>
+                <div class="so-me-icons container-fluid">
+                    <div class="row">
+                    <a class="col col-sm-3" href="http://www.twitter.com">
+                        <i class="fab fa-twitter-square"></i>
+                    </a>
+                    <a class="col col-sm-3" href="http://www.facebook.com">
+                        <i class="fab fa-facebook-square"></i>
+                    </a>
+                    <a class="col col-sm-3" href="http://www.linkedin.com">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    </div>
+                </div>
 
             </div>
-            <div class="sidebar-block side-b">
-                <h3>B-side</h3>
+            <div hidden class="sidebar-block side-b">
+                <p>B-side</p>
 
                 <p>We like it</p>
                 <p>We want people to see it</p>
@@ -155,7 +179,7 @@
                                     <a href="{% url 'blog-home' %}" class="text-reset">News</a>
                                 </p>
                                 <p>
-                                    <a href="mailto: panagiotis.sapountzis@inrae.fr" class="">Contact</a>
+                                    <a href="{% url 'contact-home' %}" class="">Contact</a>
                                 </p>
 
                             </div>
@@ -169,7 +193,7 @@
                                     <a href="{% url 'resources-home' %}" class="text-reset">Resources</a>
                                 </p>
                                 <p>
-                                    <a href="{% url 'resources-data' %}" class="text-reset">- Data</a>
+                                    <a href="{% url 'resources-data' %}" class="text-reset">- Sequencing data</a>
                                 </p>
                                 <p>
                                     <a href="{% url 'resources-publications' %}" class="text-reset">- Publications</a>
@@ -186,7 +210,7 @@
                             Questions or comments?
                         </p>
                         <button type="submit" class="btn my-2">
-                            <a href="mailto: panagiotis.sapountzis@inrae.fr">Get in touch</a>
+                            <a href="{% url 'contact-home' %}">Get in touch</a>
                         </button>
                     </div>
                 </div>
@@ -205,7 +229,6 @@
                 Site developed by <a href="https://github.com/Hamleyburger" class="text-reset" target="_blank">Alma
                     Manley </a>
             </span>
-
         </div>
         <!-- Copyright -->
     </footer>

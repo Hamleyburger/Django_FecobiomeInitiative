@@ -147,6 +147,7 @@ body {
         .page-title-group {
             margin: 20px;
             margin-left: 25px;
+            text-align: center;
             .hero-punchline {
                 margin-left: 20px;
                 
@@ -197,11 +198,34 @@ body {
             }
             .sidebar-block {
                 width: 100%;
-                background: $grass-green;
-                color: $sky-yellow;
-                padding: 50px $FBI-favourite-spacing;
+                padding: $FBI-favourite-spacing;
                 margin-bottom: $FBI-favourite-spacing;
                 border-radius: $FBI-border-radius;
+                text-align: center;
+            &.side-a {
+                background: $earth-orange;
+                color: lighthen($super-brown, 90%);
+            }
+
+               
+                
+                .so-me-icons {
+                    width: 100%;
+                    margin: $FBI-favourite-spacing 0;
+                    color: $sky-yellow;
+
+                    .row{
+                        justify-content: center;
+                        .fab {
+                            text-align: center;
+                            font-size: 50px;
+                        }
+                        .col {
+                            padding: 0;
+                        }
+                    }
+                }
+
             }
             
             //display: none; // When aside ia ready to be viewed remove this:
@@ -239,7 +263,7 @@ body {
         background-position: center bottom;
         background-size:500%;
         background-blend-mode: darken;
-        color: $creamy-white;
+        color: $sky-yellow;
         $footer-orange: lighten($earth-orange, 12%);
         p {
             color: $footer-orange;

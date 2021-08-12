@@ -21,7 +21,7 @@
 
 {% block topsection %}
             <section class="FBI-max-width resources-search-section">
-                <form action="{% url 'resources-home' %}" method="POST" id="searchform">
+                <form action="{% block search_url %}{% url 'resources-home' %}{% endblock search_url %}" method="POST" id="searchform">
                 {% csrf_token %}
                     <div class="input-group">
                         <input name="searchbar" type="search" class="form-control inner-shadow" placeholder="Search our database" aria-label="Search"
@@ -29,6 +29,7 @@
                         <button type="submit" class="input-group-text border-0" id="search-addon">
                             <i class="fas fa-search"></i>
                         </button>
+                        <button class="input-group-text border-0 showall">Clear</button>
                     </div>
                 </form>
             </section>
