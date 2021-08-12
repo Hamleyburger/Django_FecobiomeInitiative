@@ -53,6 +53,9 @@
     }
 
     .pagination {
+
+            flex-wrap: wrap;
+
         .page-link {
             background-color: $creamy-white-light;
             color: $super-brown;
@@ -113,6 +116,9 @@
             background: $sky-yellow;
             color: $super-brown;
             border-radius: $FBI-border-radius;
+        }
+        .showall {
+            margin-left: $FBI-favourite-spacing !important;
         }
         input:-internal-autofill-selected {
             background-color: darken($earth-orange, 5%);

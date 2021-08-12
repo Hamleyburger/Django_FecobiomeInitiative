@@ -2,13 +2,15 @@ body .site-inner main {
     width: 100%;
 }
 body .site-inner aside {
-    flex-direction: row;
+    //flex-direction: row; //enable if two sidebars
+    padding: 0; // maybe remove when two sidebars
     //flex-wrap: wrap;
     justify-content: space-between;
     width: 100%;
 
     .sidebar-block {
-        width: 49.3%;
+        //width: 49.3%; //enable if two sidebars
+        width: $FBI-max-width; // remove when two sidebars
         
     }
     @media screen and (max-width: 600px) {

@@ -4,7 +4,11 @@
 {{ block.super }}
 <link rel="stylesheet" href="{% static 'stylesheets/resources/force_sidebar_down.css' %}">
 {% endblock extrahead %}
-{% block title %}{{ block.super }}| Data{% endblock title %}
+{% block title %}{{ block.super }}| Sequencing data{% endblock title %}
+
+{% block search_url %} {% url 'resources-data' query %} {% endblock search_url %}
+
+
 {% block content %}
 <div id="loading-div">Loading table...</div>
 <div id="hide-datatable" style="display: none;">

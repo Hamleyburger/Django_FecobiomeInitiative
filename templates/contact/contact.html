@@ -1,10 +1,14 @@
 {% extends "base.html" %}
 
 {% block title %}{{ block.super }}| Contact us{% endblock %}
-{% block pagetitle %}Contact{% endblock %}
+{% block pagetitle %}Contact us{% endblock %}
 
 {% block content %}
-<h1>Contact us!</h1>
-<p>Write your message here:</p>
-<hr>
+    <form action="{% url 'contact-home' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="btn btn-secondary FBI-btn" type="submit" value="Submit">
+    </form>
+
 {% endblock %}
+

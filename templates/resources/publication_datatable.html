@@ -1,6 +1,9 @@
 {% extends "resources/search.html" %}
 {% load static %}
 {% block title %}{{ block.super }}| Publications {% endblock title %}
+
+{% block search_url %} {% url 'resources-publications' query %} {% endblock search_url %}
+
 {% block content %}
 <div id="loading-div">Loading table...</div>
 <div id="hide-datatable" style="display: none;">

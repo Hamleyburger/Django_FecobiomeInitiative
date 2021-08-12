@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     display_name = models.CharField(max_length=100)
+    contactable = models.BooleanField("Can be contacted", default=False)
 
     def __str__(self):
         return "{} - Profile".format(self.user.username)
