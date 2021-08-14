@@ -1,6 +1,9 @@
 {% extends "resources/search.html" %}
 {% load static %}
 {% block extrahead %}
+    {{ block.super }}
+{% block resourceshead %}
+<link rel="stylesheet" href="{% static 'stylesheets/resources/force_sidebar_down.css' %}">
 <!-- search resources specific SEO tags -->
 <meta name="title" content="Fecobiome Initiative | Publications">
 <meta property="og:title" content="Fecobiome Initiative | Publications">
@@ -12,7 +15,10 @@
 <meta property="og:description" content="An overview of all published peer-reviewed articles and preprints linked to the available metadata and other FI related topics.">
 
 <link rel="canonical" href="http://www.fecobiome.com/resources/publications/">
+{% endblock resourceshead %}
 {% endblock extrahead %}
+
+
 {% block title %}{{ block.super }}| Publications {% endblock title %}
 
 {% block search_url %} {% url 'resources-publications' query %} {% endblock search_url %}

@@ -105,7 +105,7 @@ body .nav-panel {
   transition: 300ms ease;
 }
 
-body .nav-panel.scrolled, body .nav-panel.clicked {
+body .nav-panel.scrolled, body .nav-panel.expanded {
   background-color: rgba(248, 248, 241, 0.93);
   -webkit-transition: 300ms ease;
   transition: 300ms ease;
