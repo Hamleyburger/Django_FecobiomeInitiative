@@ -8,7 +8,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
@@ -24,10 +23,14 @@
     <!-- Fonts -->
     <!-- 'Crimson Text', serif; 'Raleway', sans-serif;-->
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&family=Raleway&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&family=Raleway&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@700&display=swap" rel="stylesheet">
+    <!-- Hahmlet -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caudex&family=Cinzel&family=Gilda+Display&family=Hahmlet:wght@300&family=Imbue:wght@100;300&family=Nanum+Myeongjo&family=Old+Standard+TT:wght@700&family=Playfair+Display&family=Spectral+SC:wght@200&family=Vidaloka&display=swap" rel="stylesheet">
 
     <!-- Font Awesome-->
     <script src="https://kit.fontawesome.com/603271f4a3.js" crossorigin="anonymous"></script>
@@ -38,11 +41,33 @@
     <!-- My own scripts -->
     <script src="{% static 'scripts/scripts.js' %}"></script>
 
-    <title>{% block title %}Fecobiome Initiative {% endblock %}</title>
+    <!--- SEO -->
+
+    <meta name="robots" content="index, follow">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="language" content="English">
+    <meta name="author" content="Panagiotis Sapountzis">
+
+    <meta property="og:site_name" content="fecobiome.com">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{% static 'src/images/fi_og_img.png' %}">
+
+    <title>{% block title %}Fecobiome Initiative{% endblock %}</title>
 
     {% block extrahead %}
-    <!-- Extra headers to -->
+    <meta name="title" content="Fecobiome Initative">
+    <meta property="og:title" content="Fecobiome Initiative">
+
+    <meta name="description" content="The Fecobiome Initiative aims to facilitate the advancement of research related to the cattle GIT microbial communities.">
+    <meta name="keywords" content="cattle, bovine, feces, microbiome, microbiota, gastrointestinal tract, gut, intestine, antimicrobial resistance, zoonotes, pathogens, research dissemination, data transparency, open sourceness, metadata">
+
+    <meta property="og:url" content="https://www.fecobiome.com/">
+    <meta property="og:description" content="This website is the coordination and dissemination agent of the fecobiome initiative, which aims to facilitate the advancement of research related to the cattle GIT microbial communities.">
+
+    <link rel="canonical" href="http://www.fecobiome.com/">
     {% endblock extrahead %}
+
+
 </head>
 
 
@@ -55,13 +80,13 @@
             <div class="container-fluid">
                 {% if user.is_superuser %}
                 <a class="navbar-brand" href="/admin">
-                    <h3>Fecobiome Initiative
+                    <h3>Fecobiome <img class="cowlogo" src="{% static 'src/images/logos/cowlogobroken.svg' %}" alt="logo here"> Initiative
                         <span style="color: #3F4601;">| admin</span>
                     </h3>
                 </a>
                 {% else %}
                 <a class="navbar-brand" href="{% url 'pages-home' %}">
-                    <h3>Fecobiome Initiative</h3>
+                    <h3><img class="cowlogo" src="{% static 'src/images/logos/cowlogofill.svg' %}" alt="logo here"> <span class="navbar-brand-text">Fecobiome Initiative</span></h3>
                 </a>
                 {% endif %}
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -133,13 +158,13 @@
                 <p>We're social animals</p>
                 <div class="so-me-icons container-fluid">
                     <div class="row">
-                    <a class="col col-sm-3" href="http://www.twitter.com">
+                    <a class="col col-sm-3" href="https://twitter.com/fecobiome">
                         <i class="fab fa-twitter-square"></i>
                     </a>
-                    <a class="col col-sm-3" href="http://www.facebook.com">
+                    <a class="col col-sm-3" href="https://www.facebook.com/Fecobiome-101916542206635">
                         <i class="fab fa-facebook-square"></i>
                     </a>
-                    <a class="col col-sm-3" href="http://www.linkedin.com">
+                    <a class="col col-sm-3" href="https://www.linkedin.com/company/fecobiome-initiative">
                         <i class="fab fa-linkedin"></i>
                     </a>
                     </div>
@@ -207,7 +232,7 @@
                         <p><br>
                         </p>
                         <p>
-                            Questions or comments?
+                            Care to join us?
                         </p>
                         <button type="submit" class="btn my-2">
                             <a href="{% url 'contact-home' %}">Get in touch</a>
