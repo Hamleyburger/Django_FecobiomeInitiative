@@ -56,7 +56,7 @@ body {
         align-items: center;
         text-decoration: none;
         transition: 300ms ease;
-        &.scrolled, &.clicked {
+        &.scrolled, &.expanded {
             background-color: rgba($creamy-whiter, 0.93);
             transition: 300ms ease;
             box-shadow: 1px 1px 2px 1px rgba($super-brown, 0.05);

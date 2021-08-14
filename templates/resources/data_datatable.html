@@ -1,24 +1,19 @@
 {% extends "resources/search.html" %}
 {% load static %}
-{% block extrahead %}
-    <!-- Dataatables links-->
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-colvis-1.7.1/b-html5-1.7.1/b-print-1.7.1/cr-1.5.4/r-2.2.9/sb-1.1.0/sp-1.3.0/sl-1.3.3/datatables.min.css"/>
-<script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.10.25/b-1.7.1/b-colvis-1.7.1/b-html5-1.7.1/b-print-1.7.1/cr-1.5.4/r-2.2.9/sb-1.1.0/sp-1.3.0/sl-1.3.3/datatables.min.js"></script>
-<!-- Custom style overrides -->
-<link rel="stylesheet" type="text/css" href="{% static 'stylesheets/resources/styles.css' %}">
-<link rel="stylesheet" href="{% static 'stylesheets/resources/force_sidebar_down.css' %}">
 
-<!-- search resources specific SEO tags -->
+{% block extrahead %}
+    {{ block.super }}
+{% block resourceshead %}
+<link rel="stylesheet" href="{% static 'stylesheets/resources/force_sidebar_down.css' %}">
 <meta name="title" content="Fecobiome Initiative | Sequencing data">
 <meta property="og:title" content="Fecobiome Initiative | Sequencing data">
-
 <meta name="description" content="Our databases contain metadata describing studies relevant to the FI; sequencing data, publications, (and soon) microbial isolations and protocols.">
 <meta name="keywords" content="cattle, bovine, feces, microbiome, microbiota, gastrointestinal tract, gut, intestine, antimicrobial resistance, zoonotes, pathogens, metadata, resources, sequencing data">
-
 <meta property="og:url" content="https://www.fecobiome.com/resources/data/">
 <meta property="og:description" content="Our databases contain metadata describing studies relevant to the FI; sequencing data, publications, (and soon) microbial isolations and protocols.">
-
 <link rel="canonical" href="http://www.fecobiome.com/resources/data/">
+{% endblock resourceshead%}
+
 {% endblock extrahead %}
 {% block title %}{{ block.super }}| Sequencing data{% endblock title %}
 
