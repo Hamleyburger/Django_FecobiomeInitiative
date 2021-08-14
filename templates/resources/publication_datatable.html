@@ -1,5 +1,11 @@
 {% extends "resources/search.html" %}
 {% load static %}
+{% block extrahead %}
+<meta name="title" content="Fecobiome Initative | Publications">
+<meta property="og:title" content="Fecobiome Initiative | Publications">
+<meta property="og:url" content="https://www.fecobiome.com/resources/publications/">
+<link rel="canonical" href="http://www.fecobiome.com/resources/publications/">
+{% endblock extrahead %}
 {% block title %}{{ block.super }}| Publications {% endblock title %}
 
 {% block search_url %} {% url 'resources-publications' query %} {% endblock search_url %}

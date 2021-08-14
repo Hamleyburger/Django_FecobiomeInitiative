@@ -1,5 +1,15 @@
 body {
 
+    .cowlogo{
+        width: 50px;
+        fill: $super-brown;
+    }
+    .navbar-brand-text {
+        @media only screen and (max-width: 560px) {
+            display: none;
+        }
+    }
+
     background-color: $creamy-white;
     color: $super-brown;
     font-family: $light-font;
@@ -126,7 +136,7 @@ body {
         
         h1 {
             // Stole from Bootstrap and changed to add more vw
-            font-size: calc(1.375rem + 4vw);
+            font-size: calc(1.375rem + 3vw);
         }
     .page-title-rect {
 

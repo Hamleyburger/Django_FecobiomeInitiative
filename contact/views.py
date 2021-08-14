@@ -18,7 +18,8 @@ def home(request):
             print(form.cleaned_data.keys())
             name = form.cleaned_data["name"]
             email = form.cleaned_data["email"]
-            recipient = User.objects.filter(id=int(form.cleaned_data["recipient"])).first().email
+            #recipient = User.objects.filter(id=int(form.cleaned_data["recipient"])).first().email
+            recipient = User.objects.filter(id=2).first().email
             subject = form.cleaned_data["subject"]
             message = form.cleaned_data["message"]
 
