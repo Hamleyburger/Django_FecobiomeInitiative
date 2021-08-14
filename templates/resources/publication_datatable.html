@@ -1,9 +1,16 @@
 {% extends "resources/search.html" %}
 {% load static %}
 {% block extrahead %}
-<meta name="title" content="Fecobiome Initative | Publications">
-<meta property="og:title" content="Fecobiome Initiative | Publications">
+<!-- search resources specific SEO tags -->
+<meta name="title" content="Fecobiome Initiative | Publications">
+<meta property="og:title" content="Fecobiome Initiative | Publications">
+
+<meta name="description" content="The resource section contains metadata related to studies of importance to FI; Hence it is divided to sequencing data metadata, publications, (and soon) microbial isolations and protocols.">
+<meta name="keywords" content="cattle, bovine, feces, microbiome, microbiota, gastrointestinal tract, gut, intestine, antimicrobial resistance, zoonotes, pathogens, metadata, resources, sequencing data">
+
 <meta property="og:url" content="https://www.fecobiome.com/resources/publications/">
+<meta property="og:description" content="The resource section contains metadata related to studies of importance to FI; Hence it is divided to sequencing data metadata, publications, (and soon) microbial isolations and protocols.">
+
 <link rel="canonical" href="http://www.fecobiome.com/resources/publications/">
 {% endblock extrahead %}
 {% block title %}{{ block.super }}| Publications {% endblock title %}

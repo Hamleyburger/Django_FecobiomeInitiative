@@ -1,6 +1,20 @@
 {% extends "base.html" %}
 
 {% block title %}{{ block.super }}| News{% endblock %}
+
+{% block extrahead %}
+    <meta name="title" content="Fecobiome Initative | News">
+    <meta property="og:title" content="Fecobiome Initiative | News">
+
+    <meta name="description" content="The latest news related to Fecobiome Initiative.">
+    <meta name="keywords" content="cattle, bovine, feces, microbiome, microbiota, gastrointestinal tract, gut, intestine, antimicrobial resistance, zoonotes, pathogens, research dissemination, data transparency, open sourceness, metadata, positions, openings, news">
+
+    <meta property="og:url" content="https://www.fecobiome.com/news/">
+    <meta property="og:description" content="The latest news related to Fecobiome Initiative.">
+
+    <link rel="canonical" href="http://www.fecobiome.com/news/">
+{% endblock extrahead %}
+
 {% block pagetitle %}News{% endblock %}
 
 {% block content %}
