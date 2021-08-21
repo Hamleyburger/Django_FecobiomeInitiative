@@ -31,11 +31,12 @@
             <div class="news-date">By {{ post.author.profile.display_name }} {{ post.created_date |date:'Y-m-d H:i' }}</div>
                 {% if post.body %}
                 <div class="news-body" >
-                    
+                        {% comment %}                     
                         {% if post.image %}
                         <img width="200" height="200" style="" src="/media/{{ post.image }}" alt="image for this post">
                         {% endif %}
-                        {{ post.body | safe }}
+                        {{ post.body | safe }} 
+                        {% endcomment %}
                     
                 </div>
                 {% endif %}
