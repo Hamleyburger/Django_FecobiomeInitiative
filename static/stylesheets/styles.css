@@ -29,6 +29,37 @@ span.line {
   color: #f6f6c4;
 }
 
+.pagination {
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.pagination .page-link {
+  border-radius: 0 !important;
+  background-color: #f8f9f6;
+  color: #453525;
+  border-color: rgba(222, 161, 57, 0.6);
+}
+
+.pagination .page-link:focus {
+  -webkit-box-shadow: 0 0 0 0.25rem rgba(69, 53, 37, 0.2);
+          box-shadow: 0 0 0 0.25rem rgba(69, 53, 37, 0.2);
+}
+
+.pagination .page-item.disabled .page-link {
+  color: rgba(69, 53, 37, 0.4);
+  border-color: rgba(222, 161, 57, 0.4);
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #DEA139;
+  color: #453525;
+  border-color: #DEA139;
+}
+
 body {
   background-color: #edeee7;
   color: #453525;

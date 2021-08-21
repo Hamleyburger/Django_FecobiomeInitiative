@@ -30,10 +30,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = secret_secret_key
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = secret_debug
 
 ALLOWED_HOSTS = ['192.168.1.18', '127.0.0.1',
-                 'fecobiome.pythonanywhere.com', '0.0.0.0', 'www.fecobiome.com']
+                 'fecobiome.pythonanywhere.com', '0.0.0.0', 'www.fecobiome.com', 'fecobiome.com']
 
 
 # Application definition
@@ -185,3 +185,15 @@ MESSAGE_TAGS = {
         messages.WARNING: 'alert-warning',
         messages.ERROR: 'alert-danger',
  }
+
+
+# HTTPS SETTINGS
+
+SESSION_COOKIE_SECURE = secret_session_cookie_secure
+CSRF_COOKIE_SECURE = secret_csrf_cookie_secure
+SECURE_SSL_REDIRECT = secret_secure_ssl_redirect
+
+# HSTS SETTINGS
+SECURE_HSTS_SECONDS = secret_secure_hsts_seconds
+SECURE_HSTS_PRELOAD = secret_secure_hsts_preload
+SECURE_HSTS_INCLUDE_SUBDOMAINS = secret_secure_hsts_include_subdomains

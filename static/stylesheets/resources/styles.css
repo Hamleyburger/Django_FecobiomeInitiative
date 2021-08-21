@@ -72,33 +72,6 @@
   background-color: #e4e6db;
 }
 
-.dataTables_wrapper .pagination {
-  -ms-flex-wrap: wrap;
-      flex-wrap: wrap;
-}
-
-.dataTables_wrapper .pagination .page-link {
-  background-color: #f8f9f6;
-  color: #453525;
-  border-color: rgba(222, 161, 57, 0.6);
-}
-
-.dataTables_wrapper .pagination .page-link:focus {
-  -webkit-box-shadow: 0 0 0 0.25rem rgba(69, 53, 37, 0.2);
-          box-shadow: 0 0 0 0.25rem rgba(69, 53, 37, 0.2);
-}
-
-.dataTables_wrapper .pagination .page-item.disabled .page-link {
-  color: rgba(69, 53, 37, 0.4);
-  border-color: rgba(222, 161, 57, 0.4);
-}
-
-.dataTables_wrapper .pagination .page-item.active .page-link {
-  background-color: #DEA139;
-  color: #453525;
-  border-color: #DEA139;
-}
-
 #loading-div {
   text-align: center;
   margin: 50px 0;
