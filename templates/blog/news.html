@@ -18,6 +18,7 @@
 {% block pagetitle %}News{% endblock %}
 
 {% block content %}
+
 <div class="news">
     <ul>
 
@@ -45,4 +46,53 @@
 
     </ul>
 </div>
+<!-- Paginator -->
+{% if is_paginated %}
+    <ul class="pagination">
+        {% if page_obj.has_previous %}
+        <li class="page-item">
+            <a class="btn page-link mb-4" href="?page=1">First</a>
+        </li>
+        <li class="page-item previous">
+            <a class="btn page-link mb-4" href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="btn page-link mb-4" href="#">First</a>
+        </li>
+        <li class="page-item previous disabled">
+            <a class="btn page-link mb-4" href="#">Previous</a>
+        </li>
+        {% endif %}
+
+        {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <li class="page-item active">
+                <a class="btn page-link mb-4" href="?page={{ num }}">{{ num }}</a>
+            </li>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <li class="page-item">
+                <a class="btn page-link mb-4" href="?page={{ num }}">{{ num }}</a>
+            </li>
+            {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="btn page-link mb-4" href="?page={{ page_obj.next_page_number }}">Next</a>
+        </li>
+        <li class="page-item">
+            <a class="btn page-link mb-4" href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        </li>
+        {% else %}
+        <li class="page-item disabled">
+            <a class="btn page-link mb-4" href="#">Next</a>
+        </li>
+        <li class="page-item previous disabled">
+            <a class="btn page-link mb-4" href="#">Last</a>
+        </li>
+        {% endif %}
+    </ul>
+{% endif %}
+<!-- End paginator -->
 {% endblock %}
