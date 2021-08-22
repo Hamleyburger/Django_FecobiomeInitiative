@@ -18,7 +18,8 @@ class Post(models.Model):
         blank=True, null=True, help_text="In case you want to elaborate")
     author = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, blank=True)
-    image = models.ImageField(null=True, blank=True, upload_to="images/")
+    image = models.ImageField(null=True, blank=True, upload_to="images/",
+                              help_text=mark_safe("Make sure the image is cropped to be square. You can use <a href='https://croppola.com/' target='_blank'>this external cropping tool</a>"))
     created_date = models.DateTimeField(auto_now_add=True)
     modified_date = models.DateTimeField(auto_now=True)
 
