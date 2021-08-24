@@ -45,7 +45,8 @@
     <!--- SEO -->
 
     <meta name="robots" content="index, follow">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html">
+    <!--meta http-equiv="Content-Type" content="text/html; charset=utf-8"-->
     <meta name="language" content="English">
     <meta name="author" content="Panagiotis Sapountzis">
 
@@ -88,17 +89,10 @@
     <header class="nav-panel">
         <nav class="navbar navbar-expand-lg">
             <div class="container-fluid">
-                {% if user.is_superuser %}
-                <a class="navbar-brand" href="/admin">
-                    <h3>Fecobiome <img class="cowlogo" src="{% static 'src/images/logos/cowlogofill.svg' %}" alt="logo here"> Initiative
-                        <span style="color: #3F4601;">| admin</span>
-                    </h3>
-                </a>
-                {% else %}
                 <a class="navbar-brand" href="{% url 'pages-home' %}">
                     <h3><img class="cowlogo" src="{% static 'src/images/logos/cowlogofill.svg' %}" alt="logo here"> <span class="navbar-brand-text">Fecobiome Initiative</span></h3>
                 </a>
-                {% endif %}
+
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -244,9 +238,7 @@
                         <p>
                             Care to join us?
                         </p>
-                        <button type="submit" class="btn my-2">
-                            <a href="{% url 'contact-home' %}">Get in touch</a>
-                        </button>
+                        <a class="btn my-2" href="{% url 'contact-home' %}">Get in touch</a>
                     </div>
                 </div>
             </div>
