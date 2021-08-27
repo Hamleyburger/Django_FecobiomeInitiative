@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from ckeditor.fields import RichTextField
-import ckeditor
 from django.utils.html import format_html
 from datetime import datetime
 from django.utils.html import mark_safe
@@ -44,13 +43,7 @@ def clear_body(sender, instance, **kwargs):
     """ Empties empty body so it returns None/"" """
 
     # doi needs to be cleaned before input and before any given check
-    print("body. '{}'".format(instance.body))
-    print(type(instance.body))
     if instance.body == " ":
         instance.body == None
-    if instance.body:
-        print("theres a body")
-    else:
-        print("nobody")
 
 pre_save.connect(clear_body, sender=Post)

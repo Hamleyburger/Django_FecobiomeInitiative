@@ -1,0 +1,48 @@
+
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    h2 {
+        margin: 20px 0;
+    }
+    .btn {
+        margin-top: 20px;
+    }
+    form {
+        label {
+            margin: 10px 0;
+        }
+        .input-section {
+            p, .django-ckeditor-widget textarea {
+                display: flex;
+                flex-direction: column;
+                margin: 0;
+                width: 100%;
+                
+            }
+            
+        }
+        width: 100%;
+        max-width: 800px;
+        .preview-section {
+            
+            .newsletter-preview {
+                border: 1px solid black;
+                border-radius: 20px;
+                padding: 50px;
+                background-color: rgb(243, 234, 234);
+                
+                .preview-subject {
+                    font-weight: bold;
+                }
+                .preview-message {
+                    font-family: inherit;
+                }
+
+                }
+                .send-newsletter-button {
+                    float: right;
+                }
+        }
+    }
+}

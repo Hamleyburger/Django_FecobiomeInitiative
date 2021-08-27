@@ -17,8 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from .admin_views import NewsletterView
 
 urlpatterns = [
+    path('admin/write-newsletter/', NewsletterView.as_view(), name="admin-write-newsletter"),
     path('admin/', admin.site.urls),
     path('', include("pages.urls")),
     path('news/', include("blog.urls")),
@@ -28,3 +30,6 @@ urlpatterns = [
 # add static url with media and root options?
 # From this SO post: https://stackoverflow.com/questions/36280056/page-not-found-404-django-media-files
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+admin.site.site_header = "Fecobiome Initiative Admin"
+admin.site.site_title = "FI Admin"

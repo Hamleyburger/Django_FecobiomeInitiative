@@ -1,0 +1,39 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+
+{% block content %}
+
+
+
+<div class="form-wrapper">
+    <form action="{% url 'admin-write-newsletter' %}" method="post">
+
+        {% csrf_token %}
+        <div id="input-section" class="input-section">
+        <h2>Compose newsletter</h4>
+        {{ form.as_p }}
+        <input class="btn" id="preview-button" type="button" value="Preview">
+        </div>
+
+        <div hidden id="preview-section" class="preview-section">
+
+            <h2>Preview</h2>
+            <div class="newsletter-preview" >
+                <p class="preview-subject" id="preview-subject">
+                Subject here</p>
+                <p>
+                    <pre id="preview-message" class="preview-message">
+                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Aperiam, optio? Quam, maxime ut? Beatae, deleniti placeat suscipit saepe expedita ea rerum sit repudiandae quaerat sunt ullam, possimus hic impedit cum.
+                    </pre>
+                </p>
+            </div>
+            <input class="send-newsletter-button btn" type="submit" value="Send (no way back)">
+            <input class="btn" id="edit-button" type="button" value="Wait...!">
+        </div>
+
+    </form>
+</div>
+
+
+{% endblock content %}

@@ -77,6 +77,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'DjangoFI.context_processors.base_context'
             ],
         },
     },
@@ -152,13 +153,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CKEDITOR_CONFIGS = {
     "default": {
+        "removePlugins": "stylesheetparser",
         'skin': 'moono-lisa', 
-        'toolbar_Basic': [['Source', '-', 'Bold', 'Italic']], 
+        'toolbar_Basic': [['-', 'Bold', 'Italic']], 
         'toolbar_Full': [
             ['Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'], 
             ['Link', 'Unlink'], ['Table'], 
             ['SpecialChar']], 
-        'toolbar': 'Full', 
+        'toolbar': 'Basic', 
         'height': 291, 
         'width': 'auto', 
         'filebrowserWindowWidth': 940, 

@@ -13,7 +13,6 @@ from django.views.generic.list import ListView
 class PostListView(ListView):
 
     model = Post
-    print(vars(ListView))
     context_object_name = "posts"
     ordering = '-created_date'
     paginate_by = 5
