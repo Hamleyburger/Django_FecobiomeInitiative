@@ -160,7 +160,7 @@ CKEDITOR_CONFIGS = {
             ['Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'], 
             ['Link', 'Unlink'], ['Table'], 
             ['SpecialChar']], 
-        'toolbar': 'Basic', 
+        'toolbar': 'Full', 
         'height': 291, 
         'width': 'auto', 
         'filebrowserWindowWidth': 940, 

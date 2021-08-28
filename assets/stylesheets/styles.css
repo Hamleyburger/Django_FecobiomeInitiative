@@ -334,6 +334,7 @@ body .site-inner aside .sidebar-block.side-a {
 body .site-inner aside .sidebar-block.side-b {
   background: #3F4601;
   color: #f6f6c4;
+  padding-bottom: 15px;
 }
 
 body .site-inner aside .sidebar-block.side-b form {
@@ -347,7 +348,7 @@ body .site-inner aside .sidebar-block.side-b form {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 body .site-inner aside .sidebar-block.side-b form .emailfield {

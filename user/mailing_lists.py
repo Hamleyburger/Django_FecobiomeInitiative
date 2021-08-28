@@ -39,7 +39,16 @@ def remove_subscriber(unsubscribe_key):
             writer.writerows(rows)
 
 
+def get_subscribers_emails():
+    subscribers = []
+    with open(newsletter, "r") as mylist:
+        reader = csv.DictReader(mylist)
+        for row in reader:
+            subscribers.append(row["email"])
+
+    return subscribers
 
 
+get_subscribers_emails()
 #add_subscriber("fdfdfs@fdfs.dk")
 # remove_subscriber("lLfeItVfU3TnyTSRuqycaQQWBM98X41JIe4boH6zY75kWan47HQ2yrf9SwQvZcLw")

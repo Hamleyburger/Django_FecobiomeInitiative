@@ -25,11 +25,9 @@ $("#preview-button").click(function() {
     $("#preview-section").toggle();
     $("#input-section").toggle();
     var subject_text = $("#id_subject").val();
-    var message_text = $("#id_message").val();
+    var message_rich_text = CKEDITOR.instances['id_message'].getData();
     $("#preview-subject").html(subject_text);
-    $("#preview-message").html(message_text);
-    console.log($("#id_message").val());
-
+    $("#preview-message").html(message_rich_text);
 
 });
 $("#edit-button").click(function() {

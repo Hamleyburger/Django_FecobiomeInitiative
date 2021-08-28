@@ -146,9 +146,10 @@
     </div>
     </div>
     {% endfor %}
-    <div class="container-fluid p-0">
+
+    <div id="ajax-message" style="display: none;" class="container-fluid p-0">
         <div class="alert alert-success alert-dismissible fade show" role="alert">
-            <strong>Successfully subscribed to newsletter</strong> You should check in on some of those fields below.
+        <span id="ajax-message-content"><strong>Some message here</strong> -- the previous is wrapped in a strong tag</span>
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     </div>

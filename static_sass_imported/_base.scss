@@ -219,11 +219,12 @@ body {
             &.side-b {
                 background: $grass-green;
                 color: $sky-yellow;
+                padding-bottom: 15px;
                 form {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
-                    margin-top: 30px;
+                    margin-top: 20px;
                     .emailfield {
                         background-color: $creamy-white;
                     }
@@ -243,6 +244,7 @@ body {
                         }
 
                     }
+
                 }
             }
                 .so-me-icons {

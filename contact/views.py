@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib import messages
 from .forms import ContactForm
 from user.models import User
-from .mailsender import sendMail
+from .mailsender import send_mail_to_admin
 
 def home(request):
 
@@ -19,7 +19,7 @@ def home(request):
             subject = form.cleaned_data["subject"]
             message = form.cleaned_data["message"]
 
-            feedback = sendMail(name, email, [recipient], subject, message)
+            feedback = send_mail_to_admin(name, email, [recipient], subject, message)
             
             if feedback["status"] == "success":
                 messages.success(request, feedback["feedback"])

@@ -21,9 +21,7 @@ def subscribe_newsletter(request):
 
         try:
             validate_email(email)
-            print("pretend to create new user")
             add_subscriber(email)
-
             response_data['success'] = 'Subscription successful!'
         except:
             response_data['error'] = 'Invalid email'
