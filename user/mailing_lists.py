@@ -1,12 +1,11 @@
-import os
 import csv
-from django.utils.crypto import get_random_string
+import uuid
 
 
 # newsletter variable can be set to a different mailing list file if necessary
 newsletter = "user/mailing_lists/general_newsletter_emails.csv"
 
-def add_subscriber(email):
+def subscribe(email):
     """ adds any string to mailing list so make sure to validate first?\n
     Also adds an unsubscribe key that can be used in an unsubscribe link """
     email = email.lower()
@@ -17,38 +16,60 @@ def add_subscriber(email):
                 return
     with open(newsletter, "a") as mylist:
         writer = csv.DictWriter(mylist, fieldnames=["email", "unsubscribe_key"])
-        key = get_random_string(64).replace(',', '') # remove delimiter from key
+        key = uuid.uuid4()
         writer.writerow({"email": email, "unsubscribe_key": key})
 
 
-def remove_subscriber(unsubscribe_key):
-    """ for removing subscriber with an unsubscribe link providing unsubscribe key """
+def unsubscribe(unsubscribe_key="", unsubscribe_email=""):
+    """ for removing subscriber with an unsubscribe link providing an unsubscribe key """
+    print("Unsubscribe called")
     rows = []
+    unsubscribed = False
     changed = False
+
     with open(newsletter, "r") as mylist:
         reader = csv.DictReader(mylist)
         for row in reader:
-            if unsubscribe_key != row["unsubscribe_key"]:
+            if (str(unsubscribe_key) != row["unsubscribe_key"]) and (unsubscribe_email.lower() != row["email"].lower()):
                 rows.append(row)
             else:
                 changed = True
+                unsubscribed = True
     if changed:
         with open(newsletter, 'w') as writeFile:
             writer = csv.DictWriter(writeFile, fieldnames=["email", "unsubscribe_key"])
             writer.writeheader()
             writer.writerows(rows)
+    return unsubscribed
 
 
 def get_subscribers_emails():
     subscribers = []
     with open(newsletter, "r") as mylist:
         reader = csv.DictReader(mylist)
-        for row in reader:
-            subscribers.append(row["email"])
+        try:
+            for row in reader:
+                subscribers.append(row["email"])
+        except Exception as e:
+            pass
 
     return subscribers
 
+def get_unsubscribe_key(email):
+    key = []
+    with open(newsletter, "r") as mylist:
+        reader = csv.DictReader(mylist)
+        try:
+            for row in reader:
+                if row["email"] == email:
+                    key = row["unsubscribe_key"]
+        except Exception as e:
+            pass
 
-get_subscribers_emails()
-#add_subscriber("fdfdfs@fdfs.dk")
+    return key
+
+
+
+# get_subscribers_emails()
+# subscribe("fdfdfs@fdfs.dk")
 # remove_subscriber("lLfeItVfU3TnyTSRuqycaQQWBM98X41JIe4boH6zY75kWan47HQ2yrf9SwQvZcLw")

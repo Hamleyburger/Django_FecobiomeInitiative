@@ -4,7 +4,7 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.decorators import method_decorator
 from django.contrib import messages
 # mail related imports
-from contact.mailsender import send_mail_from_admin
+from contact.mailsender import send_newsletter
 from user.mailing_lists import get_subscribers_emails as newsletter_subscribers
 # forms.py-ish imports
 from django import forms
@@ -29,14 +29,13 @@ class NewsletterView(FormView):
         # sender_email = self.request.user.email
         print(message)
 
-        send_mail_from_admin("FI Newsletter", newsletter_subscribers(), subject, message)
+        send_newsletter(self.request, "FI Newsletter",
+                        newsletter_subscribers(), subject, message)
 
         context = {
-
             "form": form
-
         }
 
-        messages.success(self.request, "Emaill not sent :)")
+        messages.success(self.request, "Newsletter has been sent to everybody! :-)")
         return render(self.request, self.template_name, context)
 

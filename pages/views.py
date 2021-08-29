@@ -3,7 +3,7 @@ from django.shortcuts import render
 import json
 from django.http import Http404
 from django.core.validators import validate_email
-from user.mailing_lists import add_subscriber
+from user.mailing_lists import subscribe
 
 
 def home(request):
@@ -21,7 +21,7 @@ def subscribe_newsletter(request):
 
         try:
             validate_email(email)
-            add_subscriber(email)
+            subscribe(email)
             response_data['success'] = 'Subscription successful!'
         except:
             response_data['error'] = 'Invalid email'

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+    <meta name="title" content="Fecobiome Initative | Unsubscribe">
+    <meta property="og:title" content="Fecobiome Initiative | Unsibscribe">
+
+    <meta name="description" content="Unsubscribe from our newsletter">
+    <meta name="keywords" content="cattle, bovine, feces, microbiome, microbiota, gastrointestinal tract, gut, intestine, antimicrobial resistance, zoonotes, pathogens, research dissemination, data transparency, open sourceness, metadata, email, unsubscribe">
+
+    <meta property="og:url" content="https://www.fecobiome.com/unsubscribe/">
+    <meta property="og:description" content="Unsubscribe from our newsletter">
+
+    <link rel="canonical" href="http://www.fecobiome.com/unsubscribe/">
+{% endblock extrahead %}
+
+{% block title %}{{ block.super }}| Unsubscribe{% endblock %}
+{% block pagetitle %}Unsubscribe{% endblock %}
+
+{% block content %}
+    <p>Unsubscribe from our newsletter</p>
+    <form action="{% url 'unsubscribe' %}" id="unsubscribe-form" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input id="unsubscribe-newsletter-btn" class="btn btn-secondary FBI-btn" type="submit" value="Unsubscribe">
+    </form>
+
+
+{% endblock %}
+
