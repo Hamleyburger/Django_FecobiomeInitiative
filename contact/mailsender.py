@@ -14,7 +14,7 @@ def send_newsletter(request, sender_name, recipients: list, subject, html_messag
             uid = get_unsubscribe_key(recipient)
             unsibscribe_link = "{}://{}{}".format(request.scheme, request.get_host(), reverse("unsubscribe", kwargs={"unsubscribe_key": uid}))
             plain_text_message = textify(html_message) + "\n\nUnsubscribe with this link: {}".format(unsibscribe_link)
-            html_message = html_message + '<p></p><p><a href="{}">Unsubscribe</a></p>'.format(unsibscribe_link)
+            individual_html_message = html_message + '<p></p><p><a href="{}">Unsubscribe</a></p>'.format(unsibscribe_link)
 
             mail_from_admin = EmailMultiAlternatives(
                 subject,
@@ -23,7 +23,7 @@ def send_newsletter(request, sender_name, recipients: list, subject, html_messag
                 bcc = [recipient],
             )
 
-            mail_from_admin.attach_alternative(html_message, "text/html")
+            mail_from_admin.attach_alternative(individual_html_message, "text/html")
             mail_from_admin.send(fail_silently=True)
 
 
