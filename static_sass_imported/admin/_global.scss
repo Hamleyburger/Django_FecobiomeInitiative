@@ -1,0 +1,32 @@
+button {
+    cursor:pointer;
+}
+
+.newsletter-link {
+    //margin-top: 30px;
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 15px;
+    //border: 3px solid #417690;
+    background-color: #79aec8;
+    color: #f5dd5d;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+    span {
+        color: #f5dd5d;
+        color: white;
+        //margin-top: 6px;
+        font-size: 12px;
+    }
+}
+.newsletter-icon {
+    font-size: 14px;
+    //font-weight: bold;
+    color: #f5dd5d;
+    color: white;
+    margin-right: 6px;
+}

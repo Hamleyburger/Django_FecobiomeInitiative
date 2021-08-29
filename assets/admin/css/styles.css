@@ -2,6 +2,44 @@ button {
   cursor: pointer;
 }
 
+.newsletter-link {
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  border-radius: 20px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 12px 15px;
+  background-color: #79aec8;
+  color: #f5dd5d;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+          box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.newsletter-link span {
+  color: #f5dd5d;
+  color: white;
+  font-size: 12px;
+}
+
+.newsletter-icon {
+  font-size: 14px;
+  color: #f5dd5d;
+  color: white;
+  margin-right: 6px;
+}
+
 .custom-btns-div {
   padding: 10px;
 }
@@ -193,5 +231,62 @@ button {
 
 .center-content .download-link.xlsx:hover {
   background-color: #385f38;
+}
+
+.form-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.form-wrapper h2 {
+  margin: 20px 0;
+}
+
+.form-wrapper .btn {
+  margin-top: 20px;
+}
+
+.form-wrapper form {
+  width: 100%;
+  max-width: 800px;
+}
+
+.form-wrapper form label {
+  margin: 10px 0;
+}
+
+.form-wrapper form .input-section p, .form-wrapper form .input-section .django-ckeditor-widget textarea {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 0;
+  width: 100%;
+}
+
+.form-wrapper form .preview-section .newsletter-preview {
+  border: 1px solid black;
+  border-radius: 20px;
+  padding: 50px;
+  background-color: #f3eaea;
+}
+
+.form-wrapper form .preview-section .newsletter-preview .preview-subject {
+  font-weight: bold;
+}
+
+.form-wrapper form .preview-section .newsletter-preview .preview-message {
+  font-family: inherit;
+}
+
+.form-wrapper form .preview-section .send-newsletter-button {
+  float: right;
 }
 /*# sourceMappingURL=styles.css.map */

@@ -1,0 +1,44 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrahead %}
+{% endblock extrahead %}
+
+{% block content %}
+
+
+
+<div class="form-wrapper">
+
+    <form action="{% url 'admin-write-newsletter' %}" method="post" id="newsletter-form">
+
+        {% csrf_token %}
+        {{ form.media }}
+        <div id="input-section" class="input-section">
+        <h2>Compose newsletter</h4>
+        {{ form.as_p }}
+        <input class="btn" id="preview-button" type="button" value="Preview">
+        </div>
+
+        <div hidden id="preview-section" class="preview-section">
+
+            <h2>Preview</h2>
+            <div class="newsletter-preview" >
+                <p class="preview-subject" id="preview-subject">
+                Subject here</p>
+                <p id="preview-message" class="preview-message">
+                    nothing here
+                </p>
+            </div>
+            <input class="send-newsletter-button btn" type="submit" value="Send (no way back)">
+            <input class="btn" id="edit-button" type="button" value="Wait...!">
+        </div>
+
+    </form>
+</div>
+
+
+{% endblock content %}
+
+{% block endscript %}
+{% endblock endscript %}

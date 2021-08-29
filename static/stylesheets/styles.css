@@ -22,10 +22,9 @@ span.line {
 
 .FBI-btn {
   border-radius: 11px !important;
-  margin: 5px !important;
+  margin: 5px;
   background-color: #3F4601;
   color: #edeee7;
-  border-color: rgba(63, 70, 1, 0.7);
   color: #f6f6c4;
 }
 
@@ -330,6 +329,54 @@ body .site-inner aside .sidebar-block {
 body .site-inner aside .sidebar-block.side-a {
   background: #DEA139;
   color: lighthen(#453525, 90%);
+}
+
+body .site-inner aside .sidebar-block.side-b {
+  background: #3F4601;
+  color: #f6f6c4;
+  padding-bottom: 15px;
+}
+
+body .site-inner aside .sidebar-block.side-b form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-top: 20px;
+}
+
+body .site-inner aside .sidebar-block.side-b form .emailfield {
+  background-color: #edeee7;
+}
+
+body .site-inner aside .sidebar-block.side-b form .FBI-btn {
+  color: #453525;
+  background-color: #f6f6c4;
+  margin: 15px;
+  margin-top: 20px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+@media only screen and (max-width: 1079px) {
+  body .site-inner aside .sidebar-block.side-b form {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    margin-bottom: 30px;
+  }
+  body .site-inner aside .sidebar-block.side-b form .FBI-btn {
+    margin: 0;
+    margin-left: 15px;
+  }
 }
 
 body .site-inner aside .sidebar-block .so-me-icons {

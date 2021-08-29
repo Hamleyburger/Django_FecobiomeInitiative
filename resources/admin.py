@@ -35,7 +35,7 @@ class PublicationAdmin(admin.ModelAdmin):
     def get_urls(self):
         urls = super().get_urls()
         my_urls = [
-            path('add_from_file/', self.add_from_file),
+            path('add_from_file/', self.add_from_file, name="publication-add-from-file"),
         ]
         return my_urls + urls
 

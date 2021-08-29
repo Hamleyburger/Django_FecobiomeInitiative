@@ -5,11 +5,11 @@ from user.models import User
 class ContactForm(forms.Form):
 
     choices = []
+    
     contactables = User.objects.filter(profile__contactable=True).all()
+
     for contact in contactables:
         choices.append((contact.id, contact.profile.display_name))
-        print(contact.profile.display_name)
-        print(contact.email)
 
     name = forms.CharField(label='Your name', max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
     email = forms.EmailField(label="Your e-mail", widget=forms.EmailInput(attrs={'class': 'form-control'}))

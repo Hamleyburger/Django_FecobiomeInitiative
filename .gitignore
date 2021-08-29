@@ -6,3 +6,4 @@ run.sh
 *.pyc
 secrets.py
 credentials.json
+general_newsletter_emails.csv
