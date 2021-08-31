@@ -3,7 +3,7 @@ from django.shortcuts import render
 import json
 from django.http import Http404
 from django.core.validators import validate_email
-from user.mailing_lists import subscribe
+from user.subscription_handler import subscribe
 
 
 def home(request):
@@ -35,7 +35,7 @@ def subscribe_newsletter(request):
         # print(subscriber.profile)
         # mailing_list = MailingList.objects.filter(name="general newsletter").first()
         # print(mailing_list.id)
-        # subscriber.profile.mailing_lists.add(mailing_list)
+        # subscriber.profile.subscription_handler.add(mailing_list)
 
         #print(dir(subscriber.profile))
 

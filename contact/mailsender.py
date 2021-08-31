@@ -1,8 +1,9 @@
 from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
+from user.models import NewsletterSubscriber
 from django.utils.html import strip_tags
 from django.urls import reverse
-from user.mailing_lists import get_unsubscribe_key
+from user.subscription_handler import get_unsubscribe_key
 
 
 def send_newsletter(request, sender_name, recipients: list, subject, html_message):
@@ -34,6 +35,7 @@ def send_newsletter(request, sender_name, recipients: list, subject, html_messag
 
 def send_mail_to_admin(sender_name, sender_email, recipients: list, subject, message):
     """ Sends anything to the given email addresses """
+    sender_email = sender_email.lower()
 
     try:
         
@@ -48,13 +50,19 @@ def send_mail_to_admin(sender_name, sender_email, recipients: list, subject, mes
 
         fi_email.send(fail_silently=False)
 
-
         status = "success"
         feedback = "Your message has been sent"
     except Exception as E:
         status = "error"
         feedback = "Message could not be sent"
         print(E)
+    
+    # If contacter happens to be a newsletter subscriber, give them a name. Purely for admin friendliness.
+    subscriber = NewsletterSubscriber.objects.filter(email=sender_email).first()
+    if subscriber:
+        if not subscriber.name:
+            subscriber.name = sender_name
+            subscriber.save()
 
     return {"status": status, "feedback": feedback}
 

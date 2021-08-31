@@ -1,6 +1,6 @@
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
-from user.mailing_lists import unsubscribe
+from user.subscription_handler import unsubscribe
 from django.contrib import messages
 from django import forms
 from django.shortcuts import render

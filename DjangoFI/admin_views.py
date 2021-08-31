@@ -5,7 +5,7 @@ from django.utils.decorators import method_decorator
 from django.contrib import messages
 # mail related imports
 from contact.mailsender import send_newsletter
-from user.mailing_lists import get_subscribers_emails as newsletter_subscribers
+from user.subscription_handler import get_subscribers_emails as newsletter_subscribers
 # forms.py-ish imports
 from django import forms
 from ckeditor.fields import CKEditorWidget

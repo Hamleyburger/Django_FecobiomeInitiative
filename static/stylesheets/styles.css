@@ -349,6 +349,8 @@ body .site-inner aside .sidebar-block.side-b form {
       -ms-flex-align: center;
           align-items: center;
   margin-top: 20px;
+  max-width: 300px;
+  margin: 20px auto 0 auto;
 }
 
 body .site-inner aside .sidebar-block.side-b form .emailfield {
