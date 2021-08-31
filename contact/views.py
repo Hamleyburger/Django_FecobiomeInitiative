@@ -3,10 +3,14 @@ from django.contrib import messages
 from .forms import ContactForm
 from user.models import User
 from .mailsender import send_mail_to_admin
+from django import http
 
 def home(request):
 
     form = ContactForm()
+    context = {
+        "form": form
+    }
 
     if request.method == 'POST':
 
@@ -18,19 +22,16 @@ def home(request):
             recipient = User.objects.filter(username='Sapuizait').first().email # Panos
             subject = form.cleaned_data["subject"]
             message = form.cleaned_data["message"]
-
             feedback = send_mail_to_admin(name, email, [recipient], subject, message)
             
             if feedback["status"] == "success":
                 messages.success(request, feedback["feedback"])
+                return http.HttpResponseRedirect(request.path)
             else:
                 messages.error(request, feedback["feedback"])
         else:
             messages.error(request, "Could not submit form - invalid")
 
-    context = {
-        "form": form
-    }
     
     return render(request, "contact/contact.html", context)
 

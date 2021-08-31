@@ -64,6 +64,10 @@ body {
 
         .navbar {
             width: $navbar-when-sidebar-expanded;
+            padding-top: 11px;
+            h3 {
+                margin: 0;
+            }
             .container-fluid {
                 padding: 0;
             }

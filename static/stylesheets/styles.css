@@ -145,7 +145,12 @@ body .nav-panel.scrolled, body .nav-panel.expanded {
 
 body .nav-panel .navbar {
   width: 989px;
+  padding-top: 11px;
   max-width: 100%;
+}
+
+body .nav-panel .navbar h3 {
+  margin: 0;
 }
 
 body .nav-panel .navbar .container-fluid {
