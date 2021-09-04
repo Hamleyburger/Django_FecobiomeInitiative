@@ -27,5 +27,14 @@ $(document).ready(function() {
             }
         }, 60); // milliseconds. Can still fail if the navbar is both shrinking and growing within the time interval
     });
+    
+});
 
+$(document).ready(function() {
+    var m = $(".django-alert");
+    console.log(m);
+    $(m).fadeTo(6000, 500).slideUp(500, function() {
+        console.log("doing something");
+        $(m).slideUp(500);
+    });
 });

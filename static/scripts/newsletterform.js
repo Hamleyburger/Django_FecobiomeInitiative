@@ -25,8 +25,12 @@ function subscribe_newsletter() {
             if (json.success) {
                 console.log("success");
                 $('#input-email').val(''); // remove the value from the input
+                // show-slode-message: show a message and slide it up
                 $('#ajax-message-content').html("Successfully subscribed to the Fecobiome Initiative newsletter");
-                $('#ajax-message').show();
+                $("#ajax-message").fadeTo(6000, 500).slideUp(500, function() {
+                    $("#ajax-message").slideUp(500);
+                });
+                // end of show-slide-message function
             }
         },
         // handle a non-successful response

@@ -9,6 +9,9 @@ from user.subscription_handler import get_unsubscribe_key
 def send_newsletter(request, sender_name, recipients: list, subject, html_message):
     """ Sends anything to the given email addresses """
 
+    sender_email = request.user.email
+    sender_name_and_email = "{} <{}>".format(sender_name, sender_email)
+
     try:
         for recipient in recipients:
 
@@ -22,6 +25,7 @@ def send_newsletter(request, sender_name, recipients: list, subject, html_messag
                 plain_text_message,
                 sender_name, # technically from_email
                 bcc = [recipient],
+                headers = {'Reply-To': sender_name_and_email}
             )
 
             mail_from_admin.attach_alternative(individual_html_message, "text/html")

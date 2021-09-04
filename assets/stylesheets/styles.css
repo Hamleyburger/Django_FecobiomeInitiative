@@ -109,6 +109,7 @@ body .nav-panel {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   width: calc(100% - 1%);
+  height: 65px;
   top: 0.5%;
   left: 0.5%;
   position: fixed;
@@ -414,6 +415,16 @@ body .site-inner aside .sidebar-block .so-me-icons .row .col {
   body .site-inner main .FBI-max-width, body .site-inner aside .sidebar-block {
     padding: 30px 4%;
   }
+}
+
+body .feedback-messages {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 65px;
+}
+
+body .feedback-messages .container-fluid .alert {
+  margin-bottom: 0;
 }
 
 body footer {
