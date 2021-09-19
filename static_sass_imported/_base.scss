@@ -44,7 +44,7 @@ body {
         background-color: transparent;
         box-sizing: border-box;
         width: calc(100% - 1%);
-        height: $nav-panel-height;
+        min-height: $nav-panel-height;
         top: 0.5%;
         left: 0.5%;
         position: fixed;
@@ -61,6 +61,7 @@ body {
             background-color: rgba($creamy-whiter, 0.93);
             transition: 300ms ease;
             box-shadow: 1px 1px 2px 1px rgba($super-brown, 0.05);
+
         }
 
         .navbar {
@@ -98,11 +99,18 @@ body {
             }
             
             .navbar-collapse {
-                align-items: center;
                 //background-color: rgba($creamy-white, 0.93);
                 width: calc(100% - 1%);
                 top: 0.5%;
                 left: 0.5%;
+                text-align: center;
+                padding-top: 5px;
+                &.show {
+                    .dropdown-toggle::after {
+                        position: absolute;
+                        top: 18px;
+                    }
+                }
             }
             .dropdown-item {
                 color: $super-brown;

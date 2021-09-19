@@ -109,7 +109,7 @@ body .nav-panel {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   width: calc(100% - 1%);
-  height: 65px;
+  min-height: 64px;
   top: 0.5%;
   left: 0.5%;
   position: fixed;
@@ -187,12 +187,16 @@ body .nav-panel .navbar .navbar-toggler {
 }
 
 body .nav-panel .navbar .navbar-collapse {
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
   width: calc(100% - 1%);
   top: 0.5%;
   left: 0.5%;
+  text-align: center;
+  padding-top: 5px;
+}
+
+body .nav-panel .navbar .navbar-collapse.show .dropdown-toggle::after {
+  position: absolute;
+  top: 18px;
 }
 
 body .nav-panel .navbar .dropdown-item {
@@ -420,7 +424,7 @@ body .site-inner aside .sidebar-block .so-me-icons .row .col {
 body .feedback-messages {
   position: -webkit-sticky;
   position: sticky;
-  top: 65px;
+  top: 64px;
 }
 
 body .feedback-messages .container-fluid .alert {
