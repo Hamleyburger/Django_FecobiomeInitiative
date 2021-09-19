@@ -63,6 +63,12 @@ body {
             box-shadow: 1px 1px 2px 1px rgba($super-brown, 0.05);
 
         }
+        &.expanded {
+            .dropdown-toggle::after {
+                position: absolute;
+                top: 18px;
+            }
+        }
 
         .navbar {
             width: $navbar-when-sidebar-expanded;
@@ -105,12 +111,7 @@ body {
                 left: 0.5%;
                 text-align: center;
                 padding-top: 5px;
-                &.show {
-                    .dropdown-toggle::after {
-                        position: absolute;
-                        top: 18px;
-                    }
-                }
+
             }
             .dropdown-item {
                 color: $super-brown;

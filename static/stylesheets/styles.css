@@ -144,6 +144,11 @@ body .nav-panel.scrolled, body .nav-panel.expanded {
           box-shadow: 1px 1px 2px 1px rgba(69, 53, 37, 0.05);
 }
 
+body .nav-panel.expanded .dropdown-toggle::after {
+  position: absolute;
+  top: 18px;
+}
+
 body .nav-panel .navbar {
   width: 989px;
   padding-top: 11px;
@@ -192,11 +197,6 @@ body .nav-panel .navbar .navbar-collapse {
   left: 0.5%;
   text-align: center;
   padding-top: 5px;
-}
-
-body .nav-panel .navbar .navbar-collapse.show .dropdown-toggle::after {
-  position: absolute;
-  top: 18px;
 }
 
 body .nav-panel .navbar .dropdown-item {
