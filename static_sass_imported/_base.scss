@@ -115,6 +115,9 @@ body {
             }
             .dropdown-item {
                 color: $super-brown;
+                &.disabled {
+                    color: rgba($super-brown, 0.3)
+                }
             }
             .dropdown-menu {
                 background-color: $creamy-white-light;

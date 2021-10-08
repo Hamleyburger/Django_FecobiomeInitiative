@@ -203,6 +203,10 @@ body .nav-panel .navbar .dropdown-item {
   color: #453525;
 }
 
+body .nav-panel .navbar .dropdown-item.disabled {
+  color: rgba(69, 53, 37, 0.3);
+}
+
 body .nav-panel .navbar .dropdown-menu {
   background-color: #f8f9f6;
 }
