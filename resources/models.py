@@ -82,6 +82,7 @@ pre_save.connect(get_publication_meta, sender=Publication)
 class Data(models.Model):
 
     run_accession = models.CharField(max_length=20, unique=True, blank=False)
+    bioproject = models.CharField(max_length=30, blank=True)
     sample_type = models.CharField(max_length=50, blank=False)
     data_type = models.CharField(max_length=20, blank=False)
     location = models.CharField(max_length=100, blank=True)
@@ -92,6 +93,7 @@ class Data(models.Model):
     host = models.CharField(max_length=20, blank=True)
     age = models.FloatField(null=True, blank=True)
     diet = models.CharField(max_length=100, blank=True)
+    FBP_detected = models.CharField(max_length=100, blank=True)
     target_region_16s = models.CharField(max_length=100, blank=True)
     no_of_samples = models.PositiveSmallIntegerField(null=True, blank=True)
     no_of_animals = models.PositiveSmallIntegerField(null=True, blank=True)

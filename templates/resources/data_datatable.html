@@ -28,6 +28,7 @@
         <thead>
             <tr>
                 <th> Run accession </th>
+                <th> Bioproject </th>
                 <th> Sample type </th>
                 <th> Data type </th>
                 <th> Location </th>
@@ -37,6 +38,7 @@
                 <th> Antibiotics </th>
                 <th> Host </th>
                 <th> Age in months </th>
+                <th> FBP detected </th>
                 <th> Diet </th>
                 <th> Target region 16S </th>
                 <th> Number of samples </th>
@@ -50,6 +52,7 @@
         {% for object in data %}
             <tr>
                 <td> {{ object.run_accession }} </td>
+                <td> {{ object.bioproject }} </td>
                 <td> {{ object.sample_type }} </td>
                 <td> {{ object.data_type }} </td>
                 <td> {{ object.location }} </td>
@@ -60,6 +63,7 @@
                 <td> {{ object.host }} </td>
                 <td> {{ object.age }} </td>
                 <td> {{ object.diet }} </td>
+                <td> {{ object.FBP_detected }} </td>
                 <td> {{ object.target_region_16s }} </td>
                 <td> {{ object.no_of_samples }} </td>
                 <td> {{ object.no_of_animals }} </td>
@@ -72,6 +76,7 @@
         <tfoot>
             <tr>
                 <th> Run accession </th>
+                <th> Bioproject </th>
                 <th> Sample type </th>
                 <th> Data type </th>
                 <th> Location </th>
@@ -82,6 +87,7 @@
                 <th> Host </th>
                 <th> Age </th>
                 <th> Diet </th>
+                <th> FBP detected </th>
                 <th> Target region 16S </th>
                 <th> Number of samples </th>
                 <th> Number of animals </th>

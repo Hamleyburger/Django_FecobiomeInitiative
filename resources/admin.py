@@ -60,10 +60,10 @@ class PublicationAdmin(admin.ModelAdmin):
 
 class DataAdmin(admin.ModelAdmin):
     # readonly_fields = ["link"]
-    search_fields = ['run_accession', 'sample_type', 'data_type', 'location',
+    search_fields = ['run_accession', 'bioproject', 'sample_type', 'data_type', 'location',
                      'farm_name', 'animal', 'diet', 'host', 'antibiotics']
-    list_display = ('run_accession', 'sample_type', 'data_type', 'location',
-                    'farm_name', 'animal', 'diet', 'host', 'antibiotics', 'farm_size', 'age',
+    list_display = ('run_accession', 'bioproject', 'sample_type', 'data_type', 'location',
+                    'farm_name', 'animal', 'diet', 'FBP_detected', 'host', 'antibiotics', 'farm_size', 'age',
                     'sample_date', 'publication', 'modified_date')
     empty_value_display = 'NA'
     list_filter = ('publication',)
