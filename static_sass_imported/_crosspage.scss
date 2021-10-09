@@ -5,13 +5,16 @@ span.line {
     display: inline-block;
 }
 
+
 .inner-shadow {
     box-shadow: $inner-shadow;
  }
 
+
  .subtle-shadow {
     box-shadow: 1px 1px 2px 1px rgba($super-brown, 0.05);
  }
+
 
  .FBI-btn {
     border-radius: 11px !important;
@@ -20,7 +23,13 @@ span.line {
     color: $creamy-white;
     //border-color: rgba(63, 70, 1, 0.7);
     color: $sky-yellow;
+    &.FBI-btn-orange {
+        background-color: $earth-orange;
+        color: $super-brown;
+        border: 1px solid darken($earth-orange, 15)
+    }
  }
+
 
  .pagination {
 
@@ -45,4 +54,14 @@ span.line {
         color: $super-brown;
         border-color: $earth-orange;
     }
+}
+
+
+.highlighted {
+    padding-left: 3px;
+    padding-right: 3px;
+    margin-left: 2px;
+    margin-right: 2px;
+    background-color: rgba($earth-orange, 0.4);
+    font-family: monospace;
 }

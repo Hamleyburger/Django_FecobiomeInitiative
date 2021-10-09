@@ -28,6 +28,12 @@ span.line {
   color: #f6f6c4;
 }
 
+.FBI-btn.FBI-btn-orange {
+  background-color: #DEA139;
+  color: #453525;
+  border: 1px solid #ae781d;
+}
+
 .pagination {
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
@@ -57,6 +63,15 @@ span.line {
   background-color: #DEA139;
   color: #453525;
   border-color: #DEA139;
+}
+
+.highlighted {
+  padding-left: 3px;
+  padding-right: 3px;
+  margin-left: 2px;
+  margin-right: 2px;
+  background-color: rgba(222, 161, 57, 0.4);
+  font-family: monospace;
 }
 
 body {
@@ -582,5 +597,14 @@ body footer .footericon {
 
 .news ul li:last-of-type {
   border: none;
+}
+
+.submit-data-form .FBI-btn {
+  margin: 0;
+  overflow: hidden;
+}
+
+.submit-data-form #selected_filename {
+  padding-left: 10px;
 }
 /*# sourceMappingURL=styles.css.map */

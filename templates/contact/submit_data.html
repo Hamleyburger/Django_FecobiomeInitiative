@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extrahead %}
+    <meta name="title" content="Fecobiome Initative | Con
+    <meta property="og:title" content="Fecobiome Initiative | Contact us">
+
+    <meta name="description" content="This contact form can be used for feedback and suggestions, or as a means for scientists that wish to be part of the FI.">
+    <meta name="keywords" content="cattle, bovine, feces, microbiome, microbiota, gastrointestinal tract, gut, intestine, antimicrobial resistance, zoonotes, pathogens, research dissemination, data transparency, open sourceness, metadata, email, contact us">
+
+    <meta property="og:url" content="https://www.fecobiome.com/contact/">
+    <meta property="og:description" content="This contact form can be used for feedback and suggestions, or as a means for scientists that wish to be part of the FI.">
+
+    <link rel="canonical" href="http://www.fecobiome.com/contact/">
+{% endblock extrahead %}
+
+{% block title %}{{ block.super }}| Submit data{% endblock %}
+{% block pagetitle %}Submit data{% endblock %}
+
+{% block content %}
+
+    <form class="submit-data-form" action="{% url 'contact-submit-data' %}" method="post" enctype="multipart/form-data">
+    <p>Submit data to the FI database. The uploaded file must be a <b>tab delimited text file</b>. You can export these from Excel by going to <span class="highlighted"> File > Save As... ></span> and in <span class="highlighted">File Format</span> select <span class="highlighted">Tab delimited Text (.txt)</span></p>
+        {% csrf_token %}
+        <p>
+            {{ form.database.label }}
+            {{ form.database }}
+        </p>
+        <p>
+            <a id="txt-dl-link" class="btn btn-secondary FBI-btn FBI-btn-orange" href="{% static form.first_example_file.0 %}" download >Download .txt example</a>
+            <a id="xlsx-dl-link" class="btn btn-secondary FBI-btn FBI-btn-orange" href="{% static form.first_example_file.1 %}" download >Download .xslx example</a>
+        </p>
+        <p>
+            {{ form.name.label }}
+            {{ form.name }}
+        </p>
+        <p>
+            {{ form.email.label }}
+            {{ form.email }}
+        </p>
+        <p>
+            {{ form.affiliation.label }}
+            {{ form.affiliation }}
+        </p>
+        <p>
+            {{ form.message.label }}
+            {{ form.message }}
+        </p>
+        <p>
+            <label class="btn btn-secondary FBI-btn FBI-btn-orange"  for="id_file">Upload tab delimited text file</label><span id="selected_filename"></span>
+            {{ form.file }}
+        </p>
+        <input class="btn btn-secondary FBI-btn" type="submit" value="Submit">
+        <script>
+        filefield = $("#id_file");
+        filefield.change(function() {
+            var filename = filefield.val().replace(/C:\\fakepath\\/i, '');
+            $("#selected_filename").html(filename);
+        })
+        </script>
+    </form>
+    <script> fetch_resources_meta_url = '{% url "fetch_resources_meta" %}' </script>
+    <script src="{% static 'scripts/submit_data.js' %}"></script>
+{% endblock %}
+

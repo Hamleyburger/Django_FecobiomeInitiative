@@ -76,3 +76,41 @@ def textify(html):
     text_only = text_only.replace('&nbsp;', '')
     # Strip single spaces in the beginning of each line
     return text_only.replace('\n ', '\n').strip()
+
+
+def submit_data_to_admin(sender_name, email, affiliation, recipients: list, message, file, data_type):
+    """ Sends an email with attached file to the given email addresses """
+
+    sender_email = email.lower()
+    bot_message = "Name: {}\nAffiliation: {}\nEmail: {}\n\n{}".format(sender_name, affiliation, email, message)
+
+    try:
+        
+        submission_email = EmailMessage(
+            "{} submission request".format(data_type),
+            bot_message,
+            sender_email,
+            recipients,
+            reply_to=[sender_email],
+            headers={'From': '{} from {} <{}>'.format(sender_name, affiliation, sender_email)},
+        )
+
+        submission_email.attach(file.name, file.read())
+        submission_email.send(fail_silently=False)
+
+        status = "success"
+        feedback = "Your submission has been sent"
+    except Exception as E:
+        status = "error"
+        feedback = "Submission failed"
+        print(E)
+    
+    # If contacter happens to be a newsletter subscriber, give them a name. Purely for admin friendliness.
+    subscriber = NewsletterSubscriber.objects.filter(email=sender_email).first()
+    if subscriber:
+        if not subscriber.name:
+            subscriber.name = sender_name
+            subscriber.save()
+
+    return {"status": status, "feedback": feedback}
+

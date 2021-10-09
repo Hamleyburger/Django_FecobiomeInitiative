@@ -8,6 +8,21 @@ import urllib
 import requests
 from .API_helpers.publications import get_biorxiv_meta, get_pubmed_meta, clean_doi
 
+resources_meta = {
+
+    "seq": {
+        "name": "Sequencing data",
+        "example_file_txt": "example_files/data_template.txt",
+        "example_file_xslx": "example_files/data_template.xlsx"
+    },
+
+    "pub": {
+        "name": "Publications",
+        "example_file_txt": "example_files/publication_template.txt",
+        "example_file_xslx": "example_files/publication_template.xlsx"
+    },
+
+}
 
 class Publication(models.Model):
 

@@ -86,11 +86,11 @@
             <div class="upload-div upload-intro">
                 <p>Upload a tab-separated txt file with the following headers (no commas)*:
                 </p>
-                <p>run_accession,	sample_type,	location,	farm_name,	farm_size,	animal,	antibiotics	host,	age_months,	diet,	sample_date_dmy,	doi</p>
+                <p>run_accession	biodata	doi	no_of_samples	no_of_animals	FBP_detected	target_region_16s	data_type	animal	sample_type	location	farm_name	farm_size	antibiotics	host	age_months	diet	sample_date_dmy</p>
                 <p>Download template files with all headers:</p>
                 <div class="download-links">
-                    <a class="download-link txt" href="{% static 'admin/example_files/data_template.txt' %}" download>Template file.txt</a>
-                    <a class="download-link xlsx" href="{% static 'admin/example_files/data_template.xslx' %}" download>Template file.xlsx</a>
+                    <a class="download-link txt" href="{% static 'example_files/data_template.txt' %}" download>Template file.txt</a>
+                    <a class="download-link xlsx" href="{% static 'example_files/data_template.xslx' %}" download>Template file.xlsx</a>
                 </div>
             </div>
         </div>
