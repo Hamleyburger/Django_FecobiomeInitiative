@@ -13,13 +13,13 @@ resources_meta = {
     "seq": {
         "name": "Sequencing data",
         "example_file_txt": "example_files/data_template.txt",
-        "example_file_xslx": "example_files/data_template.xlsx"
+        "example_file_xlsx": "example_files/data_template.xlsx"
     },
 
     "pub": {
         "name": "Publications",
         "example_file_txt": "example_files/publication_template.txt",
-        "example_file_xslx": "example_files/publication_template.xlsx"
+        "example_file_xlsx": "example_files/publication_template.xlsx"
     },
 
 }

@@ -81,9 +81,9 @@ def fetch_resources_meta(request):
     meta_key = request.POST.get('key')
     requested_dict = resources_meta.get(meta_key)
     txt_path = requested_dict.get("example_file_txt")
-    xslx_path = requested_dict.get("example_file_xslx")
+    xlsx_path = requested_dict.get("example_file_xlsx")
     data = {
         'txt_path': txt_path,
-        'xlsx_path':  xslx_path
+        'xlsx_path':  xlsx_path
     }
     return JsonResponse(data)

@@ -40,11 +40,11 @@ class SubmitDataForm(forms.Form):
         database_choices.append((key, value["name"]))
         example_file_choices[key] = {
             "txt": value["example_file_txt"],
-            "xslx": value["example_file_xslx"]
+            "xlsx": value["example_file_xlsx"]
         }
 
     first_example_file = [example_file_choices[database_choices[0][0]]
-                          ["txt"], example_file_choices[database_choices[0][0]]["xslx"]]
+                          ["txt"], example_file_choices[database_choices[0][0]]["xlsx"]]
 
     contactables = User.objects.filter(profile__contactable=True).all()
 

@@ -28,7 +28,7 @@
         </p>
         <p>
             <a id="txt-dl-link" class="btn btn-secondary FBI-btn FBI-btn-orange" href="{% static form.first_example_file.0 %}" download >Download .txt example</a>
-            <a id="xlsx-dl-link" class="btn btn-secondary FBI-btn FBI-btn-orange" href="{% static form.first_example_file.1 %}" download >Download .xslx example</a>
+            <a id="xlsx-dl-link" class="btn btn-secondary FBI-btn FBI-btn-orange" href="{% static form.first_example_file.1 %}" download >Download .xlsx example</a>
         </p>
         <p>
             {{ form.name.label }}
@@ -59,7 +59,9 @@
         })
         </script>
     </form>
-    <script> fetch_resources_meta_url = '{% url "fetch_resources_meta" %}' </script>
+    <script> 
+        fetch_resources_meta_url = '{% url "fetch_resources_meta" %}';
+    </script>
     <script src="{% static 'scripts/submit_data.js' %}"></script>
 {% endblock %}
 

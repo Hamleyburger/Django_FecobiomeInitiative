@@ -14,7 +14,7 @@ db_choice.change(function(event){
         dataType: 'json',
         success: function (data) {
             $("#txt-dl-link").attr("href", data.txt_path);
-            $("#xslx-dl-link").attr("href", data.xslx_path);
+            $("#xlsx-dl-link").attr("href", data.xlsx_path);
         }
       });
 
