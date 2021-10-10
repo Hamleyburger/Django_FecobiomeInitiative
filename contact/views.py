@@ -82,6 +82,7 @@ def fetch_resources_meta(request):
     requested_dict = resources_meta.get(meta_key)
     txt_path = requested_dict.get("example_file_txt")
     xlsx_path = requested_dict.get("example_file_xlsx")
+    print(requested_dict)
     data = {
         'txt_path': txt_path,
         'xlsx_path':  xlsx_path
