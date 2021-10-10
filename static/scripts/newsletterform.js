@@ -43,6 +43,59 @@ function subscribe_newsletter() {
 };
 
 
+
+
+// Submit post on submit
+$('#membership-form').on('submit', function(event){
+    event.preventDefault();
+    console.log("form submitted!")  // sanity check
+    request_membership();
+});
+
+// AJAX for posting
+function request_membership() {
+    console.log("request membership is working!") // sanity check
+    console.log($('#id-email').val())
+    console.log($('#id-firstname').val())
+    console.log($('#id-lastname').val())
+    console.log($('#id_profile_picture').val())
+    console.log($('#id_display_member').val())
+    subscribtion_url = $('#register-member-btn').data('url');
+    
+    $.ajax({
+        url : subscribtion_url, // the endpoint
+        type : "POST", // http method
+        data : { input_email : $('#input-email').val() }, // data sent with the post request
+
+        // handle a successful response
+        success : function(json) {
+            if (json.error) {
+                console.log("error");
+            }
+            if (json.success) {
+                console.log("success");
+                $('#input-email').val(''); // remove the value from the input
+                // show-slode-message: show a message and slide it up
+                $('#ajax-message-content').html("Successfully subscribed to the Fecobiome Initiative newsletter");
+                $("#ajax-message").fadeTo(6000, 500).slideUp(500, function() {
+                    $("#ajax-message").slideUp(500);
+                });
+                // end of show-slide-message function
+            }
+        },
+        // handle a non-successful response
+        error : function(xhr,errmsg,err) {
+            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
+                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
+            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
+        }
+    });
+};
+
+
+
+
+
 // Someone else's code to get csrf token
 $(function() {
 

@@ -255,11 +255,10 @@ body {
                         width: fit-content;
                     }
                     @media only screen and (max-width: $expand-sidebar-max-breakpoint) {
-                        flex-direction: row;
+                        //flex-direction: row;
                         margin-bottom: 30px;
                         .FBI-btn {
                             margin: 0;
-                            margin-left: 15px;
                         }
 
                     }

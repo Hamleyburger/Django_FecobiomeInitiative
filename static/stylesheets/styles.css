@@ -398,15 +398,10 @@ body .site-inner aside .sidebar-block.side-b form .FBI-btn {
 
 @media only screen and (max-width: 1079px) {
   body .site-inner aside .sidebar-block.side-b form {
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-            flex-direction: row;
     margin-bottom: 30px;
   }
   body .site-inner aside .sidebar-block.side-b form .FBI-btn {
     margin: 0;
-    margin-left: 15px;
   }
 }
 

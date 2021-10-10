@@ -195,8 +195,33 @@
                     {{ newsletter_form }}
                     <input id="subscribe-newsletter-btn" class="btn btn-secondary FBI-btn" type="submit" value="OK" data-url="{% url 'subscribe-to-newsletter' %}">
                 </form>
-
             </div>
+            <!--div class="sidebar-block side-b">
+                <p>Join the initiative</p>
+                <form action="#" id="membership-form" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <p>
+                    {{ member_user_form.first_name }}
+                    </p>
+                    <p>
+                    {{ member_user_form.last_name }}
+                    </p>
+                    <p>
+                    {{ member_user_form.email }}
+                    </p>
+                    <p>
+                    <label class="btn btn-secondary FBI-btn"  for="id_profile_picture">Self portrait (optional)</label><span id="selected_filename"></span>
+                    {{ member_profile_form.profile_picture }}
+                    </p>
+                    <p>
+                    <label for="id_display_member">I am okay with being visible on the members page. (My email will not be visible)</label>
+                    {{ member_profile_form.display_member }}
+                    </p>
+                    <input id="register-member-btn" class="btn btn-secondary FBI-btn" type="submit" value="OK" data-url="{% url 'request-membership' %}">
+                </form>
+            </div-->
+
+
         </aside>
     </div>
 
