@@ -1,9 +1,6 @@
 const db_choice = $("#id_database");
 db_choice.change(function(event){
 
-    console.log(event.target);
-    console.log(event.target.value);
-    console.log(fetch_resources_meta_url);
     $.ajax({
         // url is defined in submit_data.html
         url: fetch_resources_meta_url,
@@ -13,8 +10,9 @@ db_choice.change(function(event){
         method: "post",
         dataType: 'json',
         success: function (data) {
-            $("#txt-dl-link").attr("href", data.txt_path);
-            $("#xlsx-dl-link").attr("href", data.xlsx_path);
+            // static_root is defined in head of base.html
+            $("#txt-dl-link").attr("href", static_root + data.txt_path);
+            $("#xlsx-dl-link").attr("href", static_root + data.xlsx_path);
         }
       });
 
