@@ -4,10 +4,9 @@ import json
 from django.http import Http404
 from django.core.validators import validate_email
 from user.subscription_handler import subscribe
+from user.file_helpers import get_mimetype
 from .forms import ProfileForm, UserForm
 from django.utils.safestring import mark_safe
-
-
 
 def home(request):
     return render(request, "pages/index.html")
@@ -49,10 +48,20 @@ def request_membership(request):
 
         if request.is_ajax():
 
-
-            print(request.FILES)
             if user_form.is_valid() and profile_form.is_valid():
                 print("forms are is valid");
+
+                file = request.FILES.get("profile_picture")
+                if file:
+                    mimetype = get_mimetype(file)
+                    if mimetype != "image/png" and mimetype != "image/jpeg":
+                        return HttpResponse(
+                            json.dumps({ "error": "Profile picture must be .jpeg or .png" }),
+                            content_type="application/json"
+                        )
+
+                #If file was invalid, function has already been returned.
+                # Save file somewhere when we have a user id
 
                 user_form = user_form.clean()
                 profile_form = profile_form.clean()
@@ -60,9 +69,6 @@ def request_membership(request):
 
 
                 """
-                # JS: Crop og resize billede i front end
-                # Validateimage: Prøv også at tjekke billedets mimetype
-
                 # UpdatecreateUser
                 Check if user with email exists:
                     CreateUser: Lav en ny (midlertidig) user med id. Hvis anden user med email eksisterer, så skrot den gamle plus billede hvis denne verificeres.
@@ -73,9 +79,6 @@ def request_membership(request):
                         - I emailen skal der enten stå, om man vil lave en ny, og hvis der allerede findes en entry vil den blive erstattes af den nye.
                         - Der skal også stå, hvor mange timer, folk har til at klikke på linket.
                 # Når der er sendt en verification email, så ændr formens indholf til at skrive "check your email"
-
-                    
-
                 """
 
 
