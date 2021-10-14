@@ -21,7 +21,7 @@
     <form action="{% url 'unsubscribe' %}" id="unsubscribe-form" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input id="unsubscribe-newsletter-btn" class="btn btn-secondary FBI-btn" type="submit" value="Unsubscribe">
+        <input id="unsubscribe-newsletter-btn" class="btn btn-secondary FBI-btn" type="submit" name="submit_unsubscribe" value="Unsubscribe">
     </form>
 
 

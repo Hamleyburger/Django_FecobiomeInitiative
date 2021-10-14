@@ -124,7 +124,7 @@ body .nav-panel {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   width: calc(100% - 1%);
-  min-height: 64px;
+  min-height: 66px;
   top: 0.5%;
   left: 0.5%;
   position: fixed;
@@ -438,7 +438,7 @@ body .site-inner aside .sidebar-block .so-me-icons .row .col {
 body .feedback-messages {
   position: -webkit-sticky;
   position: sticky;
-  top: 64px;
+  top: 66px;
 }
 
 body .feedback-messages .container-fluid .alert {

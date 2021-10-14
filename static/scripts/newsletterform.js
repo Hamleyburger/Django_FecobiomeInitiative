@@ -26,11 +26,7 @@ function subscribe_newsletter() {
                 console.log("success");
                 $('#input-email').val(''); // remove the value from the input
                 // show-slode-message: show a message and slide it up
-                $('#ajax-message-content').html("Successfully subscribed to the Fecobiome Initiative newsletter");
-                $("#ajax-message").fadeTo(6000, 500).slideUp(500, function() {
-                    $("#ajax-message").slideUp(500);
-                });
-                // end of show-slide-message function
+                flash_message_with_ajax("Successfully subscribed to the Fecobiome Initiative newsletter", "alert-success");
             }
         },
         // handle a non-successful response
@@ -45,53 +41,75 @@ function subscribe_newsletter() {
 
 
 
-// Submit post on submit
-$('#membership-form').on('submit', function(event){
+
+
+$('#membership-form').submit(function(event) { // catch the form's submit event
     event.preventDefault();
-    console.log("form submitted!")  // sanity check
-    request_membership();
+    // Make form data for the two django forms
+    fd = new FormData();
+    //member_profile_form = new FormData();
+
+    // Get values
+    csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]')[0].value;
+    first_name = $("#id_first_name").val();
+    last_name = $("#id_last_name").val();
+    email = $("#id_email").val();
+    affiliation = $("#id_affiliation").val();
+    //profile_picture = $("#id_profile_picture").prop('files')[0];
+    profile_picture = new File([cropped_blob], "profile_picture.jpg");
+    display_member = $("#id_display_member").val();
+
+    console.log(cropped_blob);
+
+
+    // Process member user form
+    fd.append('csrfmiddlewaretoken', csrfmiddlewaretoken);
+    fd.append('first_name', first_name);
+    fd.append('last_name', last_name);
+    fd.append('email', email);
+
+
+    // Process member profile form
+    fd.append('csrfmiddlewaretoken', csrfmiddlewaretoken);
+    fd.append('affiliation', affiliation);
+    fd.append('profile_picture', profile_picture);
+    fd.append('display_member', display_member);
+
+    // Post forms with ajax
+
+    console.log($(this).serialize());
+    console.log($(this).attr('method'));
+    console.log($(this).attr('action'));
+
+    
+    $.ajax({ // create an AJAX call...
+        type: "POST", // GET or POST
+        url: $(this).attr('action'), // the file to call
+        enctype: "multipart/form-data",
+        data: fd,
+        success: function(response) { // on success..
+            console.log("ajax success");
+        },
+        cache: false,
+        contentType: false,
+        processData: false,
+
+    }).done(function (data) {
+
+        if (data.success){
+            flash_message_with_ajax(data.success, "alert-success");
+        }
+        else if (data.error){
+            flash_message_with_ajax(data.error, "alert-danger");
+        }
+    });
+    return false;
 });
 
-// AJAX for posting
-function request_membership() {
-    console.log("request membership is working!") // sanity check
-    console.log($('#id-email').val())
-    console.log($('#id-firstname').val())
-    console.log($('#id-lastname').val())
-    console.log($('#id_profile_picture').val())
-    console.log($('#id_display_member').val())
-    subscribtion_url = $('#register-member-btn').data('url');
-    
-    $.ajax({
-        url : subscribtion_url, // the endpoint
-        type : "POST", // http method
-        data : { input_email : $('#input-email').val() }, // data sent with the post request
-
-        // handle a successful response
-        success : function(json) {
-            if (json.error) {
-                console.log("error");
-            }
-            if (json.success) {
-                console.log("success");
-                $('#input-email').val(''); // remove the value from the input
-                // show-slode-message: show a message and slide it up
-                $('#ajax-message-content').html("Successfully subscribed to the Fecobiome Initiative newsletter");
-                $("#ajax-message").fadeTo(6000, 500).slideUp(500, function() {
-                    $("#ajax-message").slideUp(500);
-                });
-                // end of show-slide-message function
-            }
-        },
-        // handle a non-successful response
-        error : function(xhr,errmsg,err) {
-            $('#results').html("<div class='alert-box alert radius' data-alert>Oops! We have encountered an error: "+errmsg+
-                " <a href='#' class='close'>&times;</a></div>"); // add the error to the dom
-            console.log(xhr.status + ": " + xhr.responseText); // provide a bit more info about the error to the console
-        }
-    });
-};
-
+$("#id_profile_picture").change(function() {
+    console.log("change");
+    show_model_for_selected_file()
+});
 
 
 

@@ -20,7 +20,7 @@
     <form action="{% url 'contact-home' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input class="btn btn-secondary FBI-btn" type="submit" value="Submit">
+        <input class="btn btn-secondary FBI-btn" type="submit" name="contact_submit" value="Submit">
     </form>
 
 {% endblock %}
