@@ -197,15 +197,17 @@
                 </div>
 
             </div>
-            <!--div class="sidebar-block side-b">
+            <div class="sidebar-block side-b">
                 <p>Subscribe to our newsletter</p>
                 <form action="#" id="newsletter-form" method="post">
                     {% csrf_token %}
                     {{ newsletter_form }}
                     <input id="subscribe-newsletter-btn" class="btn btn-secondary FBI-btn" type="submit" value="OK" data-url="{% url 'subscribe-to-newsletter' %}">
                 </form>
-            </div-->
-            <div class="sidebar-block side-b">
+            </div>
+
+            <!-- Member subscription form -->
+            <!--div class="sidebar-block side-b">
                 <p>Join the initiative</p>
                 <form action="{% url 'request-membership' %}" id="membership-form" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
@@ -231,7 +233,8 @@
                     </p>
                     <input id="register-member-btn" class="btn btn-secondary FBI-btn" type="submit" name="submit_member" value="OK" data-url="{% url 'request-membership' %}">
                 </form>
-            </div>
+            </div-->
+            <!-- End of member subscription form -->
 
 
         </aside>

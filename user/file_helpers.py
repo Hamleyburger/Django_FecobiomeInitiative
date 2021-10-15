@@ -1,5 +1,5 @@
 import magic
-import PIL
+from PIL import Image
 
 
 def get_mimetype(file):
@@ -13,17 +13,17 @@ def get_mimetype(file):
 
 
 
-def resize_crop_image(file):
+def resize_crop_image(file, square_width):
     """ Resizes a square image and crops an unsquared image
     (if for some reason javascript has been disabled in the
     browser and user managed to upload anyway) \n\n
     Returns PIL Image """
 
-    im = PIL.PIL_Image.open(file)
+    im = Image.open(file)
     width, height = im.size   # Get dimensions
     original_format = im.format
-    desired_width = 300
-    desired_height = 300
+    desired_width = square_width
+    desired_height = square_width
 
     # Resize a square
     if width == height:

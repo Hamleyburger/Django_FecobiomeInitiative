@@ -3,10 +3,11 @@ from django.shortcuts import render
 import json
 from django.http import Http404
 from django.core.validators import validate_email
-from user.subscription_handler import subscribe
-from user.file_helpers import get_mimetype
+from user.subscription_handler import subscribe, submit_member_request
+from user.file_helpers import get_mimetype, resize_crop_image
 from .forms import ProfileForm, UserForm
 from django.utils.safestring import mark_safe
+
 
 def home(request):
     return render(request, "pages/index.html")
@@ -14,6 +15,7 @@ def home(request):
 
 def wikiCow(request):
     return render(request, "pages/wikicow.html")
+
 
 def subscribe_newsletter(request):
     if request.method == 'POST':
@@ -28,13 +30,13 @@ def subscribe_newsletter(request):
         except:
             response_data['error'] = 'Invalid email'
 
-
         return HttpResponse(
             json.dumps(response_data),
             content_type="application/json"
         )
     else:
-        raise Http404("Use the newsletter subscription form to subscribe to our newsletter")
+        raise Http404(
+            "Use the newsletter subscription form to subscribe to our newsletter")
 
 
 def request_membership(request):
@@ -49,22 +51,35 @@ def request_membership(request):
         if request.is_ajax():
 
             if user_form.is_valid() and profile_form.is_valid():
-                print("forms are is valid");
+
+                first_name = user_form.cleaned_data.get("first_name")
+                last_name = user_form.cleaned_data.get("last_name")
+                email = user_form.cleaned_data.get("email")
+                affiliation = profile_form.cleaned_data.get("affiliation")
+                display_member = profile_form.cleaned_data.get(
+                    "display_member")
+                profile_picture = None
 
                 file = request.FILES.get("profile_picture")
                 if file:
+                    print(file)
                     mimetype = get_mimetype(file)
                     if mimetype != "image/png" and mimetype != "image/jpeg":
                         return HttpResponse(
-                            json.dumps({ "error": "Profile picture must be .jpeg or .png" }),
+                            json.dumps(
+                                {"error": "Profile picture must be .jpeg or .png"}),
                             content_type="application/json"
                         )
+                    profile_picture = resize_crop_image(file, 150)
 
-                #If file was invalid, function has already been returned.
-                # Save file somewhere when we have a user id
-
-                user_form = user_form.clean()
-                profile_form = profile_form.clean()
+                submit_member_request(
+                    first_name,
+                    last_name,
+                    email,
+                    affiliation,
+                    display_member,
+                    profile_picture
+                )
 
 
 

@@ -16,6 +16,7 @@ class Profile(models.Model):
     unregister_key = models.UUIDField(blank=False, default=uuid.uuid4, unique=True, editable=False)
     display_member = models.BooleanField("Show my profile on the site", default=True)
     user_verified = models.BooleanField("User has completed email verification", default=False)
+    #submission_time = models.DateTimeField("Time of submission", default=timezone.now)
 
 
 
@@ -24,6 +25,13 @@ class Profile(models.Model):
 
     def __str__(self):
         return "{} - Profile".format(self.user.username)
+
+
+    def create_profile_user():
+        # must first create and save user object
+        pass
+        
+
 
 class NewsletterSubscriber(models.Model):
     email = models.EmailField(unique=True, blank=False)
@@ -34,4 +42,5 @@ class NewsletterSubscriber(models.Model):
 
     def __str__(self):
         return "Subscriber: {}".format(self.email)
+
 

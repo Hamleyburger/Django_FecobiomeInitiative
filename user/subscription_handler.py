@@ -1,6 +1,7 @@
 import csv
 import uuid
-from user.models import NewsletterSubscriber
+from user.models import NewsletterSubscriber, Profile
+from django.contrib.auth.models import User
 
 
 
@@ -51,3 +52,29 @@ def get_unsubscribe_key(email):
     subscriber = NewsletterSubscriber.objects.filter(email=email).first()
     key = subscriber.unsubscribe_key
     return key
+
+
+def submit_member_request(first_name, last_name, email, affiliation, display_member, profile_picture):
+    can_submit(email)
+    # create user and profile object
+    # if there is no approved, make new pending, else:
+    #   if thre is a validated unapproved:
+    #
+    #   check if there is a pending
+    #   if there is not a pending, make a pending
+    #   if there is a pending, give feedback to first verify the pending "you already have a pending verification" and do nothing
+    #   if there
+    # save
+    # save image and link to profile
+    pass
+
+
+def can_submit(email):
+    """ Checks if user with is email is allowed to submit an unverified member request """
+    profiles = Profile.objects.filter(user__email=email).all()
+    if profiles:
+        for profile in profiles:
+            print("exists: {}".format(profile))
+            print("submission time: {}".format(profile.submission_time))
+    else:
+        print("no profile with this email: {}".format(email))
