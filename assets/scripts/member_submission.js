@@ -2,14 +2,11 @@
 // Submit post on submit
 $('#newsletter-form').on('submit', function(event){
     event.preventDefault();
-    console.log("form submitted!")  // sanity check
     subscribe_newsletter();
 });
 
 // AJAX for posting
 function subscribe_newsletter() {
-    console.log("subscribe newsletter is working!") // sanity check
-    console.log($('#input-email').val())
     subscribtion_url = $('#subscribe-newsletter-btn').data('url');
     
     $.ajax({
@@ -45,69 +42,74 @@ function subscribe_newsletter() {
 
 $('#membership-form').submit(function(event) { // catch the form's submit event
     event.preventDefault();
-    // Make form data for the two django forms
-    fd = new FormData();
-    //member_profile_form = new FormData();
+    form_action_url = $(this).attr('action');
 
-    // Get values
-    csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]')[0].value;
-    first_name = $("#id_first_name").val();
-    last_name = $("#id_last_name").val();
-    email = $("#id_email").val();
-    affiliation = $("#id_affiliation").val();
-    //profile_picture = $("#id_profile_picture").prop('files')[0];
-    profile_picture = new File([cropped_blob], "profile_picture.jpg");
-    display_member = $("#id_display_member").val();
+    // Wrap the ajax call in recaptcha code to have Google generate a recaptcha token
+    // Docs: https://developers.google.com/recaptcha/docs/v3
+    grecaptcha.ready(function() {
+        grecaptcha.execute(recaptcha_site_key, {action: 'submit'}).then(function(recaptcha_token) {
 
-    console.log(cropped_blob);
+            fd = new FormData();
+            
+            // Get values
+            // recaptcha_token is already = recaptcha_token
+            csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]')[0].value;
+            first_name = $("#id_first_name").val();
+            last_name = $("#id_last_name").val();
+            email = $("#id_email").val();
+            affiliation = $("#id_affiliation").val();
+            display_member = $("#id_display_member").val();
+            
+            if (cropped_blob != null) {
+                profile_picture = new File([cropped_blob], "profile_picture.jpg");
+                fd.append('profile_picture', profile_picture);
+            }
+            //profile_picture = $("#id_profile_picture").prop('files')[0];
+            
+            // Process member user form
+            fd.append('csrfmiddlewaretoken', csrfmiddlewaretoken);
+            fd.append('first_name', first_name);
+            fd.append('last_name', last_name);
+            fd.append('email', email);
+            
+            // Process member profile form
+            fd.append('csrfmiddlewaretoken', csrfmiddlewaretoken);
+            fd.append('affiliation', affiliation);
+            fd.append('display_member', display_member);
+            fd.append('recaptcha_token', recaptcha_token);
 
+            
+            // Post forms with ajax
+            $.ajax({ // create an AJAX call...
+                type: "POST", // GET or POST
+                url: form_action_url,
+                enctype: "multipart/form-data",
+                data: fd,
+                success: function(response) { // on success..
+                    console.log("ajax success");
+                },
+                cache: false,
+                contentType: false,
+                processData: false,
+                
+            }).done(function (data) {
+                
+                if (data.success){
+                    flash_message_with_ajax(data.success, "alert-success");
+                }
+                else if (data.error){
+                    flash_message_with_ajax(data.error, "alert-danger");
+                }
+            }); // End of ajax
 
-    // Process member user form
-    fd.append('csrfmiddlewaretoken', csrfmiddlewaretoken);
-    fd.append('first_name', first_name);
-    fd.append('last_name', last_name);
-    fd.append('email', email);
+        }); // end of grecaptcha.execute
+    }); // end of grecaptcha.ready
 
-
-    // Process member profile form
-    fd.append('csrfmiddlewaretoken', csrfmiddlewaretoken);
-    fd.append('affiliation', affiliation);
-    fd.append('profile_picture', profile_picture);
-    fd.append('display_member', display_member);
-
-    // Post forms with ajax
-
-    console.log($(this).serialize());
-    console.log($(this).attr('method'));
-    console.log($(this).attr('action'));
-
-    
-    $.ajax({ // create an AJAX call...
-        type: "POST", // GET or POST
-        url: $(this).attr('action'), // the file to call
-        enctype: "multipart/form-data",
-        data: fd,
-        success: function(response) { // on success..
-            console.log("ajax success");
-        },
-        cache: false,
-        contentType: false,
-        processData: false,
-
-    }).done(function (data) {
-
-        if (data.success){
-            flash_message_with_ajax(data.success, "alert-success");
-        }
-        else if (data.error){
-            flash_message_with_ajax(data.error, "alert-danger");
-        }
-    });
     return false;
-});
+
+}); // End of membershipform.submit
 
 $("#id_profile_picture").change(function() {
-    console.log("change");
     show_model_for_selected_file()
 });
 
@@ -116,8 +118,6 @@ $("#id_profile_picture").change(function() {
 
 // Someone else's code to get csrf token
 $(function() {
-
-
     // This function gets cookie with a given name
     function getCookie(name) {
         var cookieValue = null;

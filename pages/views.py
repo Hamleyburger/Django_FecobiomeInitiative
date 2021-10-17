@@ -4,9 +4,10 @@ import json
 from django.http import Http404
 from django.core.validators import validate_email
 from user.subscription_handler import subscribe, submit_member_request
-from user.file_helpers import get_mimetype, resize_crop_image
+from user.file_helpers import resize_crop_image
+from contact.mailsender import send_verification_mail
 from .forms import ProfileForm, UserForm
-from django.utils.safestring import mark_safe
+
 
 
 def home(request):
@@ -58,59 +59,39 @@ def request_membership(request):
                 affiliation = profile_form.cleaned_data.get("affiliation")
                 display_member = profile_form.cleaned_data.get(
                     "display_member")
-                profile_picture = None
+                recaptcha_score = profile_form.cleaned_data.get("recaptcha_token")
+                profile_picture = profile_form.cleaned_data.get("profile_picture")
 
-                file = request.FILES.get("profile_picture")
-                if file:
-                    print(file)
-                    mimetype = get_mimetype(file)
-                    if mimetype != "image/png" and mimetype != "image/jpeg":
-                        return HttpResponse(
-                            json.dumps(
-                                {"error": "Profile picture must be .jpeg or .png"}),
-                            content_type="application/json"
-                        )
-                    profile_picture = resize_crop_image(file, 150)
-
-                submit_member_request(
+                profile = submit_member_request(
                     first_name,
                     last_name,
                     email,
                     affiliation,
                     display_member,
-                    profile_picture
+                    recaptcha_score
                 )
 
+                if profile_picture:
+                    profile_picture = resize_crop_image(profile_picture, 150, str(profile.user.id))
+                    profile.profile_picture = profile_picture
+                    profile.save()
 
-
+                send_verification_mail(profile)
                 """
-                # UpdatecreateUser
-                Check if user with email exists:
-                    CreateUser: Lav en ny (midlertidig) user med id. Hvis anden user med email eksisterer, så skrot den gamle plus billede hvis denne verificeres.
-                    # Gør noget med billede
-                    Resize billede og crop ligesom i minimalepar.
-                    Gem billede i media med brugerens id som filnavn.
-                        Tjek om der er nogen brugere, der ikke er verificeret, hvor forskellen på nu og submission time er mere end (1 time?)
-                        - I emailen skal der enten stå, om man vil lave en ny, og hvis der allerede findes en entry vil den blive erstattes af den nye.
+                        Send verifikationsemail.
                         - Der skal også stå, hvor mange timer, folk har til at klikke på linket.
                 # Når der er sendt en verification email, så ændr formens indholf til at skrive "check your email"
                 """
 
-
-
-
-
                 response = {"success": "Application received. Please check your email for verification."}
 
-
             else:
-
+                print(profile_form.errors)
                 response = { "error": "Something went wrong" }
                 for key, value in profile_form.errors.items():
                     response = { "error": value }
                 for key, value in user_form.errors.items():
                     response = { "error": value }
-
 
         return HttpResponse(
             json.dumps(response),

@@ -1,7 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+from datetime import datetime
 import uuid
+from django.dispatch import receiver
+import os
 
 
 
@@ -13,11 +16,11 @@ class Profile(models.Model):
     profile_picture = models.ImageField("Profile picture", null=True, blank=True, upload_to="user_profile_pics")
     affiliation = models.CharField(max_length=150, null=True, blank=True)
     approved = models.BooleanField("Approved member", default=False)
-    unregister_key = models.UUIDField(blank=False, default=uuid.uuid4, unique=True, editable=False)
+    registration_key = models.UUIDField(blank=False, default=uuid.uuid4, unique=True, editable=False)
     display_member = models.BooleanField("Show my profile on the site", default=True)
     user_verified = models.BooleanField("User has completed email verification", default=False)
-    #submission_time = models.DateTimeField("Time of submission", default=timezone.now)
-
+    submission_time = models.DateTimeField("Time of submission", default=timezone.now)
+    recaptcha_score = models.FloatField(default=0.0)
 
 
     class Meta:
@@ -27,9 +30,15 @@ class Profile(models.Model):
         return "{} - Profile".format(self.user.username)
 
 
-    def create_profile_user():
-        # must first create and save user object
-        pass
+@receiver(models.signals.post_delete, sender=Profile)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    """
+    Deletes file from filesystem
+    when corresponding `MediaFile` object is deleted.
+    """
+    if instance.profile_picture:
+        if os.path.isfile(instance.profile_picture.path):
+            os.remove(instance.profile_picture.path)
         
 
 

@@ -1,4 +1,5 @@
 from pages import forms
+from django.conf import settings
 
 
 def base_context(request):
@@ -9,6 +10,7 @@ def base_context(request):
     return {
         'newsletter_form': newsletterform,
         'member_user_form': member_user_form,
-        'member_profile_form': member_profile_form
+        'member_profile_form': member_profile_form,
+        'recaptcha_site_key': settings.RECAPTCHA_PUBLIC_KEY,
     }
 

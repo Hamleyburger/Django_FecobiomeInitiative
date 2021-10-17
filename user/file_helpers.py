@@ -1,5 +1,9 @@
 import magic
 from PIL import Image
+from io import BytesIO
+from django.core.files.base import ContentFile
+import requests
+from io import BytesIO, StringIO
 
 
 def get_mimetype(file):
@@ -13,7 +17,7 @@ def get_mimetype(file):
 
 
 
-def resize_crop_image(file, square_width):
+def resize_crop_image(file, square_width, new_filename="image"):
     """ Resizes a square image and crops an unsquared image
     (if for some reason javascript has been disabled in the
     browser and user managed to upload anyway) \n\n
@@ -21,7 +25,7 @@ def resize_crop_image(file, square_width):
 
     im = Image.open(file)
     width, height = im.size   # Get dimensions
-    original_format = im.format
+    original_format = im.format.lower()
     desired_width = square_width
     desired_height = square_width
 
@@ -47,7 +51,9 @@ def resize_crop_image(file, square_width):
             # Crop the center of the image
             im = im.crop((left, top, right, bottom))
 
-    im.format = original_format
+    img_io = BytesIO()
+    im.save(img_io, format=original_format, quality=100)
+    img_content = ContentFile(img_io.getvalue(), "{}.{}".format(new_filename, original_format))
+    return img_content
 
-    return im
 

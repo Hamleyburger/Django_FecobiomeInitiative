@@ -37,3 +37,39 @@ $(document).ready(function() {
         $(m).slideUp(500);
     });
 });
+
+
+// Creates a new message element and fades it out. Destroys the previous if any.
+function flash_message_with_ajax(message, alert_class) {
+    console.log("flashing");
+
+    $("#ajax-message").remove();
+
+    jQuery('<div>', {
+        id: 'ajax-message',
+        style: '',
+        class: 'container-fluid p-0',
+    }).appendTo('.feedback-messages');
+
+    jQuery('<div>', {
+        id: 'ajax-message-class',
+        style: '',
+        class: 'alert fade show',
+        role: "alert",
+    }).appendTo('#ajax-message');
+
+    jQuery('<span>', {
+        id: 'ajax-message-content',
+    }).appendTo('#ajax-message-class');
+
+    // show-slide-message: show a message and slide it up
+    $('#ajax-message-content').html(message);
+    $('#ajax-message-class').removeClass("alert-danger");
+    $('#ajax-message-class').removeClass("alert-success");
+    $('#ajax-message-class').addClass(alert_class);
+    $("#ajax-message").fadeTo(6000, 500).slideUp(500, function() {
+        $("#ajax-message").slideUp(500);
+    });
+    // end of show-slide-message function
+    
+}

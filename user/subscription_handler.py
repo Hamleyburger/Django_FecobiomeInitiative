@@ -2,7 +2,9 @@ import csv
 import uuid
 from user.models import NewsletterSubscriber, Profile
 from django.contrib.auth.models import User
-
+from django.utils import timezone
+from datetime import datetime
+import uuid
 
 
 def subscribe(email):
@@ -54,8 +56,28 @@ def get_unsubscribe_key(email):
     return key
 
 
-def submit_member_request(first_name, last_name, email, affiliation, display_member, profile_picture):
-    can_submit(email)
+def submit_member_request(first_name, last_name, email, affiliation, display_member, recaptcha_score):
+    clear_previous_unverified(email)
+
+    user = User(
+        username="{} {}".format(first_name, last_name),
+        first_name=first_name,
+        last_name=last_name,
+        email=email,
+        )
+    user.save()
+    profile = Profile(
+        display_name="{} {}".format(user.first_name, user.last_name),
+        affiliation=affiliation,
+        display_member=display_member,
+        recaptcha_score=recaptcha_score,
+    )
+
+    profile.user = user
+    profile.save()
+    message = "Dear {}. This is an email".format(user.first_name)
+    #user.email_user("Test mail", message, from_email="alma9000@gmail.com")
+    return profile
     # create user and profile object
     # if there is no approved, make new pending, else:
     #   if thre is a validated unapproved:
@@ -66,15 +88,21 @@ def submit_member_request(first_name, last_name, email, affiliation, display_mem
     #   if there
     # save
     # save image and link to profile
-    pass
 
 
-def can_submit(email):
-    """ Checks if user with is email is allowed to submit an unverified member request """
+
+def clear_previous_unverified(email):
+    """ Checks if there is already an unverified member request and delete it.\n """
     profiles = Profile.objects.filter(user__email=email).all()
     if profiles:
         for profile in profiles:
-            print("exists: {}".format(profile))
-            print("submission time: {}".format(profile.submission_time))
-    else:
-        print("no profile with this email: {}".format(email))
+            if not profile.approved and not profile.user_verified:
+                user = profile.user
+                print(user)
+                user.delete()
+    #             now = datetime.now().replace(tzinfo=None) 
+    #             difference = now - profile.submission_time.replace(tzinfo=None)
+    #             difference_in_minutes = int(difference.total_seconds()) / 60
+    #             if not difference_in_minutes > 30:
+    #                 return False
+    # return True

@@ -114,3 +114,5 @@ def submit_data_to_admin(sender_name, email, affiliation, recipients: list, mess
 
     return {"status": status, "feedback": feedback}
 
+def send_verification_mail(profile):
+    print("sendin mail to user, {}".format(profile.user.email))

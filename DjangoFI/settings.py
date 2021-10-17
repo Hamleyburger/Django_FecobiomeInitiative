@@ -33,7 +33,7 @@ SECRET_KEY = secret_secret_key
 DEBUG = secret_debug
 
 ALLOWED_HOSTS = ['192.168.1.18', '127.0.0.1',
-                 'fecobiome.pythonanywhere.com', '0.0.0.0', 'www.fecobiome.com', 'fecobiome.com']
+                 'fecobiome.pythonanywhere.com', '0.0.0.0', 'www.fecobiome.com', 'fecobiome.com', 'localhost']
 
 
 # Application definition
@@ -140,7 +140,7 @@ STATICFILES_DIRS = (
 )
 STATIC_ROOT = os.path.join(BASE_DIR, 'assets')
 
-# Media url and root I made for storing images based on this guy: 
+# Media url and root I made for storing images based on this guy:
 # https://www.youtube.com/watch?v=ygzGr51dbsY&list=PLCC34OHNcOtr025c1kHSPrnP18YPB-NFi&index=26
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
@@ -154,18 +154,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CKEDITOR_CONFIGS = {
     "default": {
         "removePlugins": "stylesheetparser",
-        'skin': 'moono-lisa', 
-        'toolbar_Basic': [['-', 'Bold', 'Italic']], 
+        'skin': 'moono-lisa',
+        'toolbar_Basic': [['-', 'Bold', 'Italic']],
         'toolbar_Full': [
-            ['Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'], 
-            ['Link', 'Unlink'], ['Table'], 
-            ['SpecialChar']], 
-        'toolbar': 'Full', 
-        'height': 291, 
-        'width': 'auto', 
-        'filebrowserWindowWidth': 940, 
+            ['Bold', 'Italic', 'Underline', 'Strike',
+                'SpellChecker', 'Undo', 'Redo'],
+            ['Link', 'Unlink'], ['Table'],
+            ['SpecialChar']],
+        'toolbar': 'Full',
+        'height': 291,
+        'width': 'auto',
+        'filebrowserWindowWidth': 940,
         'filebrowserWindowHeight': 725,
-        }
+    }
 }
 
 # Email configs for mailing bot
@@ -177,16 +178,14 @@ EMAIL_HOST_PASSWORD = secret_email_password
 EMAIL_USE_TLS = True
 
 
-
-
 # By importing messages we can set bootstrap classes to django message categories:
 MESSAGE_TAGS = {
-        messages.DEBUG: 'alert-secondary',
-        messages.INFO: 'alert-info',
-        messages.SUCCESS: 'alert-success',
-        messages.WARNING: 'alert-warning',
-        messages.ERROR: 'alert-danger',
- }
+    messages.DEBUG: 'alert-secondary',
+    messages.INFO: 'alert-info',
+    messages.SUCCESS: 'alert-success',
+    messages.WARNING: 'alert-warning',
+    messages.ERROR: 'alert-danger',
+}
 
 
 # HTTPS SETTINGS
@@ -199,3 +198,10 @@ SECURE_SSL_REDIRECT = secret_secure_ssl_redirect
 SECURE_HSTS_SECONDS = secret_secure_hsts_seconds
 SECURE_HSTS_PRELOAD = secret_secure_hsts_preload
 SECURE_HSTS_INCLUDE_SUBDOMAINS = secret_secure_hsts_include_subdomains
+
+if DEBUG:
+    RECAPTCHA_PUBLIC_KEY = debug_recaptcha_site_key
+    RECAPTCHA_PRIVATE_KEY = debug_recaptcha_secret_key
+else:
+    RECAPTCHA_PUBLIC_KEY = deploy_recaptcha_site_key
+    RECAPTCHA_PRIVATE_KEY = deploy_recaptcha_secret_key
