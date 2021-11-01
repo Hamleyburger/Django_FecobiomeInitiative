@@ -32,10 +32,10 @@ SECRET_KEY = secret_secret_key
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = secret_debug
 
-ALLOWED_HOSTS = ['192.168.1.18', '127.0.0.1',
-                 'fecobiome.pythonanywhere.com', '0.0.0.0', 'www.fecobiome.com', 'fecobiome.com', 'localhost']
-
-
+if DEBUG:
+    ALLOWED_HOSTS = allowed_hosts_debug
+else:
+    ALLOWED_HOSTS = ['fecobiome.pythonanywhere.com', 'www.fecobiome.com', 'fecobiome.com']
 # Application definition
 
 INSTALLED_APPS = [

@@ -50,12 +50,6 @@ def get_subscribers_emails():
     return emails
 
 
-def get_unsubscribe_key(email):
-    subscriber = NewsletterSubscriber.objects.filter(email=email).first()
-    key = subscriber.unsubscribe_key
-    return key
-
-
 def submit_member_request(first_name, last_name, email, affiliation, display_member, recaptcha_score):
     clear_previous_unverified(email)
 
@@ -75,20 +69,8 @@ def submit_member_request(first_name, last_name, email, affiliation, display_mem
 
     profile.user = user
     profile.save()
-    message = "Dear {}. This is an email".format(user.first_name)
-    #user.email_user("Test mail", message, from_email="alma9000@gmail.com")
-    return profile
-    # create user and profile object
-    # if there is no approved, make new pending, else:
-    #   if thre is a validated unapproved:
-    #
-    #   check if there is a pending
-    #   if there is not a pending, make a pending
-    #   if there is a pending, give feedback to first verify the pending "you already have a pending verification" and do nothing
-    #   if there
-    # save
-    # save image and link to profile
 
+    return profile
 
 
 def clear_previous_unverified(email):
@@ -100,9 +82,16 @@ def clear_previous_unverified(email):
                 user = profile.user
                 print(user)
                 user.delete()
-    #             now = datetime.now().replace(tzinfo=None) 
-    #             difference = now - profile.submission_time.replace(tzinfo=None)
-    #             difference_in_minutes = int(difference.total_seconds()) / 60
-    #             if not difference_in_minutes > 30:
-    #                 return False
-    # return True
+
+def verify_profile(profile):
+    # Clear previous verified, unapproved profiles (approved profile rank highest in the hierarchy)
+    old_profiles = Profile.objects.filter(user__email=profile.user.email, approved=False, user_verified=True).all()
+    
+    for old_profile in old_profiles:
+        user = old_profile.user
+        user.delete()
+
+    profile.user_verified = True
+    profile.save()
+
+    return profile

@@ -602,4 +602,43 @@ body footer .footericon {
 .submit-data-form #selected_filename {
   padding-left: 10px;
 }
+
+.profile_pic {
+  background: #f6f6c4;
+  width: 80px;
+  height: 80px;
+  border-radius: 50px;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.profile_pic img {
+  width: 85%;
+  margin-top: 8px;
+}
+
+.profile-box {
+  max-width: 400px;
+}
+
+.profile-box p {
+  margin-bottom: 0rem;
+}
+
+.profile-box .profile-name {
+  font-weight: 600;
+}
+
+.profile-box .profile-visibility {
+  font-style: italic;
+  color: rgba(69, 53, 37, 0.5);
+}
 /*# sourceMappingURL=styles.css.map */

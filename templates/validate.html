@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block extrahead %}
+    <meta name="title" content="Fecobiome Initative | Validate">
+    <meta property="og:title" content="Fecobiome Initiative | Validate">
+
+    <meta name="description" content="Email validation">
+    <meta name="keywords" content="cattle, bovine, feces, microbiome, microbiota, gastrointestinal tract, gut, intestine, antimicrobial resistance, zoonotes, pathogens, research dissemination, data transparency, open sourceness, metadata, email, unsubscribe">
+
+    <meta property="og:description" content="Confirm your email address">
+    <!-- can't have a canonical because only the individual exists -->
+{% endblock extrahead %}
+
+{% block title %}{{ block.super }}| Email confirmation{% endblock %}
+{% block pagetitle %}Email confirmation{% endblock %}
+
+{% block content %}
+
+    {% if profile %}
+        <div class="container-fluid profile-box">
+            <div class="row mt-5">
+                <div class="col-sm-3">
+                    {% if profile.profile_picture %}
+                    <img class="profile_pic" src="/media/{{ profile.profile_picture }}" alt="profile picture">
+                    {% else %}
+                    <div class="profile_pic"><img src="{% static 'src/images/logos/cowlogofill.svg' %}" alt="logo here"></div>
+                    {% endif %}
+                </div>
+
+                <div class="col-sm-9">
+                    <p class="profile-name">{{ profile.display_name }}</p>
+                    <p class="profile-affiliation">{{ profile.affiliation }}</p>
+                    {% if profile.display_member %}
+                    <p class="profile-visibility">This will be visible in the members' section after approval.</p>
+                    {% else %}
+                    <p class="profile-visibility">This will not be visible on the website.</p>
+                    {% endif%}
+                </div>
+            </div> <!-- end of row-->
+        </div>
+
+        {% if profile.user_verified %}
+        <p class="text-center mt-5">This profile has been validated. Awaiting approval from Fecobiome Initiative.</p>
+        {% else %}
+        <div class="text-end mt-2">
+            <form action="{% url 'validate' registration_key=registration_key %}" id="validate-form" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input class="btn btn-secondary FBI-btn" type="submit" name="submit_validate" value="Accept">
+                <input class="btn btn-secondary FBI-btn" type="submit" name="submit_delete" value="Delete">
+            </form>
+        </div>
+        {% endif %}
+
+    {% else %}
+
+    <p>This confirmation link has expired.</p>
+    
+    {% endif %}
+
+
+{% endblock %}
+

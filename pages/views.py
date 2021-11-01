@@ -72,16 +72,11 @@ def request_membership(request):
                 )
 
                 if profile_picture:
-                    profile_picture = resize_crop_image(profile_picture, 150, str(profile.user.id))
+                    profile_picture = resize_crop_image(profile_picture, 150, str(profile.registration_key))
                     profile.profile_picture = profile_picture
                     profile.save()
 
-                send_verification_mail(profile)
-                """
-                        Send verifikationsemail.
-                        - Der skal også stå, hvor mange timer, folk har til at klikke på linket.
-                # Når der er sendt en verification email, så ændr formens indholf til at skrive "check your email"
-                """
+                send_verification_mail(request, profile)
 
                 response = {"success": "Application received. Please check your email for verification."}
 
