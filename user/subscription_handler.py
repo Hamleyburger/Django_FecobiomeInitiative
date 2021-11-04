@@ -54,7 +54,7 @@ def submit_member_request(first_name, last_name, email, affiliation, display_mem
     clear_previous_unverified(email)
 
     user = User(
-        username="{} {}".format(first_name, last_name),
+        username=uuid.uuid4(),
         first_name=first_name,
         last_name=last_name,
         email=email,

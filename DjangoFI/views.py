@@ -41,26 +41,6 @@ class UnsubscribeFormView(FormView):
         return http.HttpResponseRedirect(self.request.path)
 
 
-def validate_registration(request):
-    """
-    User kan se sine indtastede oplysninger og billede.
-    To knapper: "Accept" og "Delete"
-    if POST:
-        if btn is accept:
-            if profile with uuid exists:
-                set user to "validated" and send approval request
-            else message "Link expired. Profile no longer exists"
-        else (btn is delete):
-            if user is not validated:
-                delete profile and user
-            else:
-                message "Link expired. Profile already validated.
-            
-
-    """
-    return render(request, "template")
-
-
 class ValidateForm(forms.Form):
 
     uuid = forms.UUIDField(widget=forms.HiddenInput)

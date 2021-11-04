@@ -50,6 +50,11 @@ $('#membership-form').submit(function(event) { // catch the form's submit event
         grecaptcha.execute(recaptcha_site_key, {action: 'submit'}).then(function(recaptcha_token) {
 
             fd = new FormData();
+            if ($("#register-member-btn").hasClass("clicked")) {
+                console.log("already clicked");
+            }
+            $(".loading-dots-toggle").toggle();
+            $("#register-member-btn").addClass("clicked");
             
             // Get values
             // recaptcha_token is already = recaptcha_token
@@ -95,10 +100,16 @@ $('#membership-form').submit(function(event) { // catch the form's submit event
             }).done(function (data) {
                 
                 if (data.success){
-                    flash_message_with_ajax(data.success, "alert-success");
+                    console.log("success");
+                    $("#success-text").show();
+                    $("#membership-form").remove();
+                    //flash_message_with_ajax(data.success, "alert-success");
+
                 }
                 else if (data.error){
                     flash_message_with_ajax(data.error, "alert-danger");
+                    $(".loading-dots-toggle").toggle();
+                    $("#register-member-btn").removeClass("clicked");
                 }
             }); // End of ajax
 

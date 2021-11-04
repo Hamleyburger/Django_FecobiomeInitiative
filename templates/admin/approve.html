@@ -1,0 +1,97 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block extrahead %}
+    <!-- Font Awesome-->
+    <script src="https://kit.fontawesome.com/603271f4a3.js" crossorigin="anonymous"></script>
+
+<style>
+
+.container-fluid {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: auto;
+}
+
+.row {
+
+    border: 1px solid black;
+    margin-bottom: 30px;
+    padding: 10px;
+
+}
+
+.col {
+    text-align: center;
+    margin: 10px 0;
+    font-size: large;
+}
+
+.btn {
+    color: white;
+    height: 40px;
+    width: fit-content;
+    border-radius: 5px;
+    border: none;
+    box-shadow: none;
+    padding: 0 15px;
+}
+
+.approve-btn {
+    background-color: green !important;
+}
+.disapprove-btn {
+    background-color: red !important;
+}
+.ban-btn {
+    background-color: black !important;
+}
+
+
+</style>
+
+{% endblock extrahead %}
+{% block content %}
+
+
+
+<div class="container-fluid">
+
+    {% for profile in profiles %}
+
+    <div class="row">
+
+        <div class="col">
+            {% if profile.profile_picture %}
+            <img width="100" src="/media/{{ profile.profile_picture }}" alt="profile picture">
+            {% endif %}
+        </div>
+
+        <div class="col">
+            {{ profile.display_name }}, {{ profile.affiliation }}
+        </div>
+
+        <div class="col">
+            <form action="{% url 'admin-approve-members' %}" method="post">
+            {% csrf_token %}
+
+            <button class="btn approve-btn" type="submit" name="aprove-btn">Approve</button>
+            <button class="btn disapprove-btn" type="submit" name="disapprove-btn">Begone!</button>
+            <button class="btn ban-btn" type="submit" name="ban-btn"><i class="fas fa-skull"></i> Banish</button>
+            </form>
+        </div>
+        
+
+    </div> <!-- row -->
+
+    {% endfor %}
+
+</div><!-- container fluid -->
+
+
+{% endblock content %}
+
+{% block endscript %}
+{% endblock endscript %}

@@ -41,7 +41,6 @@ def subscribe_newsletter(request):
 
 
 def request_membership(request):
-    print("request membership accessed")
     if request.method == 'POST':
         # profile_form = ProfileForm(request.POST, request.FILES)
 

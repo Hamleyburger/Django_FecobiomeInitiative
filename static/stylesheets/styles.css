@@ -178,7 +178,7 @@ body .nav-panel .navbar .container-fluid {
   padding: 0;
 }
 
-@media only screen and (max-width: 1079px) {
+@media only screen and (max-width: 1163px) {
   body .nav-panel .navbar {
     width: 720px;
   }
@@ -341,7 +341,7 @@ body .site-inner aside {
   max-width: 989px;
 }
 
-@media only screen and (max-width: 1079px) {
+@media only screen and (max-width: 1163px) {
   body .site-inner aside {
     width: 720px;
   }
@@ -366,6 +366,15 @@ body .site-inner aside .sidebar-block.side-b {
   padding-bottom: 15px;
 }
 
+body .site-inner aside .sidebar-block.side-b .success-text {
+  height: 428px;
+  padding: 25% 5%;
+  margin: auto;
+  font-size: large;
+  display: none;
+  max-width: 300px;
+}
+
 body .site-inner aside .sidebar-block.side-b form {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -379,7 +388,7 @@ body .site-inner aside .sidebar-block.side-b form {
           align-items: center;
   margin-top: 20px;
   max-width: 300px;
-  margin: 20px auto 0 auto;
+  margin: 0 auto;
 }
 
 body .site-inner aside .sidebar-block.side-b form .emailfield {
@@ -396,7 +405,7 @@ body .site-inner aside .sidebar-block.side-b form .FBI-btn {
   width: fit-content;
 }
 
-@media only screen and (max-width: 1079px) {
+@media only screen and (max-width: 1163px) {
   body .site-inner aside .sidebar-block.side-b form {
     margin-bottom: 30px;
   }
@@ -467,7 +476,7 @@ body footer .FBI-max-width .site-nav {
   min-width: 260px;
 }
 
-@media only screen and (max-width: 1079px) {
+@media only screen and (max-width: 1163px) {
   body footer .FBI-max-width {
     width: 720px;
   }

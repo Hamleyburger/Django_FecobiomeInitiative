@@ -234,19 +234,32 @@ body {
                 color: lighthen($super-brown, 90%);
             }
             &.side-b {
+
                 background: $grass-green;
                 color: $sky-yellow;
                 padding-bottom: 15px;
+
+                .success-text {
+                    height: 428px;
+                    padding: 25% 5%;
+                    margin: auto;
+                    font-size: large;
+                    display: none;
+                    max-width: 300px;
+                }
+
                 form {
                     display: flex;
                     flex-direction: column;
                     align-items: center;
                     margin-top: 20px;
                     max-width: 300px;
-                    margin: 20px auto 0 auto;
+                    margin: 0 auto;
+
                     .emailfield {
                         background-color: $creamy-white;
                     }
+
                     .FBI-btn {
                         color: $super-brown;
                         background-color: $sky-yellow;
@@ -255,7 +268,7 @@ body {
                         width: fit-content;
                     }
                     @media only screen and (max-width: $expand-sidebar-max-breakpoint) {
-                        //flex-direction: row;
+
                         margin-bottom: 30px;
                         .FBI-btn {
                             margin: 0;

@@ -18,11 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from .admin_views import NewsletterView
+from .admin_views import NewsletterView, MemberView
 from .views import UnsubscribeFormView, ValidateFormView
 
 urlpatterns = [
     path('admin/write-newsletter/', NewsletterView.as_view(), name="admin-write-newsletter"),
+    path('admin/approve-members/', MemberView.as_view(), name="admin-approve-members"),
     path('admin/', admin.site.urls),
     path('', include("pages.urls")),
     path('news/', include("blog.urls")),
@@ -30,7 +31,8 @@ urlpatterns = [
     path('contact/', include("contact.urls")),
     path('unsubscribe/<uuid:unsubscribe_key>/', UnsubscribeFormView.as_view(),  name="unsubscribe"),
     path('unsubscribe/', UnsubscribeFormView.as_view(), name="unsubscribe"),
-    path('validate/<uuid:registration_key>/', ValidateFormView.as_view(),  name="validate"),
+    path('validate/<uuid:registration_key>/', ValidateFormView.as_view(),  name="validate")
+
 ]
 # add static url with media and root options?
 # From this SO post: https://stackoverflow.com/questions/36280056/page-not-found-404-django-media-files

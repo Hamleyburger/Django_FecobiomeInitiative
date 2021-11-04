@@ -27,7 +27,19 @@ class Profile(models.Model):
          verbose_name = "Member profile"
 
     def __str__(self):
-        return "{} - Profile".format(self.user.username)
+        info = ""
+        if self.user.username == "Sapuizait":
+            info = "Overlord"
+        elif self.user.is_staff:
+            info = "Staff"
+        elif self.approved:
+            info = "Member"
+        elif self.user_verified:
+            info = "*** PENDING ***"
+        else:
+            info = "Unverified"
+    
+        return "{} - {}".format(self.user.username, info)
 
 
 @receiver(models.signals.post_delete, sender=Profile)
