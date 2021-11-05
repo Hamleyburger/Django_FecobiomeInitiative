@@ -21,7 +21,7 @@ class Profile(models.Model):
     recaptcha_score = models.FloatField(default=0.0)
     approved = models.BooleanField("Approved member", default=False)
     user_verified = models.BooleanField("User has completed email verification", default=False)
-    banned = models.BooleanField("Ban user", default=False)
+    # banned = models.BooleanField("Ban user", default=False)
 
 
     class Meta:
