@@ -107,6 +107,7 @@ def submit_data_to_admin(sender_name, email, affiliation, recipients: list, mess
 
     return {"status": status, "feedback": feedback}
 
+
 def send_verification_mail(request, profile):
     """ Sends anything to the given email addresses """
 
@@ -143,11 +144,43 @@ def send_verification_mail(request, profile):
         )
 
         verification_email.attach_alternative(individual_html_message, "text/html")
-        verification_email.send(fail_silently=False)
+        if verification_email.send(fail_silently=False):
+            print("send worked?")
+        else:
+            print("send did not work")
 
     except Exception as E:
         print(E)
     print("sent mail to user, {}".format(profile.user.email))
+
+
+def send_approval_request_to_admin(request, profile):
+    """ Sends anything to the given email addresses """
+    sender_email = "FI Bot"
+    approval_link = "{}://{}{}".format(request.scheme, request.get_host(), reverse("admin-approve-members"))
+    print("trying to send approval mail to alma9000")
+    try:
+        
+        fi_email = EmailMessage(
+            "New member request",
+            "{} would like to join. Click here to go to admin approval page: {}".format(profile.display_name, approval_link),
+            sender_email,
+            ["alma9000@gmail.com"],
+            reply_to=[sender_email],
+            headers={'From': '{}'},
+        )
+
+        fi_email.send(fail_silently=False)
+        print("sent approval mail to alma9000")
+        status = "success"
+        feedback = "Your message has been sent"
+    except Exception as E:
+        status = "error"
+        feedback = "Message could not be sent"
+        print("Message not sent")
+        print(E)
+    
+    return {"status": status, "feedback": feedback}
 
 
 def get_unsubscribe_key(email):

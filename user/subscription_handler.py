@@ -4,6 +4,7 @@ from user.models import NewsletterSubscriber, Profile
 from django.contrib.auth.models import User
 from django.utils import timezone
 from datetime import datetime
+from contact.mailsender import send_approval_request_to_admin
 import uuid
 
 
@@ -78,20 +79,25 @@ def clear_previous_unverified(email):
     profiles = Profile.objects.filter(user__email=email).all()
     if profiles:
         for profile in profiles:
-            if not profile.approved and not profile.user_verified:
+            if not profile.approved and not profile.user_verified: # Don't check for banned because unverified profiles can never be banned
                 user = profile.user
                 print(user)
                 user.delete()
 
-def verify_profile(profile):
+def verify_profile(request, profile):
     # Clear previous verified, unapproved profiles (approved profile rank highest in the hierarchy)
     old_profiles = Profile.objects.filter(user__email=profile.user.email, approved=False, user_verified=True).all()
     
     for old_profile in old_profiles:
-        user = old_profile.user
-        user.delete()
+        if old_profile.banned:
+            return None
+        else:
+            # Profile's user is banned. Do not verify this one.
+            user = old_profile.user
+            user.delete()
 
     profile.user_verified = True
     profile.save()
+    send_approval_request_to_admin(request, profile)
 
     return profile

@@ -15,12 +15,13 @@ class Profile(models.Model):
     contactable = models.BooleanField("Can be contacted", default=False)
     profile_picture = models.ImageField("Profile picture", null=True, blank=True, upload_to="user_profile_pics")
     affiliation = models.CharField(max_length=150, null=True, blank=True)
-    approved = models.BooleanField("Approved member", default=False)
     registration_key = models.UUIDField(blank=False, default=uuid.uuid4, unique=True, editable=False)
     display_member = models.BooleanField("Show my profile on the site", default=True)
-    user_verified = models.BooleanField("User has completed email verification", default=False)
     submission_time = models.DateTimeField("Time of submission", default=timezone.now)
     recaptcha_score = models.FloatField(default=0.0)
+    approved = models.BooleanField("Approved member", default=False)
+    user_verified = models.BooleanField("User has completed email verification", default=False)
+    banned = models.BooleanField("Ban user", default=False)
 
 
     class Meta:
@@ -30,6 +31,8 @@ class Profile(models.Model):
         info = ""
         if self.user.username == "Sapuizait":
             info = "Overlord"
+        elif self.banned:
+            info = "! BANNED !"
         elif self.user.is_staff:
             info = "Staff"
         elif self.approved:
@@ -39,7 +42,7 @@ class Profile(models.Model):
         else:
             info = "Unverified"
     
-        return "{} - {}".format(self.user.username, info)
+        return "{} - {}".format(self.display_name, info)
 
 
 @receiver(models.signals.post_delete, sender=Profile)

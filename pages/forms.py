@@ -25,6 +25,15 @@ class UserForm(forms.ModelForm):
     last_name = forms.CharField(max_length=30, required=True, widget=forms.TextInput(attrs={'placeholder': 'Last name'}))
     email = forms.EmailField(required=True, widget=forms.TextInput(attrs={'placeholder': 'Email address', 'type': 'email'}))
 
+    def clean_email(self):
+        mail = self.cleaned_data['email']
+        banned_list = Profile.objects.filter(banned=True).all()
+        for profile in banned_list:
+            if profile.user.email == mail:
+                raise ValidationError("Request rejected. User is banned.")
+
+        return mail
+
 
 class ProfileForm(forms.ModelForm):
     class Meta:

@@ -76,10 +76,12 @@
         <div class="col">
             <form action="{% url 'admin-approve-members' %}" method="post">
             {% csrf_token %}
+            <input type="hidden" name="user_id" value="{{ profile.user.id }}">
 
-            <button class="btn approve-btn" type="submit" name="aprove-btn">Approve</button>
-            <button class="btn disapprove-btn" type="submit" name="disapprove-btn">Begone!</button>
-            <button class="btn ban-btn" type="submit" name="ban-btn"><i class="fas fa-skull"></i> Banish</button>
+            <button class="btn approve-btn" type="submit" name="approve-submit" value="approve">Approve</button>
+            <button class="btn disapprove-btn" type="submit" name="approve-submit" value="disapprove">Begone!</button>
+            <button class="btn ban-btn" type="submit" name="approve-submit" value="ban"><i class="fas fa-skull"></i> Banish</button>
+
             </form>
         </div>
         

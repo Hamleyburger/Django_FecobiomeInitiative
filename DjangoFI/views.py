@@ -47,7 +47,7 @@ class ValidateForm(forms.Form):
 
     def clean_uuid(self):
         data = self.cleaned_data['uuid']
-        profile = Profile.objects.filter(registration_key=data, user_verified=False).first()
+        profile = Profile.objects.filter(registration_key=data, user_verified=False, banned=False).first()
         if not profile:
             raise ValidationError("Invalid email confirmation link")
 
@@ -64,7 +64,7 @@ class ValidateFormView(FormView):
         requested_key = self.kwargs.get("registration_key")
         context["registration_key"] = requested_key
 
-        profile = Profile.objects.filter(registration_key=requested_key, approved=False).first()
+        profile = Profile.objects.filter(registration_key=requested_key, approved=False, banned=False).first()
         context["profile"] = profile
 
         return context
@@ -82,10 +82,11 @@ class ValidateFormView(FormView):
     def form_valid(self, form):
 
         profile = form.cleaned_data["uuid"]
-
         if 'submit_validate' in self.request.POST:
-            verify_profile(profile)
-            messages.success(self.request, "User details successfully verified. Awaiting approval.")
+            if verify_profile(self.request, profile):
+                messages.success(self.request, "User details successfully verified. Awaiting approval.")
+            else:
+                messages.error(self.request, "Sorry. We're closed.")
         else:
             profile.user.delete()
             messages.success(self.request, "User details successfully deleted.")

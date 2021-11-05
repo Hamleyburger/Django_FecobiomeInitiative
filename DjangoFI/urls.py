@@ -18,12 +18,12 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from .admin_views import NewsletterView, MemberView
+from .admin_views import NewsletterView, MemberView, approve_members
 from .views import UnsubscribeFormView, ValidateFormView
 
 urlpatterns = [
     path('admin/write-newsletter/', NewsletterView.as_view(), name="admin-write-newsletter"),
-    path('admin/approve-members/', MemberView.as_view(), name="admin-approve-members"),
+    path('admin/approve-members/', approve_members, name="admin-approve-members"),
     path('admin/', admin.site.urls),
     path('', include("pages.urls")),
     path('news/', include("blog.urls")),

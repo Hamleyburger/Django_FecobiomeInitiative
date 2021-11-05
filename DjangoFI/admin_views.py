@@ -58,8 +58,43 @@ class MemberView(ListView):
         return context
 
     def get_queryset(self):
-        queryset = Profile.objects.filter(user_verified=True, approved=False, user__is_staff=False).all()
+        queryset = Profile.objects.filter(user_verified=True, approved=False, banned=False, user__is_staff=False).all()
         return queryset
+
+
+@staff_member_required
+def approve_members(request):
+
+
+    if request.method == 'POST':
+        print(request.POST.get)
+        button = request.POST.get("approve-submit")
+        user_id = int(request.POST.get("user_id"))
+        profile = Profile.objects.filter(user__id=user_id).first()
+
+        if button == "approve":
+            print("approve {}".format(user_id))
+            profile.approved = True
+            profile.save()
+
+        elif button == "disapprove":
+            print("disapprove {}".format(user_id))
+            profile.user.delete()
+
+        elif button == "ban":
+            print("ban {}".format(user_id))
+            profile.banned = True
+            profile.profile_picture.delete()
+            profile.save()
+
+
+    profiles = Profile.objects.filter(user_verified=True, approved=False, banned=False, user__is_staff=False).all()
+
+    context = {
+        "profiles": profiles,
+    }
+
+    return render(request, "admin/approve.html", context)
 
 
 
