@@ -16,7 +16,6 @@ class UserAdmin(BaseUserAdmin):
     inlines = (ProfileInline,)
 
 class NewsletterSubscriberAdmin(admin.ModelAdmin):
-    # readonly_fields = ["link"]
     list_display = ('email', 'name')
 
 

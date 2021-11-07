@@ -3,12 +3,6 @@ from .models import Post
 from django.views.generic.list import ListView
 
 
-# def home(request):
-
-#     context = {
-#         "posts": Post.objects.order_by('-created_date').all()
-#     }
-#     return render(request, "blog/news.html", context)
 
 class PostListView(ListView):
 

@@ -59,11 +59,12 @@ $('#membership-form').submit(function(event) { // catch the form's submit event
             // Get values
             // recaptcha_token is already = recaptcha_token
             csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]')[0].value;
-            first_name = $("#id_first_name").val();
-            last_name = $("#id_last_name").val();
-            email = $("#id_email").val();
-            affiliation = $("#id_affiliation").val();
-            display_member = $("#id_display_member").val();
+            first_name = $("#membership-form #id_first_name").val();
+            last_name = $("#membership-form #id_last_name").val();
+            //email = $("#id_email").val();
+            email = $( "#membership-form #id_email" ).val();
+            affiliation = $("#membership-form #id_affiliation").val();
+            display_member = $("#membership-form #id_display_member").val();
             
             if (cropped_blob != null) {
                 profile_picture = new File([cropped_blob], "profile_picture.jpg");

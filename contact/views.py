@@ -6,6 +6,7 @@ from resources.models import resources_meta
 from .mailsender import send_mail_to_admin, submit_data_to_admin
 from django import http
 from django.http import JsonResponse
+from django.conf import settings
 
 
 def home(request):
@@ -21,9 +22,13 @@ def home(request):
         if form.is_valid():
             name = form.cleaned_data["name"]
             email = form.cleaned_data["email"]
-            #recipient = User.objects.filter(id=int(form.cleaned_data["recipient"])).first().email
-            recipient = User.objects.filter(
-                username='Sapuizait').first().email  # Panos
+
+            if settings.DEBUG:
+                recipient = User.objects.filter(
+                username=settings.HAMLEY).first().email  # Dev mail
+            else:
+                recipient = User.objects.filter(
+                username=settings.PANOS).first().email  # Admin mail
             subject = form.cleaned_data["subject"]
             message = form.cleaned_data["message"]
             feedback = send_mail_to_admin(
@@ -48,16 +53,14 @@ def submit_data(request):
     }
 
     if request.method == 'POST':
-
         form = SubmitDataForm(request.POST, request.FILES)
-
         if form.is_valid():
 
             name = form.cleaned_data["name"]
             email = form.cleaned_data["email"]
             #recipient = User.objects.filter(id=int(form.cleaned_data["recipient"])).first().email
             recipient = User.objects.filter(
-                username='Sapuizait').first().email  # Panos
+                username=settings.PANOS).first().email  # Panos
             affiliation = form.cleaned_data["affiliation"]
             message = form.cleaned_data["message"]
             file = form.cleaned_data["file"]

@@ -1,6 +1,6 @@
 from django.core.mail import EmailMessage
 from django.core.mail import EmailMultiAlternatives
-from user.models import NewsletterSubscriber
+from user.models import Profile, User
 from django.utils.html import strip_tags
 from django.urls import reverse
 from django.conf import Settings, settings
@@ -14,11 +14,10 @@ def send_newsletter(request, sender_name, recipients: list, subject, html_messag
 
     try:
         for recipient in recipients:
-
             uid = get_unsubscribe_key(recipient)
             unsibscribe_link = "{}://{}{}".format(request.scheme, request.get_host(), reverse("unsubscribe", kwargs={"unsubscribe_key": uid}))
-            plain_text_message = textify(html_message) + "\n\nUnsubscribe with this link: {}".format(unsibscribe_link)
-            individual_html_message = html_message + '<p></p><p><a href="{}">Unsubscribe</a></p>'.format(unsibscribe_link)
+            plain_text_message = textify(html_message) + "\n\nCancel with this link: {}".format(unsibscribe_link)
+            individual_html_message = html_message + '<p></p><p><a href="{}">Cancel FI membership</a></p>'.format(unsibscribe_link)
 
             mail_from_admin = EmailMultiAlternatives(
                 subject,
@@ -60,13 +59,7 @@ def send_mail_to_admin(sender_name, sender_email, recipients: list, subject, mes
         status = "error"
         feedback = "Message could not be sent"
         print(E)
-    
-    # If contacter happens to be a newsletter subscriber, give them a name. Purely for admin friendliness.
-    subscriber = NewsletterSubscriber.objects.filter(email=sender_email).first()
-    if subscriber:
-        if not subscriber.name:
-            subscriber.name = sender_name
-            subscriber.save()
+
 
     return {"status": status, "feedback": feedback}
 
@@ -97,13 +90,7 @@ def submit_data_to_admin(sender_name, email, affiliation, recipients: list, mess
         status = "error"
         feedback = "Submission failed"
         print(E)
-    
-    # If contacter happens to be a newsletter subscriber, give them a name. Purely for admin friendliness.
-    subscriber = NewsletterSubscriber.objects.filter(email=sender_email).first()
-    if subscriber:
-        if not subscriber.name:
-            subscriber.name = sender_name
-            subscriber.save()
+
 
     return {"status": status, "feedback": feedback}
 
@@ -158,14 +145,19 @@ def send_approval_request_to_admin(request, profile):
     """ Sends anything to the given email addresses """
     sender_email = "FI Bot"
     approval_link = "{}://{}{}".format(request.scheme, request.get_host(), reverse("admin-approve-members"))
-    print("trying to send approval mail to alma9000")
+
+    if settings.DEBUG:
+        admin = User.objects.filter(username=settings.HAMLEY).first()
+    else:
+        admin = User.objects.filter(username=settings.PANOS).first()
+
     try:
         
         fi_email = EmailMessage(
             "New member request",
             "{} would like to join. Click here to go to admin approval page: {}".format(profile.display_name, approval_link),
             sender_email,
-            ["alma9000@gmail.com"],
+            [admin.email],
             reply_to=[sender_email],
             headers={'From': '{}'},
         )
@@ -184,8 +176,9 @@ def send_approval_request_to_admin(request, profile):
 
 
 def get_unsubscribe_key(email):
-    subscriber = NewsletterSubscriber.objects.filter(email=email).first()
-    key = subscriber.unsubscribe_key
+    print("getting registration key for unsubscribing")
+    member = Profile.objects.filter(user__email=email).first()
+    key = member.registration_key
     return key
 
 

@@ -18,27 +18,41 @@
 {% block content %}
 
     {% if profile %}
+
+
+
         <div class="container-fluid profile-box">
-            <div class="row mt-5">
-                <div class="col-sm-3">
+
+
+        <div class="row">
+            <div class="col-4 profile-pic-col">
                     {% if profile.profile_picture %}
                     <img class="profile_pic" src="/media/{{ profile.profile_picture }}" alt="profile picture">
                     {% else %}
                     <div class="profile_pic"><img src="{% static 'src/images/logos/cowlogofill.svg' %}" alt="logo here"></div>
                     {% endif %}
-                </div>
+            </div>
+            <div class="col-8">
+                <p class="profile-name">
+                    {{ profile.display_name }} 
+                </p>
+                {% if profile.affiliation %}
+                    <p class="small-details">
+                        {{ profile.affiliation }} 
+                    </p>
+                {% endif %}
 
-                <div class="col-sm-9">
-                    <p class="profile-name">{{ profile.display_name }}</p>
-                    <p class="profile-affiliation">{{ profile.affiliation }}</p>
-                    {% if profile.display_member %}
-                    <p class="profile-visibility">This will be visible in the members' section after approval.</p>
-                    {% else %}
-                    <p class="profile-visibility">This will not be visible on the website.</p>
-                    {% endif%}
-                </div>
-            </div> <!-- end of row-->
+                <p class="profile-title small-details">
+                {% if profile.display_member %}
+                <p class="profile-visibility">This will be visible under "who we are" after approval.</p>
+                {% else %}
+                <p class="profile-visibility">This will not be visible on the website.</p>
+                {% endif%}
+                </p>
+
+            </div>
         </div>
+
 
         {% if profile.user_verified %}
         <p class="text-center mt-5">This profile has been validated. Awaiting approval from Fecobiome Initiative.</p>

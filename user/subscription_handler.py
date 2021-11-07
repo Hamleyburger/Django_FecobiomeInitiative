@@ -3,6 +3,7 @@ import uuid
 from user.models import NewsletterSubscriber, Profile
 from django.contrib.auth.models import User
 from django.utils import timezone
+from django.conf import settings
 from datetime import datetime
 from contact.mailsender import send_approval_request_to_admin
 import uuid
@@ -10,45 +11,51 @@ import uuid
 
 def subscribe(email):
     """ adds any string to mailing list so make sure to validate first?\n
-    Also adds an unsubscribe key that can be used in an unsubscribe link """
+    Also adds an unsubscribe key that can be used in an unsubscribe link\n
+    Warning: newsletter form is no longer on site and newsletters are being\n
+    sent to member profiles only. """
     email = email.lower()
 
     if not NewsletterSubscriber.objects.filter(email=email).first():
         print("Subscriber is new")
         subscriber = NewsletterSubscriber(email=email)
         subscriber.save()
-    else:
-        print("subscirber exists")
 
 
-def unsubscribe(unsubscribe_key="", unsubscribe_email=""):
-    """ for removing subscriber with an unsubscribe link providing an unsubscribe key """
-    print("Unsubscribe called")
+def cancel_membership(unsubscribe_key=""):
+    """ deletes members providing an unsubscribe key/registration key """
 
     unsubscriber = None
 
     if unsubscribe_key:
-        unsubscriber = NewsletterSubscriber.objects.filter(
-            unsubscribe_key=unsubscribe_key)
+        unsubscribers = Profile.objects.filter(
+            registration_key=unsubscribe_key).all()
 
-    if unsubscribe_email:
-        unsubscriber = NewsletterSubscriber.objects.filter(
-            email=unsubscribe_email.lower())
+        for profile in unsubscribers:
+            unsubscriber = profile.user
+            unsubscriber.delete()
 
     if unsubscriber:
-        unsubscriber.delete()
         unsubscriber = 1
 
     return unsubscriber
 
 
 def get_subscribers_emails():
+    """ Send newletter to approved, not banned members """
     emails = []
-    subscribers = NewsletterSubscriber.objects.all().values('email')
+
+    subscribers = Profile.objects.filter(approved=True, banned=False).all().values('user__email')
     for subscriber in subscribers:
-        emails.append(subscriber["email"])
+        emails.append(subscriber["user__email"])
     print(emails)
-    return emails
+
+    if settings.DEBUG:
+        # if debugging only send stuff to dev
+        dev = User.objects.filter(username=settings.HAMLEY).first()
+        return [dev.email]
+    else:
+        return emails
 
 
 def submit_member_request(first_name, last_name, email, affiliation, display_member, recaptcha_score):

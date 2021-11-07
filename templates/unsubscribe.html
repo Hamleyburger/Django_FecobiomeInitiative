@@ -1,29 +1,27 @@
 {% extends "base.html" %}
 
 {% block extrahead %}
-    <meta name="title" content="Fecobiome Initative | Unsubscribe">
+    <meta name="title" content="Fecobiome Initative | Cancel membership">
     <meta property="og:title" content="Fecobiome Initiative | Unsibscribe">
 
-    <meta name="description" content="Unsubscribe from our newsletter">
+    <meta name="description" content="Cancel your membership with FI">
     <meta name="keywords" content="cattle, bovine, feces, microbiome, microbiota, gastrointestinal tract, gut, intestine, antimicrobial resistance, zoonotes, pathogens, research dissemination, data transparency, open sourceness, metadata, email, unsubscribe">
 
     <meta property="og:url" content="https://www.fecobiome.com/unsubscribe/">
-    <meta property="og:description" content="Unsubscribe from our newsletter">
+    <meta property="og:description" content="Cancel your membership with FI">
 
     <link rel="canonical" href="http://www.fecobiome.com/unsubscribe/">
 {% endblock extrahead %}
 
-{% block title %}{{ block.super }}| Unsubscribe{% endblock %}
-{% block pagetitle %}Unsubscribe{% endblock %}
+{% block title %}{{ block.super }}| Cancel membership{% endblock %}
+{% block pagetitle %}Cancel membership{% endblock %}
 
 {% block content %}
-    <p>Unsubscribe from our newsletter</p>
-    <form action="{% url 'unsubscribe' %}" id="unsubscribe-form" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input id="unsubscribe-newsletter-btn" class="btn btn-secondary FBI-btn" type="submit" name="submit_unsubscribe" value="Unsubscribe">
-    </form>
-
+{% if unsubscribed %}
+<p>Your membership has been cancelled. We hope to see you again!</p>
+{% else %}
+    <p>Cancel your FI membership by clicking the cancellation link in a newsletter or contact us.</p>
+{% endif %}
 
 {% endblock %}
 

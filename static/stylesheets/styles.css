@@ -323,6 +323,10 @@ body .site-inner main .FBI-max-width {
   background: #f8f8f1;
 }
 
+body .site-inner main .FBI-max-width h1, body .site-inner main .FBI-max-width h2, body .site-inner main .FBI-max-width h3, body .site-inner main .FBI-max-width h4, body .site-inner main .FBI-max-width h5, body .site-inner main .FBI-max-width h6 {
+  color: #ae781d;
+}
+
 body .site-inner aside {
   margin: 0;
   padding: 0 15px;
@@ -550,8 +554,83 @@ body footer .footericon {
   margin: 0 auto;
 }
 
-.key-mission-statement h1, .key-mission-statement h2, .key-mission-statement h3, .key-mission-statement h4, .key-mission-statement h5, .key-mission-statement h6 {
+.profile_pic {
+  background: #f6f6c4;
+  width: 80px;
+  height: 80px;
+  border-radius: 50px;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.profile_pic img {
+  width: 85%;
+  margin-top: 8px;
+}
+
+.profile-box {
+  max-width: 400px;
+}
+
+.profile-box p {
+  margin-bottom: 0rem;
+}
+
+.profile-box .profile-name {
+  font-weight: 600;
+}
+
+.profile-box .profile-visibility {
+  font-style: italic;
+  color: rgba(69, 53, 37, 0.5);
+}
+
+.profile-box .row {
+  background-color: rgba(63, 70, 1, 0.06);
+  border-radius: 22px;
+  margin-bottom: 18px;
+  padding: 10px 0;
+  -webkit-box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.13);
+          box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.13);
+}
+
+.profile-box .row [class*="col-"] {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: left;
+      -ms-flex-align: left;
+          align-items: left;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 0;
+}
+
+.profile-box .row .profile-pic-col {
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.profile-box .row .profile-title {
   color: #ae781d;
+}
+
+.profile-box .row .small-details {
+  font-size: small;
 }
 
 .news {
@@ -610,44 +689,5 @@ body footer .footericon {
 
 .submit-data-form #selected_filename {
   padding-left: 10px;
-}
-
-.profile_pic {
-  background: #f6f6c4;
-  width: 80px;
-  height: 80px;
-  border-radius: 50px;
-  overflow: hidden;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-}
-
-.profile_pic img {
-  width: 85%;
-  margin-top: 8px;
-}
-
-.profile-box {
-  max-width: 400px;
-}
-
-.profile-box p {
-  margin-bottom: 0rem;
-}
-
-.profile-box .profile-name {
-  font-weight: 600;
-}
-
-.profile-box .profile-visibility {
-  font-style: italic;
-  color: rgba(69, 53, 37, 0.5);
 }
 /*# sourceMappingURL=styles.css.map */

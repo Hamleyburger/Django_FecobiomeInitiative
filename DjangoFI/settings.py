@@ -205,3 +205,8 @@ if DEBUG:
 else:
     RECAPTCHA_PUBLIC_KEY = deploy_recaptcha_site_key
     RECAPTCHA_PRIVATE_KEY = deploy_recaptcha_secret_key
+
+
+# Hard coded stuff:
+PANOS = "Sapuizait"
+HAMLEY = "Hamleyburger"

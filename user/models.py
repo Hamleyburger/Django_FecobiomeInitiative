@@ -5,6 +5,7 @@ from datetime import datetime
 import uuid
 from django.dispatch import receiver
 import os
+from django.conf import settings
 
 
 
@@ -21,7 +22,7 @@ class Profile(models.Model):
     recaptcha_score = models.FloatField(default=0.0)
     approved = models.BooleanField("Approved member", default=False)
     user_verified = models.BooleanField("User has completed email verification", default=False)
-    # banned = models.BooleanField("Ban user", default=False)
+    banned = models.BooleanField("Ban user", default=False)
 
 
     class Meta:
@@ -29,7 +30,7 @@ class Profile(models.Model):
 
     def __str__(self):
         info = ""
-        if self.user.username == "Sapuizait":
+        if self.user.username == settings.PANOS:
             info = "Overlord"
         elif self.banned:
             info = "! BANNED !"
@@ -62,9 +63,9 @@ class NewsletterSubscriber(models.Model):
     unsubscribe_key = models.UUIDField(blank=False, default=uuid.uuid4, unique=True, editable=False)
     name = models.CharField(max_length=200, blank=True, help_text="This field is not required", verbose_name="Name (if given)")
     class Meta:
-         verbose_name = "Newsletter Subscriber"
+         verbose_name = "Newsletter Subscriber (not in use)"
 
     def __str__(self):
-        return "Subscriber: {}".format(self.email)
+        return "Subscriber (not in use): {}".format(self.email)
 
 

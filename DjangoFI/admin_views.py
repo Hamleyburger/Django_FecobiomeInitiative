@@ -7,7 +7,7 @@ from django.utils.decorators import method_decorator
 from django.contrib import messages
 # mail related imports
 from contact.mailsender import send_newsletter
-from user.subscription_handler import get_subscribers_emails as newsletter_subscribers
+from user.subscription_handler import get_subscribers_emails
 # forms.py-ish imports
 from django import forms
 from ckeditor.fields import CKEditorWidget
@@ -31,10 +31,10 @@ class NewsletterView(FormView):
         subject = form.data["subject"]
         message = form.data["message"]
         # sender_email = self.request.user.email
-        print(message)
+
 
         send_newsletter(self.request, "FI Newsletter",
-                        newsletter_subscribers(), subject, message)
+                        get_subscribers_emails(), subject, message)
 
         context = {
             "form": form
@@ -67,22 +67,31 @@ def approve_members(request):
 
 
     if request.method == 'POST':
-        print(request.POST.get)
         button = request.POST.get("approve-submit")
         user_id = int(request.POST.get("user_id"))
         profile = Profile.objects.filter(user__id=user_id).first()
 
+        # Makes a new profile and deletes old unless old is staff
         if button == "approve":
-            print("approve {}".format(user_id))
-            profile.approved = True
-            profile.save()
+            old_profile = Profile.objects.filter(user__email=profile.user.email).first()
+            make_new = True
+            if old_profile:
+                if old_profile.user.is_staff:
+                    print("Approve: User is staff. Do nothing.")
+                    make_new = False
+                else:
+                    print("Deleting old approved user and profile")
+                    old_profile.user.delete()
+
+            if make_new:
+                print("making new")
+                profile.approved = True
+                profile.save()
 
         elif button == "disapprove":
-            print("disapprove {}".format(user_id))
             profile.user.delete()
 
         elif button == "ban":
-            print("ban {}".format(user_id))
             profile.banned = True
             profile.profile_picture.delete()
             profile.save()

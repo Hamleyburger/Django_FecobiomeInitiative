@@ -207,6 +207,9 @@ body {
                 padding: $FBI-favourite-spacing;
                 margin-bottom: $FBI-favourite-spacing;
                 background: $creamy-whiter;
+                h1, h2, h3, h4, h5, h6 {
+                    color: $earth-orange-dark;
+                }
             }
         }
 

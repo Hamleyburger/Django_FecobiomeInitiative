@@ -21,7 +21,7 @@
 {% block content %}
 <div class="key-mission-statement d-grid gap-4">
 
-    <h1>About</h1>
+    <h2>About</h2>
     <p><b>Fecobiome Initiative aims</b> to facilitate the advancement of research related to microbial communities
         related to the GIT. </p>
     <p><b>Our vision</b> is to offer viable solutions in cattle husbandry, including the reduction of zoonotic/AMR risks
@@ -46,5 +46,50 @@
     </p-->
 
 </div>
+{% endblock %}
 
+{% block extra_content %}
+    <section class="FBI-max-width">
+    <h2 class="mb-5" >Who we are</h2>
+
+        <div class="container-fluid profile-box">
+
+            {% for profile in member_profiles %}
+                {% if profile.display_member %}
+                    <div class="row">
+                        <div class="col-4 profile-pic-col">
+                                {% if profile.profile_picture %}
+                                <img class="profile_pic" src="/media/{{ profile.profile_picture }}" alt="profile picture">
+                                {% else %}
+                                <div class="profile_pic"><img src="{% static 'src/images/logos/cowlogofill.svg' %}" alt="logo here"></div>
+                                {% endif %}
+                        </div>
+                        <div class="col-8">
+                            <p class="profile-name">
+                                {{ profile.display_name }} 
+                            </p>
+                            {% if profile.affiliation %}
+                                <p class="small-details">
+                                    {{ profile.affiliation }} 
+                                </p>
+                            {% endif %}
+
+                            <p class="profile-title small-details">
+                                {% if profile.user.username == "Sapuizait" %}
+                                    Administrator
+                                {% elif profile.user.username == "Hamleyburger" %}
+                                    Developer
+                                {% else %}
+                                    Member
+                                {% endif %}
+                            </p>
+
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+        </div>
+
+    </section>
 {% endblock %}

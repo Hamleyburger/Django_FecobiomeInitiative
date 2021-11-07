@@ -1,7 +1,7 @@
 from django.http.response import Http404
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
-from user.subscription_handler import unsubscribe, verify_profile
+from user.subscription_handler import cancel_membership, verify_profile
 from django.contrib import messages
 from django import forms
 from django.shortcuts import render
@@ -19,26 +19,29 @@ class UnsubscribeFormView(FormView):
     unsubscribe_key = "" # Can be removed
     def get_context_data(self, **kwargs):
         key = self.kwargs.get("unsubscribe_key")
+        unsubscribed_user = False
         if key:
-            print(key)
-            unsubscribed = unsubscribe(unsubscribe_key=key)
+            unsubscribed = cancel_membership(unsubscribe_key=key)
             if unsubscribed:
-                messages.success(self.request, "You have been successfully unsubscribed from our newsletter. You're welcome back anytime!")
+                messages.success(self.request, "Your membership is successfully cancelled. You're welcome back anytime!")
+                unsubscribed_user = True
             else:
-                messages.error(self.request, "This unsubscribe token does not exist in our mailing list. Try typing your email below.")
+                messages.error(self.request, "This cancellation token does not exist. Try typing your email below instead.")
 
         context = super().get_context_data(**kwargs)
+        context["unsubscribed"] = unsubscribed_user
         return context
 
-    def form_valid(self, form):
+    # This is relevant if users can unsubscribe by typing their emails
+    # def form_valid(self, form):
 
-        email = form.data["email"]
-        unsubscribed = unsubscribe(unsubscribe_email=email)
-        if unsubscribed:
-            messages.success(self.request, "You have been successfully unsubscribed from our newsletter. You're welcome back anytime!")
-        else:
-            messages.warning(self.request, "This email does not exist in our mailing list")
-        return http.HttpResponseRedirect(self.request.path)
+    #     email = form.data["email"]
+    #     unsubscribed = cancel_membership(unsubscribe_email=email)
+    #     if unsubscribed:
+    #         messages.success(self.request, "Your membership is successfully cancelled. You're welcome back anytime!")
+    #     else:
+    #         messages.warning(self.request, "No member exists with this email")
+    #     return http.HttpResponseRedirect(self.request.path)
 
 
 class ValidateForm(forms.Form):

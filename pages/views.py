@@ -5,13 +5,36 @@ from django.http import Http404
 from django.core.validators import validate_email
 from user.subscription_handler import subscribe, submit_member_request
 from user.file_helpers import resize_crop_image
+from user.models import Profile
 from contact.mailsender import send_verification_mail
 from .forms import ProfileForm, UserForm
+from django.conf import settings
 
 
 
 def home(request):
-    return render(request, "pages/index.html")
+    profiles = Profile.objects.filter(approved=True, banned=False)
+
+    panos = None
+    hamley = None
+    ordered_profiles = []
+
+
+    for profile in profiles:
+        if profile.user.username == settings.PANOS:
+            panos = profile
+        elif profile.user.username == settings.HAMLEY:
+            hamley = profile
+        else:
+            ordered_profiles.append(profile)
+    
+    ordered_profiles.insert(0, panos)
+    ordered_profiles.append(hamley)
+
+    context = {
+        "member_profiles": ordered_profiles,
+    }
+    return render(request, "pages/index.html", context)
 
 
 def wikiCow(request):
@@ -19,6 +42,7 @@ def wikiCow(request):
 
 
 def subscribe_newsletter(request):
+    """ This function is only in use when the newsletter form is on the site. """
     if request.method == 'POST':
 
         email = request.POST.get('input_email')
@@ -42,7 +66,6 @@ def subscribe_newsletter(request):
 
 def request_membership(request):
     if request.method == 'POST':
-        # profile_form = ProfileForm(request.POST, request.FILES)
 
         profile_form = ProfileForm(request.POST, request.FILES)
         user_form = UserForm(request.POST)
@@ -80,6 +103,9 @@ def request_membership(request):
                 response = {"success": "Application received. Please check your email for verification."}
 
             else:
+                print("nt valid")
+                print(user_form.errors)
+                print(user_form)
                 print(profile_form.errors)
                 response = { "error": "Something went wrong" }
                 for key, value in profile_form.errors.items():

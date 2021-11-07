@@ -17,6 +17,7 @@
 {% block pagetitle %}Contact us{% endblock %}
 
 {% block content %}
+
     <form action="{% url 'contact-home' %}" method="post">
         {% csrf_token %}
         {{ form.as_p }}

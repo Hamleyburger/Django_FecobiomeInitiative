@@ -13,7 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from user.subscription_handler import unsubscribe
+
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
@@ -29,8 +29,8 @@ urlpatterns = [
     path('news/', include("blog.urls")),
     path('resources/', include("resources.urls")),
     path('contact/', include("contact.urls")),
-    path('unsubscribe/<uuid:unsubscribe_key>/', UnsubscribeFormView.as_view(),  name="unsubscribe"),
-    path('unsubscribe/', UnsubscribeFormView.as_view(), name="unsubscribe"),
+    path('cancel-membership/<uuid:unsubscribe_key>/', UnsubscribeFormView.as_view(),  name="unsubscribe"),
+    path('cancel-membership/', UnsubscribeFormView.as_view(), name="unsubscribe"),
     path('validate/<uuid:registration_key>/', ValidateFormView.as_view(),  name="validate")
 
 ]
