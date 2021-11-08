@@ -74,13 +74,11 @@ def request_membership(request):
         if request.is_ajax():
 
             if user_form.is_valid() and profile_form.is_valid():
-
                 first_name = user_form.cleaned_data.get("first_name")
                 last_name = user_form.cleaned_data.get("last_name")
                 email = user_form.cleaned_data.get("email")
                 affiliation = profile_form.cleaned_data.get("affiliation")
-                display_member = profile_form.cleaned_data.get(
-                    "display_member")
+                display_member = profile_form.cleaned_data.get("display_member")
                 recaptcha_score = profile_form.cleaned_data.get("recaptcha_token")
                 profile_picture = profile_form.cleaned_data.get("profile_picture")
 
@@ -103,9 +101,7 @@ def request_membership(request):
                 response = {"success": "Application received. Please check your email for verification."}
 
             else:
-                print("nt valid")
                 print(user_form.errors)
-                print(user_form)
                 print(profile_form.errors)
                 response = { "error": "Something went wrong" }
                 for key, value in profile_form.errors.items():

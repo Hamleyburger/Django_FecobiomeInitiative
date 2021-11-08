@@ -68,6 +68,7 @@ class ValidateFormView(FormView):
         context["registration_key"] = requested_key
 
         profile = Profile.objects.filter(registration_key=requested_key, approved=False, banned=False).first()
+
         context["profile"] = profile
 
         return context

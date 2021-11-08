@@ -65,7 +65,6 @@ class MemberView(ListView):
 @staff_member_required
 def approve_members(request):
 
-
     if request.method == 'POST':
         button = request.POST.get("approve-submit")
         user_id = int(request.POST.get("user_id"))
@@ -73,18 +72,15 @@ def approve_members(request):
 
         # Makes a new profile and deletes old unless old is staff
         if button == "approve":
-            old_profile = Profile.objects.filter(user__email=profile.user.email).first()
+            old_profile = Profile.objects.filter(user__email=profile.user.email, approved=True).first()
             make_new = True
             if old_profile:
                 if old_profile.user.is_staff:
-                    print("Approve: User is staff. Do nothing.")
                     make_new = False
                 else:
-                    print("Deleting old approved user and profile")
                     old_profile.user.delete()
 
             if make_new:
-                print("making new")
                 profile.approved = True
                 profile.save()
 

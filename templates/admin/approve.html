@@ -72,6 +72,13 @@
         <div class="col">
             {{ profile.display_name }}, {{ profile.affiliation }}
         </div>
+        <div class="col">
+            {% if profile.display_member %}
+            Details will be visible on site.
+            {% else %}
+            Details will be hidden.
+            {% endif %}
+        </div>
 
         <div class="col">
             <form action="{% url 'admin-approve-members' %}" method="post">

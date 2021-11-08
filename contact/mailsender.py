@@ -142,7 +142,8 @@ def send_verification_mail(request, profile):
 
 
 def send_approval_request_to_admin(request, profile):
-    """ Sends anything to the given email addresses """
+    """ Sends anything to the given email addresses. """
+
     sender_email = "FI Bot"
     approval_link = "{}://{}{}".format(request.scheme, request.get_host(), reverse("admin-approve-members"))
 
@@ -163,7 +164,6 @@ def send_approval_request_to_admin(request, profile):
         )
 
         fi_email.send(fail_silently=False)
-        print("sent approval mail to alma9000")
         status = "success"
         feedback = "Your message has been sent"
     except Exception as E:

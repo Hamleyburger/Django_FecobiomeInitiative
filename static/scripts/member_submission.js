@@ -36,10 +36,6 @@ function subscribe_newsletter() {
 };
 
 
-
-
-
-
 $('#membership-form').submit(function(event) { // catch the form's submit event
     event.preventDefault();
     form_action_url = $(this).attr('action');
@@ -64,7 +60,8 @@ $('#membership-form').submit(function(event) { // catch the form's submit event
             //email = $("#id_email").val();
             email = $( "#membership-form #id_email" ).val();
             affiliation = $("#membership-form #id_affiliation").val();
-            display_member = $("#membership-form #id_display_member").val();
+            display_member = $("#membership-form #id_display_member").prop("checked");
+
             
             if (cropped_blob != null) {
                 profile_picture = new File([cropped_blob], "profile_picture.jpg");
