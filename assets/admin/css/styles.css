@@ -278,6 +278,12 @@ button {
   background-color: #f3eaea;
 }
 
+@media (prefers-color-scheme: dark) {
+  .form-wrapper form .preview-section .newsletter-preview {
+    background-color: #2c2929;
+  }
+}
+
 .form-wrapper form .preview-section .newsletter-preview .preview-subject {
   font-weight: bold;
 }

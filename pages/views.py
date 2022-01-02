@@ -3,7 +3,7 @@ from django.shortcuts import render
 import json
 from django.http import Http404
 from django.core.validators import validate_email
-from user.subscription_handler import subscribe, submit_member_request
+from user.subscription_handler import submit_member_request
 from user.file_helpers import resize_crop_image
 from user.models import Profile
 from contact.mailsender import send_verification_mail

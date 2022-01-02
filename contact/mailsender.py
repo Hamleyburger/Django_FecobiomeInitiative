@@ -12,6 +12,13 @@ def send_newsletter(request, sender_name, recipients: list, subject, html_messag
     sender_email = request.user.email
     sender_name_and_email = "{} <{}>".format(sender_name, sender_email)
 
+    if settings.DEBUG:
+        hamley = User.objects.filter(username=settings.HAMLEY).first()
+        recipients = [hamley.email]
+        print("Settings are debug. Recepients are Hamley")
+
+    
+
     try:
         for recipient in recipients:
             uid = get_unsubscribe_key(recipient)

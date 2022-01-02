@@ -31,6 +31,9 @@
                 border-radius: 20px;
                 padding: 50px;
                 background-color: rgb(243, 234, 234);
+                @media (prefers-color-scheme: dark) {
+                    background-color: #2c2929;
+                  }
                 
                 .preview-subject {
                     font-weight: bold;

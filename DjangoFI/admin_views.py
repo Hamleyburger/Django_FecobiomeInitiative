@@ -34,7 +34,8 @@ class NewsletterView(FormView):
 
 
         send_newsletter(self.request, "FI Newsletter",
-                        get_subscribers_emails(), subject, message)
+                        get_subscribers_emails(), 
+                        subject, message)
 
         context = {
             "form": form

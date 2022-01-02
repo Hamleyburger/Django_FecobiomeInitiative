@@ -58,14 +58,3 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
         
 
 
-class NewsletterSubscriber(models.Model):
-    email = models.EmailField(unique=True, blank=False)
-    unsubscribe_key = models.UUIDField(blank=False, default=uuid.uuid4, unique=True, editable=False)
-    name = models.CharField(max_length=200, blank=True, help_text="This field is not required", verbose_name="Name (if given)")
-    class Meta:
-         verbose_name = "Newsletter Subscriber (not in use)"
-
-    def __str__(self):
-        return "Subscriber (not in use): {}".format(self.email)
-
-

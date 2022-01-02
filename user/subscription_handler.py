@@ -1,6 +1,6 @@
 import csv
 import uuid
-from user.models import NewsletterSubscriber, Profile
+from user.models import Profile
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.conf import settings
@@ -8,18 +8,6 @@ from datetime import datetime
 from contact.mailsender import send_approval_request_to_admin
 import uuid
 
-
-def subscribe(email):
-    """ adds any string to mailing list so make sure to validate first?\n
-    Also adds an unsubscribe key that can be used in an unsubscribe link\n
-    Warning: newsletter form is no longer on site and newsletters are being\n
-    sent to member profiles only. """
-    email = email.lower()
-
-    if not NewsletterSubscriber.objects.filter(email=email).first():
-        print("Subscriber is new")
-        subscriber = NewsletterSubscriber(email=email)
-        subscriber.save()
 
 
 def cancel_membership(unsubscribe_key=""):
