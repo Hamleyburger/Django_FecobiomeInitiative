@@ -4,6 +4,7 @@ __pychache__/*
 *__pychache__/*
 *migrations/__pycache__/*
 *user_profile_pics/*
+media/user_profile_pics/
 
 workspace.code-workspace
 run.sh
