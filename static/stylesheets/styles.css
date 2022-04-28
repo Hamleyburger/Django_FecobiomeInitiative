@@ -571,9 +571,17 @@ body footer .footericon {
           justify-content: center;
 }
 
-.profile_pic img {
+.profile_pic .logoimg {
   width: 85%;
   margin-top: 8px;
+}
+
+.profile_pic .profileimg {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  margin: 0;
 }
 
 .profile-box {

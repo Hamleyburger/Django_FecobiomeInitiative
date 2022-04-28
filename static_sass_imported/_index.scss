@@ -59,9 +59,15 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    img {
+    .logoimg {
         width: 85%;
         margin-top: 8px;
+    }
+    .profileimg {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        margin: 0;
     }
 }
 

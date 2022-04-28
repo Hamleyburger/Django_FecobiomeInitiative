@@ -58,9 +58,13 @@
                     <div class="row">
                         <div class="col-4 profile-pic-col">
                                 {% if profile.profile_picture %}
-                                <img class="profile_pic" src="/media/{{ profile.profile_picture }}" alt="profile picture">
+                                <div class="profile_pic">
+                                    <img class="profileimg" src="/media/{{ profile.profile_picture }}" alt="profile picture">
+                                </div>
                                 {% else %}
-                                <div class="profile_pic"><img src="{% static 'src/images/logos/cowlogofill.svg' %}" alt="logo here"></div>
+                                <div class="profile_pic">
+                                    <img class="logoimg" src="{% static 'src/images/logos/cowlogofill.svg' %}" alt="logo here">
+                                </div>
                                 {% endif %}
                         </div>
                         <div class="col-8">
