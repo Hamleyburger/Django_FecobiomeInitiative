@@ -71,7 +71,8 @@ def request_membership(request):
         user_form = UserForm(request.POST)
         response = {}
 
-        if request.is_ajax():
+        # Used to be if request.is_ajax but this is deprecated: https://stackoverflow.com/questions/70419441/attributeerror-wsgirequest-object-has-no-attribute-is-ajax
+        if request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest':
 
             if user_form.is_valid() and profile_form.is_valid():
                 first_name = user_form.cleaned_data.get("first_name")
