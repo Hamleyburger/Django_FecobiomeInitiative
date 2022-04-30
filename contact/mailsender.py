@@ -14,6 +14,8 @@ def send_newsletter(request, sender_name, recipients: list, subject, html_messag
 
     if settings.DEBUG:
         hamley = User.objects.filter(username=settings.HAMLEY).first()
+        print("recipients were:")
+        print(recipients)
         recipients = [hamley.email]
         print("Settings are debug. Recepients are Hamley")
 
@@ -35,6 +37,7 @@ def send_newsletter(request, sender_name, recipients: list, subject, html_messag
             )
 
             mail_from_admin.attach_alternative(individual_html_message, "text/html")
+            # Notice that DEBUG ensures that only Hamley receives email
             mail_from_admin.send(fail_silently=True)
 
 
