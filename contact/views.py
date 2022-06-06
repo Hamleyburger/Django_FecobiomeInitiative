@@ -1,11 +1,12 @@
 from django.shortcuts import render
 from django.contrib import messages
+from django.views.decorators.http import require_http_methods
 from .forms import ContactForm, SubmitDataForm
 from user.models import User
 from resources.models import resources_meta
 from .mailsender import send_mail_to_admin, submit_data_to_admin
 from django import http
-from django.http import JsonResponse
+from django.http import Http404, JsonResponse
 from django.conf import settings
 
 
@@ -79,15 +80,18 @@ def submit_data(request):
 
     return render(request, "contact/submit_data.html", context)
 
-
+@require_http_methods(["POST"])
 def fetch_resources_meta(request):
+    # Makes the downloadable excel and txt example files be the correct
+    # resource format (data/publication) in the submit-data page.
     meta_key = request.POST.get('key')
     requested_dict = resources_meta.get(meta_key)
     txt_path = requested_dict.get("example_file_txt")
     xlsx_path = requested_dict.get("example_file_xlsx")
-    print(requested_dict)
+
     data = {
         'txt_path': txt_path,
         'xlsx_path':  xlsx_path
     }
     return JsonResponse(data)
+
