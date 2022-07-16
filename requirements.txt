@@ -5,13 +5,13 @@ certifi==2021.5.30
 charset-normalizer==2.0.3
 click==8.0.1
 distlib==0.3.2
-Django==4.0.4
+Django==4.0.6
 django-ckeditor==6.1.0
 django-js-asset==1.2.2
 filelock==3.0.12
 idna==3.2
 libmagic==1.0
-Pillow==9.1.0
+Pillow==9.2.0
 pipdeptree==2.0.0
 python-magic-bin==0.4.14
 pytz==2021.1
