@@ -6,7 +6,8 @@ from django import forms
 from csv import DictReader
 from io import TextIOWrapper
 from .upload_helper import upload_publications_from_file, upload_dataset_from_file, upload_genomes_from_file
-
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 
 
@@ -107,6 +108,7 @@ class GenomeAdmin(admin.ModelAdmin):
         urls = super().get_urls()
         my_urls = [
             path('add_from_file/', self.add_from_file, name="genomes-add-from-file"),
+            path('delete-genomes/', self.delete_genomes, name="genomes-delete-all")
         ]
         return my_urls + urls
 
@@ -119,13 +121,21 @@ class GenomeAdmin(admin.ModelAdmin):
                 messages.success(request, "Reference genome data was succesfully updated :-)")
 
         form = CsvImportForm()
+        someurl = reverse("admin:resources_genome_changelist")
         data = {
             "form": form,
-            "feedback": feedback
+            "feedback": feedback,
+            "urlfun": someurl
         }
         return render(request, "admin/resources/genome/add_from_file.html", data)
 
-
+    def delete_genomes(self, request):
+        genomes = Genome.objects.all()
+        for genome in genomes:
+            print("deleting genomwa")
+            genome.delete()
+            data = {}
+        return HttpResponseRedirect(reverse("admin:resources_genome_changelist"))
 
 # Register your models here.
 admin.site.register(Publication, PublicationAdmin)

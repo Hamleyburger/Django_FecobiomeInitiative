@@ -2,7 +2,7 @@
 
 let hidden_columns = [];
 
-// Collapsing columns (until next search) in admin list view
+// Collapsing columns (until next search) in admin list view for Data
 $(".collapse-column-btn").click(function(event) {
     event.preventDefault();
     index = $(this).data("column");
@@ -34,4 +34,21 @@ $("#edit-button").click(function() {
     console.log("clicked edit");
     $("#preview-section").toggle();
     $("#input-section").toggle();
+});
+
+
+// Delete genomes
+$("#delete-genomes-btn").click(function(event) {
+    event.preventDefault();
+    index = $(this).data("column");
+    headers = $(".results thead ").find("th");
+    fields = $(".results tbody").find("tr");
+    header = headers.get(index)
+
+    $(this).toggleClass("selected");
+    $(header).toggleClass("hidden-column");
+    fields.each(function(i) {
+        field = $(this).children().get(index);
+        $(field).toggleClass("hidden-column");
+    });
 });

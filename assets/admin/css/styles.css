@@ -64,7 +64,7 @@ button {
       flex-wrap: wrap;
 }
 
-.custom-btns-div .custom-column-buttons .collapse-column-btn {
+.custom-btns-div .custom-column-buttons .custom-changelist-btn {
   border: 1px solid lightgrey;
   margin: 3px;
   padding: 6px;

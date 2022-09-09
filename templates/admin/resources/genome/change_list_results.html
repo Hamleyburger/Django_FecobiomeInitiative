@@ -1,12 +1,7 @@
 
 <div class="custom-btns-div">
-    <label class="custom-column-label">Hide columns</label>
     <div class="custom-column-buttons">
-        {% for header in result_headers|slice:"1:" %}
-        <button type="button" class="collapse-column-btn custom-changelist-btn" id="collapse-col-{{ forloop.counter }}" data-column="{{ forloop.counter }}">
-            <span>{{ header.text|capfirst }}</span>
-        </button>
-        {% endfor %}
+      <a href="{% url 'admin:genomes-delete-all' %}" onclick="return confirm('Sorry to interrupt...\n\nDo you really want to delete ALL entries in the entire database of reference genomes?')" class="custom-changelist-btn">Delete all</a>
     </div>
 </div>
 {% for object in cl.result_list %}
