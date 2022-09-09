@@ -148,13 +148,14 @@ body .site-inner main .resources-search-section input:-internal-autofill-selecte
 }
 
 body .site-inner main .rrow {
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  width: 100%;
+  width: 460px;
+  margin: auto;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   -webkit-box-orient: horizontal;
@@ -184,7 +185,10 @@ body .site-inner main .rrow .col-wrapper .rcol .card-header, body .site-inner ma
   border: none;
 }
 
-body .site-inner main .rrow .col-wrapper .rcol .fas {
+body .site-inner main .rrow .col-wrapper .rcol .fas, body .site-inner main .rrow .col-wrapper .rcol svg {
+  stroke: #DEA139;
+  stroke-width: 8pt;
+  max-width: 64px;
   font-size: 50px;
   text-align: center;
   margin-top: auto;

@@ -1,0 +1,96 @@
+{% extends "resources/search.html" %}
+{% load static %}
+
+{% block extrahead %}
+    {{ block.super }}
+{% block resourceshead %}
+<link rel="stylesheet" href="{% static 'stylesheets/resources/force_sidebar_down.css' %}">
+<meta name="title" content="Fecobiome Initiative | Reference genomes">
+<meta property="og:title" content="Fecobiome Initiative | Sequencing data">
+<meta name="description" content="Our databases contain metadata describing studies relevant to the FI; sequencing data, publications, reference genomes, (and soon) microbial isolations and protocols.">
+<meta name="keywords" content="cattle, bovine, feces, microbiome, microbiota, gastrointestinal tract, gut, intestine, antimicrobial resistance, zoonotes, pathogens, metadata, resources, sequencing data">
+<meta property="og:url" content="https://www.fecobiome.com/resources/reference-genomes/">
+<meta property="og:description" content="Our databases contain metadata describing studies relevant to the FI; sequencing data, publications, reference genomes, (and soon) microbial isolations and protocols.">
+<link rel="canonical" href="http://www.fecobiome.com/resources/reference-genomes/">
+{% endblock resourceshead%}
+
+{% endblock extrahead %}
+{% block title %}{{ block.super }}| Reference genomes{% endblock title %}
+
+{% block search_url %} {% url 'resources-genomes' query %} {% endblock search_url %}
+
+
+{% block content %}
+<div id="loading-div">Loading table...</div>
+<div id="hide-datatable" style="display: none;">
+
+<table id="fi-datatable" class="table table-striped" style="width:100%">
+        <thead>
+            <tr>
+                <th> unique id </th>
+                <th> download link </th>
+                <th> closest relatve/alt. name </th>
+                <th> phylogeny class </th>
+                <th> original sample </th>
+                <th> country </th>
+                <th> dRep secondary cluster </th>
+                <th> checkm completeness </th>
+                <th> checkm contamination </th>
+                <th> mean contig read coverage </th>
+                <th> dRep set of MAGs </th>
+                <th> source </th>
+                <th> Added </th>
+                <th> Expired </th>
+                <th> publication </th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for object in genomes %}
+            <tr>
+                <td> {{ object.unique_id }} </td>
+                <td> <a href="https://doi.org/{{ object.latest_doi }}" target="_blank" >{{ object.latest_doi }}</a></td>
+                <td> {{ object.closest_rel_alt_name }} </td>
+                <td> {{ object.phyl_class }} </td>
+                <td> {{ object.original_sample }} </td>
+                <td> {{ object.country }} </td>
+                <td> {{ object.dRep_secondary_cluster }} </td>
+                <td> {{ object.checkm_completeness }} </td>
+                <td> {{ object.checkm_contamination }} </td>
+                <td> {{ object.mean_contig_read_coverage }} </td>
+                <td> {{ object.dRep_set_of_MAGs }} </td>
+                <td> {{ object.source }} </td>
+                <td> {{ object.created_date }} </td>
+                <td> {{ object.expired_date }} </td>
+                <td> <a href="{{ object.publication.link }}" target="_blank" >{{ object.publication.author_et_al }} ({{ object.publication.year }}): {{ object.publication.title }}</a> </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <th> unique id </th>
+                <th> download link </th>
+                <th> closest relatve/alt. name </th>
+                <th> phylogeny class </th>
+                <th> original sample </th>
+                <th> country </th>
+                <th> dRep secondary cluster </th>
+                <th> checkm completeness </th>
+                <th> checkm contamination </th>
+                <th> mean contig read coverage </th>
+                <th> dRep set of MAGs </th>
+                <th> source </th>
+                <th> added </th>
+                <th> expired </th>
+                <th> publication </th>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+<ul>
+</ul>
+
+{% endblock content %}
+

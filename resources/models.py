@@ -143,3 +143,28 @@ class Data(models.Model):
         return selfstring
 
 
+class Genome(models.Model):
+
+    unique_id = models.CharField(max_length=100, unique=True)
+    closest_rel_alt_name = models.CharField(max_length=100, unique=True)
+    phyl_class = models.CharField(max_length=100)
+    original_sample = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    publication = models.ForeignKey(Publication, on_delete=models.PROTECT, blank=True, null=True) # DOI in spreadsheet
+    dRep_secondary_cluster = models.CharField(max_length=100)
+    checkm_completeness = models.DecimalField(max_digits=5, decimal_places=2)
+    checkm_contamination = models.DecimalField(max_digits=5, decimal_places=2)
+    mean_contig_read_coverage = models.DecimalField(max_digits=6, decimal_places=2)
+    dRep_set_of_MAGs = models.BooleanField()
+    source = models.CharField(max_length=100)
+    latest_doi = models.CharField(max_length=100) # link to genomes
+    created_date = models.DateField(auto_now_add=True)
+    expired_date = models.DateField(blank=True, null=True)
+
+    def __str__(self):
+        string = ""
+        if self.expired_date:
+            string = "*{} - {} (expired)".format(self.unique_id, self.closest_rel_alt_name)
+        else:
+            string = "{} - {}".format(self.unique_id, self.closest_rel_alt_name)
+        return string

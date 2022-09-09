@@ -1,1 +1,1 @@
-run_accession	doi	no_of_samples	no_of_animals	target_region_16s	data_type	animal	sample_type	location	farm_name	farm_size	antibiotics	host	age_months	diet	sample_date_dmy
+run_accession	bioproject	doi	no_of_samples	no_of_animals	FBP_detected	target_region_16s	data_type	animal	sample_type	location	farm_name	farm_size	antibiotics	host	age_months	diet	sample_date_dmy

@@ -1,11 +1,12 @@
-from datetime import datetime
+from datetime import datetime, date
 from io import TextIOWrapper
-from csv import DictReader
+from csv import DictReader, DictWriter
+from tabnanny import check
 from resources.API_helpers.publications import clean_doi
 
 
 from django.contrib import messages
-from .models import Data, Publication
+from .models import Data, Publication, Genome
 
 
 class Feedback(dict):
@@ -43,11 +44,28 @@ class Feedback(dict):
     def add_missing_header(self, header_name):
         if not self.get("missing_headers"):
             self["missing_headers"] = []
-            self["missing_headers"].append(header_name)
+        self["missing_headers"].append(header_name)
+
+            
         return self
 
 
+def empty_row_filter(row):
+    """ use in filter() to skip empty rows in table / CSV reader """
+
+    hascontent = False
+    for value in row.values():
+        if isinstance(value, str):
+            if value:
+                if not value.isspace():
+                    hascontent = True
+
+    return hascontent
+
+        
+
 def tab_delimited_file(request):
+    """ Returns CSV-reader for tab delimited file"""
     file = request.FILES["fileinput"]
     file_data = TextIOWrapper(file, encoding='utf-8', newline='')
     csv_reader = DictReader(file_data, delimiter="\t")
@@ -65,7 +83,7 @@ def empty_no_data_strings(row: dict):
     return row
 
 
-def validate_row_with_feedback(row: dict, all_headers: list, required_headers: list, row_number, feedback: Feedback):
+def validate_data_row_with_feedback(row: dict, all_headers: list, required_headers: list, row_number, feedback: Feedback):
 
     """ Checks that row is valid and a cell exists for each header\n
     Returns row if valid  """
@@ -112,6 +130,8 @@ def missing_headers(all_headers: list, table: dict, feedback: Feedback):
     for header in all_headers:
         if header not in table.fieldnames:
             feedback.add_missing_header(header)
+            print(header)
+            print("is missing")
             missing = True
     return missing
 
@@ -173,7 +193,6 @@ def upload_publications_from_file(request):
     return failed_uploads
 
 
-
 # A lot of this can be made accessible for other resource categories too
 def upload_dataset_from_file(request):
     """ Validates and stores Data objects from uploaded file based on tab separated values """
@@ -210,7 +229,7 @@ def upload_dataset_from_file(request):
         for row_number, row in enumerate(table):
             print("Processing row {}".format(row_number + 1))
 
-            row = validate_row_with_feedback(row, all_headers, required_headers, row_number, feedback)
+            row = validate_data_row_with_feedback(row, all_headers, required_headers, row_number, feedback)
             if not row:
                 continue  # continuing to next row
 
@@ -292,5 +311,189 @@ def upload_dataset_from_file(request):
                 unique_field=run_accession, 
                 message="{} - {}".format(updatedstring, new_dataset))
 
+    return feedback
+
+
+def upload_genomes_from_file(request):
+
+    print("\n\n\n")
+    table = tab_delimited_file(request)
+    feedback = Feedback()
+    all_headers = [
+        "unique_id",
+        "closest_relative_and_alternative_name",
+        "phylogeny_class",
+        "original_sample",
+        "country",
+        "study_doi",
+        "dRep_secondary_cluster",
+        "checkm_completeness",
+        "checkm_contamination",
+        "mean_contig_read_coverage",
+        "dRep_set_of_MAGs",
+        "source",
+        "latest_doi"
+    ]
+
+    required_headers = [
+        "unique_id",
+        "closest_relative_and_alternative_name",
+        "phylogeny_class",
+        "original_sample",
+        "country",
+        "dRep_secondary_cluster",
+        "checkm_completeness",
+        "checkm_contamination",
+        "mean_contig_read_coverage",
+        "source",
+        "latest_doi"
+    ]
+
+    # All headers are  required
+
+    if not missing_headers(all_headers, table, feedback):
+
+        upload = True
+        genomes_to_save = []
+        old_genomes = Genome.objects.filter(expired_date=None)
+        latest_version_uids = []
+
+        for row_index, row in enumerate(filter(empty_row_filter, table)): # skips empty rows
+
+            row_number = row_index + 2 # 1 to account for 0-index, 1 to account for Excel sheet headers
+
+            unique_id = row["unique_id"]
+            closest_relative_and_alternative_name = row["closest_relative_and_alternative_name"]
+            phylogeny_class = row["phylogeny_class"]
+            original_sample = row["original_sample"]
+            country = row["country"]
+            study_doi = row["study_doi"]
+            dRep_secondary_cluster = row["dRep_secondary_cluster"]
+            checkm_completeness = row["checkm_completeness"]
+            checkm_contamination = row["checkm_contamination"]
+            mean_contig_read_coverage = row["mean_contig_read_coverage"]
+            dRep_set_of_MAGs = row["dRep_set_of_MAGs"]
+            source = row["source"]
+            latest_doi = row["latest_doi"]
+            expired_date = None
+
+            # Check existing/new/expired
+            if unique_id in latest_version_uids:
+                feedback.append_to_row_errors(
+                    unique_field=row["unique_id"] if row.get("unique_id") else "with unknown unique_id in row {}".format(row_number),
+                    message="Row {} ({}): Another row with this unique_id exists in document.".format(row_number, unique_id)
+                    )
+                upload = False
+            latest_version_uids.append(unique_id)
+            exists = False
+            for genome in old_genomes:
+                if genome.unique_id == unique_id:
+                    exists = True
+            if exists:
+                continue # to next row in for loop
+            
+
+
+            
+            ### Check if row is valid. If there is anything invalid upload is set to False. ###
+
+            # Check that all required fields have data
+            for header in required_headers:
+                if not row[header] or row[header].isspace():
+                    upload = False
+
+                    feedback.append_to_row_errors(
+                        unique_field=row["unique_id"] if row.get("unique_id") else "with unknown unique_id in row {}".format(row_number),
+                        message="Row {} ({}): Column '{}' must contain a value.".format(row_number, unique_id, header)
+                        )
+
+            try:
+                checkm_completeness = float(checkm_completeness.replace(",", "."))
+                checkm_contamination = float(checkm_contamination.replace(",", "."))
+                mean_contig_read_coverage = float(mean_contig_read_coverage.replace(",", "."))
+            except Exception as e:
+                upload = False
+                feedback.append_to_row_errors(
+                    unique_field=row["unique_id"] if row.get("unique_id") else "with unknown unique_id in row {}".format(row_number),
+                    message="Row {} ({}): Checkm values and mean_contig_read_coverage must be numeric.".format(row_number, unique_id)
+                    )
+                
+            if type(checkm_completeness) == float:
+                if (checkm_completeness < 0.0) or (checkm_completeness > 100.0):
+                    feedback.append_to_row_errors(
+                        unique_field=row["unique_id"] if row.get("unique_id") else "with unknown unique_id in row {}".format(row_number),
+                        message="Row {} ({}): Checkm_completeness outside allowed range (0-100)".format(row_number, unique_id)
+                        )
+                    upload = False
+
+            if type(checkm_contamination) == float:
+                if (checkm_contamination < 0.0) or (checkm_contamination > 100.0):
+                    feedback.append_to_row_errors(
+                        unique_field=row["unique_id"] if row.get("unique_id") else "with unknown unique_id in row {}".format(row_number),
+                        message="Row {} ({}): Checkm_contamination outside allowed range (0-100)".format(row_number, unique_id)
+                        )
+                    upload = False
+
+            publication = Publication.objects.filter(doi=study_doi).first()
+
+            dRep_set_of_MAGs = True if dRep_set_of_MAGs.lower().strip() == "yes" else False
+
+
+            if upload:
+                try:
+                    genome = Genome(
+                        unique_id=unique_id,
+                        closest_rel_alt_name=closest_relative_and_alternative_name,
+                        phyl_class=phylogeny_class,
+                        original_sample=original_sample,
+                        country=country,
+                        publication=publication,
+                        dRep_secondary_cluster=dRep_secondary_cluster,
+                        checkm_completeness=checkm_completeness,
+                        checkm_contamination=checkm_contamination,
+                        mean_contig_read_coverage=mean_contig_read_coverage,
+                        dRep_set_of_MAGs=dRep_set_of_MAGs,
+                        source=source,
+                        latest_doi=latest_doi,
+                        expired_date=expired_date
+                    )
+
+                    genomes_to_save.append(genome)
+
+                except Exception as e:
+                    feedback.append_to_row_errors(
+                        unique_field="",
+                        message="Internal error. If the problem persists please contact you friendly neighbourhood developer: {}".format(e)
+                        )
+        
+        if upload:
+            # Hvis den gamle entry ikke fandtes i nye, så sæt “expired date”.
+            for genome in old_genomes:
+                if genome.unique_id not in latest_version_uids:
+                    print("this genome expires: {}".format(genome))
+                    genome.expired_date = date.today()
+                    genomes_to_save.append(genome)
+            try:
+                print("saving genomes:")
+                for genome in genomes_to_save:
+                    print(genome)
+                    genome.save()
+            except Exception as e:
+                print("Aborted upload. Not saving any rows.")
+                print(e)
+        else:
+            print("Was not uploaded.")
+
+
+
+
+    if feedback:
+        print("there is feedback")
+    else:
+        print("no feeback")
 
     return feedback
+
+
+
+

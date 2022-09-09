@@ -1,4 +1,4 @@
-from .models import Data, Publication
+from .models import Data, Publication, Genome
 from django.db.models import Q
 
 def search_data(query):
@@ -35,3 +35,30 @@ def search_publications(query):
     lookups = Q(title__icontains=query) | Q(authors__icontains=query) | Q(doi__icontains=query) | Q(date__icontains=query)
     results = Publication.objects.filter(lookups).distinct()
     return results
+
+def search_genomes(query):
+    """ Searches in genomes """
+    if not query:
+        return []
+
+    genome_lookups = \
+    Q(unique_id__icontains=query) | \
+    Q(closest_rel_alt_name__icontains=query) | \
+    Q(phyl_class__icontains=query) | \
+    Q(original_sample__icontains=query) | \
+    Q(country__icontains=query) | \
+    Q(dRep_secondary_cluster__icontains=query) | \
+    Q(source__icontains=query) | \
+    Q(latest_doi__icontains=query)
+
+
+    pub_lookups = Q(authors__icontains=query) | Q(title__icontains=query) | Q(doi__icontains=query)
+
+    genome_results = Genome.objects.filter(genome_lookups)
+    pub_results = Publication.objects.filter(pub_lookups)
+    genome_results_from_pub = Genome.objects.filter(publication__in=pub_results)
+
+    genome_results = genome_results | genome_results_from_pub
+    genome_results = genome_results.distinct()
+
+    return genome_results

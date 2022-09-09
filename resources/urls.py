@@ -7,4 +7,6 @@ urlpatterns = [
     path('data/<str:query>/', views.data, name="resources-data"),
     path('publications/', views.publications, name="resources-publications"),
     path('publications/<str:query>/', views.publications, name="resources-publications"),
+    path('reference-genomes/', views.genomes, name="resources-genomes"),
+    path('reference-genomes/<str:query>/', views.genomes, name="resources-genomes"),
 ]

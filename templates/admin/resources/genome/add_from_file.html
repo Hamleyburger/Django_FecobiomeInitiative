@@ -1,0 +1,139 @@
+{% extends "admin/base.html" %}
+{% load static %} 
+{% block content %}
+<div class="center-content">
+    {% if feedback.missing_headers or feedback.invalid_rows %}
+        <div class="upload-div upload-errors">
+            <!-- Error feedback -->
+            {% if feedback.invalid_rows %}
+            <p>
+            Upload aborted because of these errors:
+                <ul>
+                {% for unique_id, messages in feedback.invalid_rows.items %}
+                        {% for line in messages %}
+                        <li>{{ line }}</li>
+                        {% endfor %}
+                {% endfor %}
+                </ul>
+            </p>
+            {% endif %}
+
+            {% if feedback.missing_headers %}
+            <p>
+                The document is missing some headers:
+                <ul>
+                    {% for item in feedback.missing_headers %}
+                    <li>{{ item }}</li>
+                    {% endfor %}
+                </ul>
+            </p>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        {% if feedback.field_problems %}
+        <div class="upload-div upload-problems">
+                <p>
+                Some rows had problems - the following fields will be empty:
+                {% for uniqueid, messages in feedback.field_problems.items %}
+                <ul>
+                    {% for line in messages %}
+                            <li>{{ line }}</li>
+                    {% endfor %}
+                </ul>
+                {% endfor %}
+                </ul>
+                </p>
+        </div>
+        {% endif %}
+
+
+    {% if feedback.success %}
+        <div class="upload-div upload-success">
+            <p>
+            Created/updated data sets:
+                <ul>
+                {% for runacc, messages in feedback.success.items %}
+                        {% for line in messages %}
+                        <li>{{ line }}</li>
+                        {% endfor %}
+                {% endfor %}
+                </ul>
+            </p>
+        </div>
+    {% endif %}
+
+    <div class="form-intro upload-div ">
+        <div class="upload-form">
+            <form action="." method="POST" enctype="multipart/form-data">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <button type="submit">Upload File</button>
+            </form>
+        </div>
+        <div class="upload-div upload-intro">
+            <div>
+                <p>Upload a tab-separated txt file with the following headers:</p>
+                <ul>
+                    <li>
+                        unique_id
+                    </li>
+                    <li>
+                        closest_relative_and_alternative_name
+                    </li>
+                    <li>
+                        phylogeny_class
+                    </li>
+                    <li>
+                        original_sample
+                    </li>
+                    <li>
+                        country	
+                    </li>
+                    <li>
+                        study_doi
+                    </li>
+                    <li>
+                        dRep_secondary_cluster
+                    </li>
+                    <li>
+                        checkm_completeness
+                    </li>
+                    <li>
+                        checkm_contamination
+                    </li>
+                    <li>
+                        mean_contig_read_coverage
+                    </li>
+                    <li>
+                        dRep_set_of_MAGs
+                    </li>
+                    <li>
+                        source
+                    </li>
+                    <li>
+                        latest_doi
+                    </li>
+                </ul>
+                <p>* Remember cap sensitivity: ('dRep_set_of_MAGs', not 'drep_set_of_mags') </p>
+                <p>* Make sure the text in the file is unformatted/plain text and is tab delimited</p>
+                <p>* Note that creation and expiration dates will be added automatically and are not needed in the upload file.</p>
+                <p>Download template files with all headers:</p>
+                <div class="download-links">
+                    <a class="download-link txt" href="{% static 'admin/example_files/genomes_template.txt' %}" download>Template file.txt</a>
+                    <a class="download-link xlsx" href="{% static 'admin/example_files/genomes_template.xlsx' %}" download>Template file.xlsx</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="upload-div upload-example">
+        <p>Example:</p>
+        <div class="image-wrapper">
+            <img style="width: 1000px;" src="{% static 'admin/images/genome_file_example.png' %}"
+                alt="example of doi file">
+        </div>
+    </div>
+
+
+{% endblock %}

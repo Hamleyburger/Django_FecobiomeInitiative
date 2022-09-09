@@ -101,9 +101,10 @@
     }
 
     .rrow {
-        justify-content: center;
+        justify-content: flex-start;
         display: flex;
-        width: 100%;
+        width: 460px; // Based on width of rcol (200) + padding of col-wrapper (2x15)
+        margin: auto;
         flex-wrap: wrap;
         flex-direction: row;
 
@@ -126,11 +127,15 @@
                     background: none;
                     border: none;
                 }
-                .fas {
+                .fas, svg {
+                    stroke: $earth-orange;
+                    stroke-width: 8pt;
+                    max-width: 64px;
                     font-size: 50px;
                     text-align: center;
                     margin-top: auto;
                 }
+
                 .card-footer {
                     margin-top: auto;
                     b {

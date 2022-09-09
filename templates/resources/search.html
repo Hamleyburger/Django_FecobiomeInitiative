@@ -36,72 +36,98 @@
                     <div class="input-group">
                         <input name="searchbar" type="search" class="form-control inner-shadow" placeholder="Search our database" aria-label="Search"
                             aria-describedby="search-addon" />
-                        <button type="submit" class="input-group-text border-0" id="search-addon">
+                        <button name="submit" type="submit" class="input-group-text border-0" id="search-addon">
                             <i class="fas fa-search"></i>
                         </button>
-                        <button class="input-group-text border-0 showall">Clear</button>
+                        <button name="clear-btn" value="1" class="input-group-text border-0 showall">Clear</button>
                     </div>
                 </form>
             </section>
 {% endblock topsection %}
 {% block content %}
-
-    <div class="rrow">
-        <a class="col-wrapper" {% if query %}href="{% url 'resources-data' query %}"{% else %}href="{% url 'resources-data' %}"{% endif %}>
-            <div class="rcol card">
-                <p class="card-header">
-                Sequencing data
-                </p>
-                <i class="fas fa-table"></i>
-                <div class="card-footer">
-                    <span>
-                    {% if data_hits %}
-                    <b>{{ data_hits }}</b> results
-                    {% endif %}
-                    </span>
+    
+        <div class="rrow">
+            <a class="col-wrapper" {% if data_hits %}href="{% url 'resources-data' query %}"{% else %}href="{% url 'resources-data' %}"{% endif %}>
+                <div class="rcol card">
+                    <p class="card-header">
+                        Sequencing data
+                    </p>
+                    <i class="fas fa-table"></i>
+                    <div class="card-footer">
+                        <span>
+                        {% if data_hits %}
+                        <b>{{ data_hits }}</b> results
+                        {% endif %}
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a class="col-wrapper" {% if query %}href="{% url 'resources-publications' query %}"{% else %}href="{% url 'resources-data' %}"{% endif %}>
-            <div class="rcol card">
-                <p class="card-header">
-                Publications
-                </p>
-                <i class="fas fa-scroll"></i>
-                <div class="card-footer">
-                    <span>
-                    {% if publication_hits %}
-                    <b>{{ publication_hits }}</b> results
-                    {% endif %}
-                    </span>
+            </a>
+            <a class="col-wrapper" {% if publication_hits %}href="{% url 'resources-publications' query %}"{% else %}href="{% url 'resources-publications' %}"{% endif %}>
+                <div class="rcol card">
+                    <p class="card-header">
+                        Publications
+                    </p>
+                    <i class="fas fa-scroll"></i>
+                    <div class="card-footer">
+                        <span>
+                            {% if publication_hits %}
+                                <b>{{ publication_hits }}</b> results
+                            {% endif %}
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a hidden class="col-wrapper" {% if query %}href="{% url 'resources-data' query %}"{% else %}href="{% url 'resources-data' %}"{% endif %}>
-            <div class="rcol card">
-                <p class="card-header">
-                Microbial isolates
-                </p>
-                <i class="fas fa-bacteria"></i>
-                <div class="card-footer">
-                    <span><b>implement results</b> results</span>
+            </a>
+            <a class="col-wrapper" {% if genome_hits %}href="{% url 'resources-genomes' query %}"{% else %}href="{% url 'resources-genomes' %}"{% endif %}>
+                <div class="rcol card">
+                    <p class="card-header">
+                        Reference genomes
+                    </p>
+                    <svg class="genomeicon" width="100%" height="100%" viewBox="0 0 278 203" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+                        <g transform="matrix(2.08333,0,0,2.08333,-1390.48,-1180.69)">
+                            <g id="Genome">
+                                <g transform="matrix(1,0,0,1,-44.4005,-34.5941)">
+                                    <path d="M795.622,628.81C807.387,635.715 825.027,646.859 826.336,661.486C827.277,671.993 820.21,680.451 813.297,685.193C797.093,696.308 772.129,695.35 759.92,685.193C748.322,675.545 738.758,661.226 735.926,643.469C732.569,622.416 742.136,603.329 758.459,604.363C774.442,605.376 778.197,618.871 772.118,633.083C765.114,649.457 767.383,674.088 782.588,685.193C790.836,691.217 798.456,695.381 812.776,695.381C827.096,695.381 839.207,683.788 839.207,669.925C839.207,656.062 827.575,644.408 813.26,644.807C784.176,645.618 784.91,681.445 752.491,683.181C733.3,684.209 717.669,668.076 717.669,649.47C717.669,630.865 730.303,616.401 749.522,616.401C768.742,616.401 782.82,621.296 795.622,628.81Z" style="fill:none;"/>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                    <div class="card-footer">
+                        <span>
+                            {% if genome_hits %}
+                                <b>{{ genome_hits }}</b> results
+                            {% endif %}
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </a>
-        <a hidden class="col-wrapper" {% if query %}href="{% url 'resources-data' query %}"{% else %}href="{% url 'resources-data' %}"{% endif %}>
-            <div class="rcol card">
-                <p class="card-header">
-                Protocols
-                </p>
-                <i class="fas fa-eye-dropper"></i>
-                <div class="card-footer">
-                    <span><b>implement results</b> results</span>
+            </a>
+            <a hidden class="col-wrapper" {# if isolate_hits #}href="{# url 'resources-isolates' query #}"{# else #}href="{# url 'resources-isolates' #}"{# endif #}>
+                <div class="rcol card">
+                    <p class="card-header">
+                        Microbial isolates
+                    </p>
+                    <i class="fas fa-bacteria"></i>
+                    <div class="card-footer">
+                        <span>
+                            {# if isolate_hits #}
+                                <b>{# isolate_hits #}</b> results
+                            {# endif #}
+                        </span>
+                    </div>
                 </div>
-            </div>
-        </a>
-
-
-    </div>
+            </a>
+            <a hidden class="col-wrapper" {# if protocols_hits #}href="{# url 'resources-protocols' query #}"{# else #}href="{# url 'resources-protocols' #}"{# endif #}>
+                <div class="rcol card">
+                    <p class="card-header">
+                        Protocols
+                    </p>
+                    <i class="fas fa-eye-dropper"></i>
+                    <div class="card-footer">
+                        <span><b>implement results</b> results</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+    
 
 {% endblock content %}
 

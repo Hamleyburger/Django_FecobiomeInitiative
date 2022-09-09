@@ -52,7 +52,7 @@ def get_pubmed_meta(instance, doi):
 
 
 def get_fatcat_meta(instance, doi):
-    """ FatCat API call to get publication metadata for atricles where PubMeds API fails"""
+    """ FatCat API call to get publication metadata for articles where PubMeds API fails"""
     print("FatCat trying to get PubMed meta because PubMeds API is faulty")
     metadata_api_url = "https://api.fatcat.wiki/v0/release/lookup?doi={}".format(
         doi)
