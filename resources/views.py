@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Data, Publication, Genome
+from .models import Data, Genome_version, Publication, Genome
 from .search_helper import search_data, search_publications, search_genomes
 from django.urls import reverse
 
@@ -101,7 +101,8 @@ def genomes(request, query=None):
     context = {
         "title": "Reference genomes",
         "genomes": results, # replace data with genomes
-        "query": query
+        "query": query,
+        "versions": Genome_version.objects.all().order_by('-date')
     }
 
     return render(request, "resources/genome_datatable.html", context)

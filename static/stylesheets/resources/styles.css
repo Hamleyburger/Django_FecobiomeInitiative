@@ -6,6 +6,33 @@
   --grass-green: #3F4601;
 }
 
+.dl-link-div {
+  margin-bottom: 30px;
+}
+
+.dl-link-div .select-wrapper {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+}
+
+.dl-link-div .select-wrapper .btn-secondary {
+  border-radius: 11px !important;
+  margin: 5px !important;
+  background-color: #3F4601;
+  color: #edeee7;
+  border-color: rgba(63, 70, 1, 0.7);
+}
+
+.dl-link-div .select-wrapper .btn-secondary:hover {
+  background-color: #565f01;
+}
+
 .dataTables_wrapper a {
   text-decoration: underline;
   -webkit-transition: color .15s ease-in-out;

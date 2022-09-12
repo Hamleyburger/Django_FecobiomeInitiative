@@ -1,3 +1,4 @@
+import re
 from django.db import models
 from django.db.models.fields import CharField
 from django.db.models.signals import pre_save
@@ -145,6 +146,7 @@ class Data(models.Model):
 
 class Genome(models.Model):
 
+
     unique_id = models.CharField(max_length=100, unique=True)
     closest_rel_alt_name = models.CharField(max_length=100, unique=True)
     phyl_class = models.CharField(max_length=100)
@@ -158,6 +160,7 @@ class Genome(models.Model):
     dRep_set_of_MAGs = models.BooleanField()
     source = models.CharField(max_length=100)
     latest_doi = models.CharField(max_length=100) # link to genomes
+    version = models.SmallIntegerField()
     created_date = models.DateField(auto_now_add=True)
     expired_date = models.DateField(blank=True, null=True)
 
@@ -168,3 +171,16 @@ class Genome(models.Model):
         else:
             string = "{} - {}".format(self.unique_id, self.closest_rel_alt_name)
         return string
+
+
+class Genome_version(models.Model):
+
+    doi = models.CharField(max_length=100)
+    date = models.DateField(auto_now_add=True)
+    current = models.BooleanField()
+    number = models.SmallIntegerField()
+    genomes  = models.ManyToManyField(Genome, related_name="versions")
+
+
+    def __str__(self):
+        return ("Genomes v.{}, {}".format(self.number, self.date.strftime('%d-%m-%Y')))

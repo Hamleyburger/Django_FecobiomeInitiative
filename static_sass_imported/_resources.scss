@@ -1,5 +1,21 @@
-
-
+.dl-link-div {
+    margin-bottom: 30px;
+    .select-wrapper {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        .btn-secondary {
+            border-radius: 11px !important;
+            margin: 5px !important;
+            background-color: $grass-green;
+            color: $creamy-white;
+            border-color:rgba($grass-green, 0.7);
+            &:hover {
+                background-color: lighten($grass-green, 5%);
+            }
+        }
+    }
+}
 
 .dataTables_wrapper {
     a {

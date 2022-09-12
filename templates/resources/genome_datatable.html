@@ -19,10 +19,24 @@
 
 {% block search_url %} {% url 'resources-genomes' query %} {% endblock search_url %}
 
-
 {% block content %}
+
+<div class="dl-link-div">
+    <label for="version-links">Download version:</label>
+    <div class="select-wrapper">
+        <select id="version-links" class="form-select" name="version-links" id="versions">
+            {% for version in versions %}
+            <option class="option-dl-link" value="https://doi.org/{{ version.doi }}">v: {{ version.number }} - {{ version.date | date:"F Y" }}</option>
+            {% endfor %}
+        </select>
+        <a id="dl-link" class="btn btn-secondary" href="https://doi.org/{{ versions.0.doi }}" target="_blank">Go</a>
+    </div>
+</div>
+
+
 <div id="loading-div">Loading table...</div>
 <div id="hide-datatable" style="display: none;">
+
 
 <table id="fi-datatable" class="table table-striped" style="width:100%">
         <thead>

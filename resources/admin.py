@@ -1,5 +1,5 @@
 from django.contrib import admin, messages
-from .models import Data, Publication, Genome
+from .models import Data, Publication, Genome, Genome_version
 from django.urls import path
 from django.shortcuts import render
 from django import forms
@@ -132,12 +132,17 @@ class GenomeAdmin(admin.ModelAdmin):
     def delete_genomes(self, request):
         genomes = Genome.objects.all()
         for genome in genomes:
-            print("deleting genomwa")
             genome.delete()
-            data = {}
         return HttpResponseRedirect(reverse("admin:resources_genome_changelist"))
+
+
+class Genome_versionAdmin(admin.ModelAdmin):
+    pass
+
 
 # Register your models here.
 admin.site.register(Publication, PublicationAdmin)
 admin.site.register(Data, DataAdmin)
 admin.site.register(Genome, GenomeAdmin)
+admin.site.register(Genome_version, Genome_versionAdmin)
+

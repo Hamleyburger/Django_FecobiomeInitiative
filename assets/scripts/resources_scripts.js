@@ -20,3 +20,9 @@ $(document).ready(function() {
     });
 } );
 
+$("#version-links").change(function() {
+
+    console.log(this.value);
+    $("#dl-link").attr("href", this.value)
+  });
+

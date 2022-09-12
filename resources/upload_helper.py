@@ -1,12 +1,9 @@
 from datetime import datetime, date
 from io import TextIOWrapper
-from csv import DictReader, DictWriter
-from tabnanny import check
+from csv import DictReader
 from resources.API_helpers.publications import clean_doi
-
-
 from django.contrib import messages
-from .models import Data, Publication, Genome
+from .models import Data, Publication, Genome, Genome_version
 
 
 class Feedback(dict):
@@ -357,6 +354,7 @@ def upload_genomes_from_file(request):
         genomes_to_save = []
         old_genomes = Genome.objects.filter(expired_date=None)
         latest_version_uids = []
+        new_version_number = old_genomes[0].version + 1 if old_genomes else 1
 
         for row_index, row in enumerate(filter(empty_row_filter, table)): # skips empty rows
 
@@ -376,6 +374,7 @@ def upload_genomes_from_file(request):
             source = row["source"]
             latest_doi = row["latest_doi"]
             expired_date = None
+            version = new_version_number
 
             # Check existing/new/expired
             if unique_id in latest_version_uids:
@@ -389,13 +388,12 @@ def upload_genomes_from_file(request):
             for genome in old_genomes:
                 if genome.unique_id == unique_id:
                     exists = True
+                    genome.latest_doi = latest_doi
+                    genome.version = version
+                    genomes_to_save.append(genome)
             if exists:
                 continue # to next row in for loop
             
-
-
-            
-            ### Check if row is valid. If there is anything invalid upload is set to False. ###
 
             # Check that all required fields have data
             for header in required_headers:
@@ -455,7 +453,8 @@ def upload_genomes_from_file(request):
                         dRep_set_of_MAGs=dRep_set_of_MAGs,
                         source=source,
                         latest_doi=latest_doi,
-                        expired_date=expired_date
+                        expired_date=expired_date,
+                        version=version
                     )
 
                     genomes_to_save.append(genome)
@@ -467,7 +466,7 @@ def upload_genomes_from_file(request):
                         )
         
         if upload:
-            # Hvis den gamle entry ikke fandtes i nye, så sæt “expired date”.
+
             for genome in old_genomes:
                 if genome.unique_id not in latest_version_uids:
                     print("this genome expires: {}".format(genome))
@@ -478,19 +477,37 @@ def upload_genomes_from_file(request):
                 for genome in genomes_to_save:
                     print(genome)
                     genome.save()
+
+                print("setting version")
+                outdated_version = Genome_version.objects.filter(current=True).first()
+                if outdated_version:
+                    outdated_version.current = False
+                    outdated_version.save()
+
+                new_version = Genome_version(
+                    doi = genomes_to_save[0].latest_doi,
+                    current = True,
+                    number = version,
+                )
+
+                new_version.save()
+
+                # d = date(1997, 10, 19)
+                # new_version.date = d
+                # new_version.save()
+                new_version.genomes.add(*genomes_to_save)
+
             except Exception as e:
+                feedback.append_to_row_errors(
+                    unique_field="",
+                    message="Internal error. If the problem persists please contact you friendly neighbourhood developer: {}".format(e)
+                    )
                 print("Aborted upload. Not saving any rows.")
                 print(e)
         else:
             print("Was not uploaded.")
 
 
-
-
-    if feedback:
-        print("there is feedback")
-    else:
-        print("no feeback")
 
     return feedback
 
