@@ -17,7 +17,11 @@ class UnsibscribeForm(forms.Form):
         subkey = cleaned_data.get("key")
 
         cancellor = Profile.objects.filter(user__email=mail).first()
-        #print(cancellor.registration_key)
+
+        print("\n\n\n")
+        print(cancellor.registration_key)
+        print("\n\n\n")
+        
         if (not cancellor) or (not cancellor.registration_key == subkey):
             raise ValidationError('This email does not match the clicked link. Did you change the URL address or the email address above? If you have no email (a newsletter) with a cancellation link please contact us to cancel your membership. This is done to ensure that people cannot cancel each other\'s memberships.')
 

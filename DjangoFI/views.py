@@ -17,7 +17,7 @@ import json
 
 
 class UnsubscribeFormView(FormView):
-    
+
     template_name = "unsubscribe.html"
     form_class = UnsibscribeForm
     unsubscribe_key = "" # Can be removed
