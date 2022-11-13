@@ -35,6 +35,67 @@ function subscribe_newsletter() {
     });
 };
 
+$('#cancellation-form').submit(function(event) { // catch the form's submit event
+
+    event.preventDefault();
+    form_action_url = $(this).attr('action');
+
+    // Wrap the ajax call in recaptcha code to have Google generate a recaptcha token
+    // Docs: https://developers.google.com/recaptcha/docs/v3
+    grecaptcha.ready(function() {
+        grecaptcha.execute(recaptcha_site_key, {action: 'submit'}).then(function(recaptcha_token) {
+            // The recaptcha token has been acquired
+
+            // Get values from form
+            // recaptcha_token is already = recaptcha_token
+            
+            fd = new FormData();
+            csrfmiddlewaretoken = $('input[name="csrfmiddlewaretoken"]')[0].value;
+            email = $("#cancellation-form #id_email").val();
+            key = $("#cancellation-form #id_key").val();
+            //recaptcha_token = $("#cancellation-form #id_recaptcha_token").val();
+            
+            // Process values for sending back via formdata
+            fd.append('csrfmiddlewaretoken', csrfmiddlewaretoken);
+            fd.append('email', email);
+            fd.append('key', key);
+            fd.append('recaptcha_token', recaptcha_token);
+
+    
+            // Post formdata with ajax
+            $.ajax({ // create an AJAX call...
+                type: "POST", // GET or POST
+                url: form_action_url,
+                data: fd,
+                cache: false,
+                contentType: false,
+                processData: false,
+                
+            }).done(function (data) {
+                
+                if (data.success){
+                    
+                    $("#cancel-membership-btn").removeClass("clicked");
+                    $("#cancellation-form").remove();
+                    $("#ajax-unsubscribe-text").text("Your membership has been cancelled. You are welcome back anytime!");
+
+                }
+                else if (data.error){
+                    var errors = data.error;
+                    $(".errors").empty();
+                      for (var key in errors) {
+                            $(".errors").append(`<li>${errors[key]}</li>`);
+                    }
+                }
+            }); // End of ajax
+
+        }); // end of grecaptcha.execute
+    }); // end of grecaptcha.ready
+
+    return false;
+
+}); // End of membershipform.submit
+
 
 $('#membership-form').submit(function(event) { // catch the form's submit event
     event.preventDefault();

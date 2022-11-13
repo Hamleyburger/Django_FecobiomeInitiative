@@ -185,6 +185,39 @@ def send_approval_request_to_admin(request, profile):
     return {"status": status, "feedback": feedback}
 
 
+def admin_unsubscribe_notify(profile):
+    """ Sends an email to admin or dev in debug. """
+
+    sender_email = "FI Bot"
+
+    if settings.DEBUG:
+        admin = User.objects.filter(username=settings.HAMLEY).first()
+    else:
+        admin = User.objects.filter(username=settings.PANOS).first()
+
+    try:
+        
+        fi_email = EmailMessage(
+            "Somebody unsubscribed",
+            "{} has unsubscribed. RIP {}. Their email will forever remain: {}".format(profile.display_name, profile.display_name, profile.user.email),
+            sender_email,
+            [admin.email],
+            reply_to=[sender_email],
+            headers={'From': '{}'},
+        )
+
+        fi_email.send(fail_silently=False)
+        status = "success"
+        feedback = "Your message has been sent"
+    except Exception as E:
+        status = "error"
+        feedback = "Message could not be sent"
+        print("Message not sent")
+        print(E)
+    
+    return {"status": status, "feedback": feedback}
+
+
 def get_unsubscribe_key(email):
     print("getting registration key for unsubscribing")
     member = Profile.objects.filter(user__email=email).first()

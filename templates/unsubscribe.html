@@ -17,11 +17,29 @@
 {% block pagetitle %}Cancel membership{% endblock %}
 
 {% block content %}
-{% if unsubscribed %}
-<p>Your membership has been cancelled. We hope to see you again!</p>
-{% else %}
-    <p>Cancel your FI membership by clicking the cancellation link in a newsletter or contact us.</p>
-{% endif %}
+<div class="cancel-form-wrapper">
+    
+    {% if unsubscribe_allowed %}
+        <p id="ajax-unsubscribe-text">Please confirm that you wish to cancel your membership.</p>
+
+        <form action="" id="cancellation-form" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button id="cancel-membership-btn" class="btn btn-secondary FBI-btn" type="submit" name="cancel_membership" data-url="{% url 'unsubscribe' %}">
+                    Cancel membership
+            </button>
+            <ul class="errors">
+            </ul>
+        </form>
+    {% else %}
+        <p>Cancel your FI membership by clicking the cancellation link in a newsletter.</p>
+        <p>If you have no newsletter with a cancellation link please <a href="{% url 'contact-home' %}" style="font-weight: bold;" "">contact us</a> to cancel your membership. This is done to ensure that people cannot cancel each other's memberships.</p>
+    {% endif %}
+
+
+</div>
+
 
 {% endblock %}
 

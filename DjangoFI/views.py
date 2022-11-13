@@ -1,4 +1,5 @@
 from django.http.response import Http404
+from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import FormView
 from user.subscription_handler import cancel_membership, verify_profile
@@ -8,40 +9,67 @@ from django.shortcuts import render
 from django import http
 from user.models import Profile
 from django.core.exceptions import ValidationError
+from django.urls import reverse_lazy
+from django.shortcuts import redirect
+from .forms import UnsibscribeForm
+import requests  
+import json
 
-
-class UnsibscribeForm(forms.Form):
-    email = forms.EmailField(label="Your e-mail", widget=forms.EmailInput(attrs={'class': 'form-control'}))
 
 class UnsubscribeFormView(FormView):
+    
     template_name = "unsubscribe.html"
     form_class = UnsibscribeForm
     unsubscribe_key = "" # Can be removed
+   
+    
     def get_context_data(self, **kwargs):
         key = self.kwargs.get("unsubscribe_key")
-        unsubscribed_user = False
+        unsubscribe_allowed = False # To make sure that only users who used a link can get to the form
+
         if key:
-            unsubscribed = cancel_membership(unsubscribe_key=key)
-            if unsubscribed:
-                messages.success(self.request, "Your membership is successfully cancelled. You're welcome back anytime!")
-                unsubscribed_user = True
-            else:
-                messages.error(self.request, "This cancellation token does not exist. Try typing your email below instead.")
+            unsubscribe_allowed = True
+            unsubscriber = Profile.objects.filter(
+                registration_key=key).first()
+
+            if unsubscriber:
+                self.initial['email'] = unsubscriber.user.email
+                self.initial['key'] = key
+            else: 
+                self.initial['email'] = ""
+                self.initial['key'] = key
 
         context = super().get_context_data(**kwargs)
-        context["unsubscribed"] = unsubscribed_user
+        context["unsubscribe_allowed"] = unsubscribe_allowed
         return context
 
-    # This is relevant if users can unsubscribe by typing their emails
-    # def form_valid(self, form):
 
-    #     email = form.data["email"]
-    #     unsubscribed = cancel_membership(unsubscribe_email=email)
-    #     if unsubscribed:
-    #         messages.success(self.request, "Your membership is successfully cancelled. You're welcome back anytime!")
-    #     else:
-    #         messages.warning(self.request, "No member exists with this email")
-    #     return http.HttpResponseRedirect(self.request.path)
+    # This is relevant if users can unsubscribe by typing their emails
+    def form_valid(self, form):
+
+        key = form.cleaned_data["key"]
+        response_data = {}
+        try:
+            cancel_membership(unsubscribe_key=key)
+            response_data = {"success": 'Cancellation successful!' }
+        except Exception as e:
+            # If either unsubscribing or email notification failed:
+            response_data = {"error": {"error": "Something went wrong. If the problem persists please contact us."}}
+
+
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )
+
+
+    def form_invalid(self, form):
+
+        response_data = {"error": form.errors }
+        return HttpResponse(
+            json.dumps(response_data),
+            content_type="application/json"
+        )
 
 
 class ValidateForm(forms.Form):

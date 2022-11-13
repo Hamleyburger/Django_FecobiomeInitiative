@@ -698,4 +698,17 @@ body footer .footericon {
 .submit-data-form #selected_filename {
   padding-left: 10px;
 }
+
+.cancel-form-wrapper {
+  min-height: 200px;
+}
+
+.cancel-form-wrapper form button {
+  width: unset;
+}
+
+.cancel-form-wrapper form .errors {
+  margin-top: 20px;
+  color: #ca003d;
+}
 /*# sourceMappingURL=styles.css.map */

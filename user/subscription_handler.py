@@ -5,9 +5,9 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from django.conf import settings
 from datetime import datetime
-from contact.mailsender import send_approval_request_to_admin
+from contact.mailsender import send_approval_request_to_admin, admin_unsubscribe_notify
 import uuid
-
+from sentry_sdk import capture_exception
 
 
 def cancel_membership(unsubscribe_key=""):
@@ -20,8 +20,14 @@ def cancel_membership(unsubscribe_key=""):
             registration_key=unsubscribe_key).all()
 
         for profile in unsubscribers:
-            unsubscriber = profile.user
-            unsubscriber.delete()
+            try:
+                admin_unsubscribe_notify(profile)
+                unsubscriber = profile.user
+                unsubscriber.delete()
+            except Exception as e:
+                capture_exception(e)
+                raise e
+    
 
     if unsubscriber:
         unsubscriber = 1

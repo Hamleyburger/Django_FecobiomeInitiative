@@ -1,0 +1,13 @@
+.cancel-form-wrapper {
+    min-height: 200px;
+    form {
+
+        button {
+            width: unset;
+        }
+        .errors {
+            margin-top: 20px;
+            color: rgb(202, 0, 61);
+        }
+    }
+}
